@@ -15,6 +15,7 @@ enum class ResloverExceptionEnum(private val msg: String) : IExceptionEnum {
 
     PARAMETER_RESLOVE_ERROR("输入参数解析异常"),
     MISSING_REQUIRED_PARAM("缺少必填参数"),
+    OUT_OF_BOUNDS("参数超出范围"),
     ;
 
     override fun getCode(): Int {

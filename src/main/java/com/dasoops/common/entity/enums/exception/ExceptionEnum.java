@@ -44,7 +44,7 @@ public enum ExceptionEnum implements IExceptionEnum {
      */
     TYPE_CONVERT(7001, "类型转换异常"),
     INIT_ERROR(7002, "项目初始化异常"),
-    REQUEST_METHOD_NOT_SUPPORTED(7003, "请求方法POST不支持"),
+    REQUEST_METHOD_NOT_SUPPORTED(7003, "不支持的请求方法"),
 
     /**
      * other

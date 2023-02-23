@@ -106,4 +106,12 @@ object Json {
     fun <T> parseList(jsonStr: String, clazz: Class<T>): List<T> {
         return serializer.readValue(jsonStr, ListTypeReference())
     }
+
+    fun parseNode(jsonStr: String): JsonNode {
+        return serializer.readTree(jsonStr)
+    }
+
+    fun getNode(jsonStr: String, name: String): String {
+        return serializer.readTree(jsonStr).get(name).asText()
+    }
 }

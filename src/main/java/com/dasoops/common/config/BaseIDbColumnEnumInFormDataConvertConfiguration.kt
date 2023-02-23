@@ -23,7 +23,6 @@ open class BaseIDbColumnEnumInFormDataConvertConfiguration : WebMvcConfigurer {
         registry.addConverterFactory(IntegerToIDbColumnEnumConvertFactor())
         // string解析器
         registry.addConverterFactory(StringToIDbColumnEnumConvertFactor())
-
     }
 
     private class IntegerToIDbColumnEnumConvertFactor : ConverterFactory<Int, IDbColumnEnum> {

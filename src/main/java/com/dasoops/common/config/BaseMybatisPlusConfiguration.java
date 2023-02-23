@@ -55,7 +55,7 @@ public abstract class BaseMybatisPlusConfiguration implements MetaObjectHandler 
 
     @Override
     public void insertFill(MetaObject metaObject) {
-        this.strictInsertFill(metaObject, "isDelete", Integer.class, 0);
+        this.strictInsertFill(metaObject, "activeFlag", Integer.class, 1);
         this.strictInsertFill(metaObject, "createTime", Date.class, new Date());
         this.strictInsertFill(metaObject, "createUser", Long.class, getUserId());
 
