@@ -2,18 +2,13 @@ package com.dasoops.common.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
-import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import com.dasoops.common.entity.enums.database.DbBooleanEnum;
 import lombok.Setter;
-import lombok.val;
 import org.apache.ibatis.reflection.MetaObject;
-import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import java.util.Date;
 
@@ -55,7 +50,7 @@ public abstract class BaseMybatisPlusConfiguration implements MetaObjectHandler 
 
     @Override
     public void insertFill(MetaObject metaObject) {
-        this.strictInsertFill(metaObject, "activeFlag", Integer.class, 1);
+        this.strictInsertFill(metaObject, "isDelete", Integer.class, DbBooleanEnum.FALSE.getDbValue());
         this.strictInsertFill(metaObject, "createTime", Date.class, new Date());
         this.strictInsertFill(metaObject, "createUser", Long.class, getUserId());
 

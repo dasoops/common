@@ -21,35 +21,35 @@ abstract class BaseDo(
      * 主键id
      */
     @TableId(type = IdType.AUTO)
-    var rowId: Long,
+    open val rowId: Long? = null,
 
     /**
      * 逻辑删除(true为删除)
      */
     @TableField(fill = FieldFill.INSERT)
-    var isDelete: DbBooleanEnum,
+    open val isDelete: DbBooleanEnum = DbBooleanEnum.FALSE,
 
     /**
      * 创建时间
      */
     @TableField(fill = FieldFill.INSERT)
-    var createTime: Date,
+    open val createTime: Date? = null,
 
     /**
      * 创建用户(通常为Qid)
      */
     @TableField(fill = FieldFill.INSERT)
-    var createUser: Long,
+    open val createUser: Long? = null,
 
     /**
      * 更新时间
      */
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    var updateTime: Date,
+    open val updateTime: Date? = null,
 
     /**
      * 更新用户(通常为Qid)
      */
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    var updateUser: Long,
+    open val updateUser: Long? = null,
 ) : IDo
