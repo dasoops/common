@@ -39,16 +39,15 @@ abstract class BaseCache<E : ICacheKeyEnum> : RedisOperations(), ICache {
     }
 
     /**
-     * 抽象clear(),强制子类实现
-     */
-    abstract fun clear()
-
-    /**
      * 清除缓存数据
      */
-    protected fun clear(enumClass: Class<E>) {
-        val typeArgument = TypeUtil.getTypeArgument(this::class.java)
-        val enumConstantArray = enumClass.enumConstants
+    protected fun clear() {
+        //获取泛型
+        @Suppress("UNCHECKED_CAST")
+        val typeArgument = TypeUtil.getTypeArgument(this::class.java) as Class<E>
+        //获取泛型实例数组
+        val enumConstantArray = typeArgument.enumConstants
+        //清除
         enumConstantArray.forEach(this::remove4Prefix)
     }
 

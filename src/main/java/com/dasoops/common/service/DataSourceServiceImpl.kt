@@ -1,8 +1,8 @@
 package com.dasoops.common.service
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper
-import com.dasoops.common.cache.BaseDataSourceCache
 import com.dasoops.common.entity.dbo.base.BaseDo
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl
 
 /**
  * 数据源service实现类
@@ -14,12 +14,6 @@ import com.dasoops.common.entity.dbo.base.BaseDo
  * @see [DataSourceServiceImpl]
  */
 abstract class DataSourceServiceImpl<M : BaseMapper<T>, T : BaseDo> : IDataSourceService<T> {
-    /**
-     * 缓存
-     */
-    //@Resource
-    lateinit var cache: BaseDataSourceCache<T, *>
-
     /**
      * 简单sql
      */

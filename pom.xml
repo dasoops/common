@@ -10,7 +10,8 @@
     </parent>
 
     <artifactId>common-boot-starter</artifactId>
-    <version>2.0.9</version>
+    <!-- 版本号更新 git commit -->
+    <version>2.0.10</version>
     <modelVersion>4.0.0</modelVersion>
     <description>通用组件</description>
 
