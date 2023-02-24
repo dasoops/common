@@ -1,8 +1,9 @@
 package com.dasoops.common.service
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper
-import com.dasoops.common.entity.dbo.base.BaseDo
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl
+import com.dasoops.common.entity.dbo.base.BaseDo
+import org.springframework.beans.factory.annotation.Autowired
 
 /**
  * 数据源service实现类
@@ -16,7 +17,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl
 abstract class DataSourceServiceImpl<M : BaseMapper<T>, T : BaseDo> : IDataSourceService<T> {
     /**
      * 简单sql
+     * 泛型注入只能AutoWired
      */
-    //@Resource
-    lateinit var simpleSql: ServiceImpl<M, T>
+    @Autowired
+    protected lateinit var simpleSql: ServiceImpl<M, T>
 }
