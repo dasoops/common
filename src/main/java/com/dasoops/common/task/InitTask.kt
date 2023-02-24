@@ -2,8 +2,7 @@ package com.dasoops.common.task
 
 import com.dasoops.common.cache.ICache
 import com.dasoops.common.service.IService
-import kotlinx.coroutines.async
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import org.springframework.context.ApplicationContext
 import org.springframework.context.ApplicationContextAware
 import javax.annotation.PostConstruct
@@ -55,8 +54,8 @@ open class InitTask : ITask, ApplicationContextAware {
     fun init(needInitSet: Set<AutoInit>) = runBlocking {
         needInitSet
             //异步调用初始化方法
-            .map { async { it.init() } }
-            //等待完成
-            .forEach { it.join() }
+            .map { launch { it.init() } }
+            //等待
+            .joinAll()
     }
 }
