@@ -8,11 +8,13 @@ import org.springframework.data.redis.connection.DataType
 import org.springframework.data.redis.core.*
 import java.util.concurrent.TimeUnit
 import java.util.stream.Collectors
+import javax.annotation.Resource
 
-abstract class CacheOperations {
+abstract class RedisOperations {
 
     val log: Logger = LoggerFactory.getLogger(javaClass)
 
+    @Resource
     protected lateinit var redis: StringRedisTemplate
 
     /* -- Operations Begin -- */
@@ -119,7 +121,7 @@ abstract class CacheOperations {
         return this.keys(prefix)?.run {
             stream().collect(Collectors.toMap(
                 { it },
-                { this@CacheOperations.hash().entries(it) }
+                { this@RedisOperations.hash().entries(it) }
             ))
         }.apply {
             log.debug("[cache] hash\$entries4Prefix $prefix, result: $this")

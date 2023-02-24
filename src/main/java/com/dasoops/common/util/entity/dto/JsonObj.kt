@@ -3,6 +3,7 @@ package com.dasoops.common.util.entity.dto
 import cn.hutool.core.bean.BeanUtil
 import cn.hutool.core.date.DatePattern
 import cn.hutool.core.date.DateUtil
+import com.dasoops.common.exception.UnexpectedException
 import com.dasoops.common.util.Json
 import com.dasoops.common.util.entity.enums.JsonExceptionEnum
 import java.time.Instant

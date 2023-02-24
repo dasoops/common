@@ -1,6 +1,7 @@
 package com.dasoops.common.cache
 
 import cn.hutool.core.util.StrUtil
+import cn.hutool.core.util.TypeUtil
 import com.dasoops.common.entity.enums.cache.ICacheKeyEnum
 import com.dasoops.common.exception.CacheExceptionEnum
 import com.dasoops.common.extension.toJsonStr
@@ -18,31 +19,56 @@ import java.util.stream.Collectors
  * @date 2023/01/01
  * @description 基地缓存
  */
-abstract class BaseCache : CacheOperations(), ICache {
+abstract class BaseCache<E : ICacheKeyEnum> : RedisOperations(), ICache {
 
+    /**
+     * 设置操作类
+     * @param [template] 操作类
+     */
     fun setTemplate(template: StringRedisTemplate) {
         super.redis = template
     }
 
     /* -- Global Begin -- */
+    /**
+     * 缓存初始化
+     * 调用init方法
+     */
+    override fun init() {
+        clear()
+    }
+
+    /**
+     * 抽象clear(),强制子类实现
+     */
+    abstract fun clear()
+
+    /**
+     * 清除缓存数据
+     */
+    protected fun clear(enumClass: Class<E>) {
+        val typeArgument = TypeUtil.getTypeArgument(this::class.java)
+        val enumConstantArray = enumClass.enumConstants
+        enumConstantArray.forEach(this::remove4Prefix)
+    }
+
     protected fun keys(): Set<String>? {
         return super.keys("*")
     }
 
-
-    protected fun keys(cacheKeyEnum: ICacheKeyEnum): Set<String>? {
+    protected fun keys(cacheKeyEnum: E): Set<String>? {
         return super.keys(cacheKeyEnum.getKey())
     }
 
-    protected fun keys4Prefix(key: String): Set<String> {
-        return this.keys4Prefix(StrUtil.addSuffixIfNot(key, "*"))
+    protected fun keys4Prefix(key: String): Set<String>? {
+        return super.keys(StrUtil.addSuffixIfNot(key, "*"))
     }
 
-    protected fun keys4Prefix(cacheKeyEnum: ICacheKeyEnum): Set<String> {
+    protected fun keys4Prefix(cacheKeyEnum: E): Set<String>? {
         return this.keys4Prefix(cacheKeyEnum.getKey())
     }
 
-    protected fun remove(cacheKeyEnum: ICacheKeyEnum) {
+    protected fun remove(cacheKeyEnum: E) {
         super.remove(cacheKeyEnum.getKey())
     }
 
@@ -52,19 +78,19 @@ abstract class BaseCache : CacheOperations(), ICache {
         }
     }
 
-    protected fun remove4Prefix(cacheKeyEnum: ICacheKeyEnum) {
+    protected fun remove4Prefix(cacheKeyEnum: E) {
         this.remove4Prefix(cacheKeyEnum.getKey())
     }
 
-    protected fun expire(cacheKeyEnum: ICacheKeyEnum, timeout: Long, timeUnit: TimeUnit) {
+    protected fun expire(cacheKeyEnum: E, timeout: Long, timeUnit: TimeUnit) {
         super.expire(cacheKeyEnum.getKey(), timeout, timeUnit)
     }
 
-    protected fun expire4Prefix(cacheKeyEnum: ICacheKeyEnum, timeout: Long, timeUnit: TimeUnit) {
+    protected fun expire4Prefix(cacheKeyEnum: E, timeout: Long, timeUnit: TimeUnit) {
         super.expire4Prefix(cacheKeyEnum.getKey(), timeout, timeUnit)
     }
 
-    protected fun type(cacheKeyEnum: ICacheKeyEnum): DataType {
+    protected fun type(cacheKeyEnum: E): DataType {
         return super.type(cacheKeyEnum.getKey())
     }
 
@@ -78,57 +104,57 @@ abstract class BaseCache : CacheOperations(), ICache {
         }
     }
 
-    protected fun getJsonString(cacheKeyEnum: ICacheKeyEnum): String? {
+    protected fun getJsonString(cacheKeyEnum: E): String? {
         return this.getJsonString(cacheKeyEnum.getKey())
     }
 
-    protected fun hasKey(cacheKeyEnum: ICacheKeyEnum): Boolean {
+    protected fun hasKey(cacheKeyEnum: E): Boolean {
         return super.hasKey(cacheKeyEnum.getKey())
     }
 
     /* -- Value Begin -- */
-    protected fun set(cacheKeyEnum: ICacheKeyEnum, value: String) {
+    protected fun set(cacheKeyEnum: E, value: String) {
         super.set(cacheKeyEnum.getKey(), value)
     }
 
-    protected fun get(cacheKeyEnum: ICacheKeyEnum): String? {
+    protected fun get(cacheKeyEnum: E): String? {
         return super.get(cacheKeyEnum.getKey())
     }
 
-    protected fun getAndDelete(cacheKeyEnum: ICacheKeyEnum): String? {
+    protected fun getAndDelete(cacheKeyEnum: E): String? {
         return super.getAndDelete(cacheKeyEnum.getKey())
     }
 
-    protected fun setAndExpire(cacheKeyEnum: ICacheKeyEnum, value: String, time: Long, timeUnit: TimeUnit) {
+    protected fun setAndExpire(cacheKeyEnum: E, value: String, time: Long, timeUnit: TimeUnit) {
         super.setAndExpire(cacheKeyEnum.getKey(), value, time, timeUnit)
     }
 
     /* -- Hash Begin -- */
-    protected fun entries(cacheKeyEnum: ICacheKeyEnum): Map<String, String>? {
+    protected fun entries(cacheKeyEnum: E): Map<String, String>? {
         return super.entries(cacheKeyEnum.getKey())
     }
 
-    protected fun entries4Prefix(cacheKeyEnum: ICacheKeyEnum): Map<String, Map<String, String>>? {
+    protected fun entries4Prefix(cacheKeyEnum: E): Map<String, Map<String, String>>? {
         return super.entries4Prefix(cacheKeyEnum.getKey())
     }
 
-    protected fun hget(cacheKeyEnum: ICacheKeyEnum, hashKey: String): String? {
+    protected fun hget(cacheKeyEnum: E, hashKey: String): String? {
         return super.hget(cacheKeyEnum.getKey(), hashKey)
     }
 
-    protected fun hput(cacheKeyEnum: ICacheKeyEnum, hashKey: String, value: String) {
+    protected fun hput(cacheKeyEnum: E, hashKey: String, value: String) {
         super.hput(cacheKeyEnum.getKey(), hashKey, value)
     }
 
-    protected fun hputAll(cacheKeyEnum: ICacheKeyEnum, valueMap: Map<String, String>) {
+    protected fun hputAll(cacheKeyEnum: E, valueMap: Map<String, String>) {
         super.hputAll(cacheKeyEnum.getKey(), valueMap)
     }
 
-    protected fun hhasKey(cacheKeyEnum: ICacheKeyEnum, hashKey: String): Boolean {
+    protected fun hhasKey(cacheKeyEnum: E, hashKey: String): Boolean {
         return super.hhasKey(cacheKeyEnum.getKey(), hashKey)
     }
 
-    protected fun hgetAndDelete(cacheKeyEnum: ICacheKeyEnum, hashKey: String): String? {
+    protected fun hgetAndDelete(cacheKeyEnum: E, hashKey: String): String? {
         return this.hgetAndDelete(cacheKeyEnum.getKey(), hashKey)
     }
 
@@ -138,28 +164,28 @@ abstract class BaseCache : CacheOperations(), ICache {
         return str
     }
 
-    protected fun hdelete(cacheKeyEnum: ICacheKeyEnum, hashKey: String) {
+    protected fun hdelete(cacheKeyEnum: E, hashKey: String) {
         super.hdelete(cacheKeyEnum.getKey(), hashKey)
     }
 
     /* -- List Begin -- */
-    protected fun lset(cacheKeyEnum: ICacheKeyEnum, valueList: List<String>) {
+    protected fun lset(cacheKeyEnum: E, valueList: List<String>) {
         super.lset(cacheKeyEnum.getKey(), valueList)
     }
 
-    protected fun ladd(cacheKeyEnum: ICacheKeyEnum, value: String) {
+    protected fun ladd(cacheKeyEnum: E, value: String) {
         super.ladd(cacheKeyEnum.getKey(), value)
     }
 
-    protected fun list(cacheKeyEnum: ICacheKeyEnum): List<String>? {
+    protected fun list(cacheKeyEnum: E): List<String>? {
         return super.list(cacheKeyEnum.getKey())
     }
 
-    protected fun lget(cacheKeyEnum: ICacheKeyEnum, index: Int): String? {
+    protected fun lget(cacheKeyEnum: E, index: Int): String? {
         return super.lget(cacheKeyEnum.getKey(), index)
     }
 
-    protected fun lget(cacheKeyEnum: ICacheKeyEnum): String? {
+    protected fun lget(cacheKeyEnum: E): String? {
         return super.lget(cacheKeyEnum.getKey(), 0)
     }
 
@@ -168,7 +194,7 @@ abstract class BaseCache : CacheOperations(), ICache {
         super.sadd(key, *valueList.toTypedArray())
     }
 
-    protected fun sadd(cacheKeyEnum: ICacheKeyEnum, valueList: List<String>) {
+    protected fun sadd(cacheKeyEnum: E, valueList: List<String>) {
         this.sadd(cacheKeyEnum.getKey(), valueList)
     }
 
@@ -176,7 +202,7 @@ abstract class BaseCache : CacheOperations(), ICache {
         super.sadd(key, *valueSet.toTypedArray())
     }
 
-    protected fun sadd(cacheKeyEnum: ICacheKeyEnum, valueSet: Set<String>) {
+    protected fun sadd(cacheKeyEnum: E, valueSet: Set<String>) {
         this.sadd(cacheKeyEnum.getKey(), valueSet)
     }
 
@@ -187,11 +213,11 @@ abstract class BaseCache : CacheOperations(), ICache {
         }
     }
 
-    protected fun saddAndExpire(cacheKeyEnum: ICacheKeyEnum, valueSet: Set<String>, time: Long, timeUnit: TimeUnit) {
+    protected fun saddAndExpire(cacheKeyEnum: E, valueSet: Set<String>, time: Long, timeUnit: TimeUnit) {
         this.saddAndExpire(cacheKeyEnum.getKey(), valueSet, time, timeUnit)
     }
 
-    protected fun members(cacheKeyEnum: ICacheKeyEnum): Set<String>? {
+    protected fun members(cacheKeyEnum: E): Set<String>? {
         return super.members(cacheKeyEnum.getKey())
     }
 
@@ -200,7 +226,7 @@ abstract class BaseCache : CacheOperations(), ICache {
         keyConvertFunction: Function<String, R1>,
         valueConvertFunction: Function<String, R2>
     ): Map<R1, Set<R2>> {
-        val keySet = keys4Prefix(key)
+        val keySet = keys4Prefix(key) ?: return emptyMap()
         return keySet.stream().map {
             val members = super.members(it) ?: return@map null
             val resValue = members.stream().map(valueConvertFunction).collect(Collectors.toSet())
@@ -210,14 +236,14 @@ abstract class BaseCache : CacheOperations(), ICache {
     }
 
     protected fun <R1, R2> members4Prefix(
-        cacheKeyEnum: ICacheKeyEnum,
+        cacheKeyEnum: E,
         keyConvertFunction: Function<String, R1>,
         valueConvertFunction: Function<String, R2>
     ): Map<R1, Set<R2>> {
         return this.members4Prefix(cacheKeyEnum.getKey(), keyConvertFunction, valueConvertFunction)
     }
 
-    protected fun members4Prefix(cacheKeyEnum: ICacheKeyEnum): Map<String, Set<String>> {
+    protected fun members4Prefix(cacheKeyEnum: E): Map<String, Set<String>> {
         return this.members4Prefix(cacheKeyEnum.getKey())
     }
 
