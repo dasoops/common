@@ -8,6 +8,7 @@ import com.dasoops.common.util.entity.other.ListTypeReference
 import com.fasterxml.jackson.annotation.JsonAutoDetect
 import com.fasterxml.jackson.annotation.PropertyAccessor
 import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.*
 import com.fasterxml.jackson.databind.json.JsonMapper
 import com.fasterxml.jackson.databind.module.SimpleDeserializers
@@ -95,6 +96,10 @@ object Json {
 
     fun <T> parse(jsonStr: String, clazz: Class<T>): T {
         return serializer.readValue(jsonStr, clazz)
+    }
+
+    fun <T> parse(jsonStr: String, typeReference: TypeReference<T>): T {
+        return serializer.readValue(jsonStr, typeReference)
     }
 
     fun <T> parseList(jsonStr: String, clazz: Class<T>): List<T> {

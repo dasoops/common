@@ -5,7 +5,12 @@ import cn.hutool.core.util.StrUtil
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.data.redis.connection.DataType
-import org.springframework.data.redis.core.*
+import org.springframework.data.redis.core.ValueOperations
+import org.springframework.data.redis.core.ListOperations
+import org.springframework.data.redis.core.SetOperations
+import org.springframework.data.redis.core.ZSetOperations
+import org.springframework.data.redis.core.HashOperations
+import org.springframework.data.redis.core.StringRedisTemplate
 import java.util.concurrent.TimeUnit
 import java.util.stream.Collectors
 import javax.annotation.Resource
@@ -29,6 +34,7 @@ abstract class RedisOperations {
     /* -- Operations Begin -- */
     private fun value(): ValueOperations<String, String> {
         return redis.opsForValue()
+        //return value
     }
 
     private fun list(): ListOperations<String, String> {
@@ -168,15 +174,15 @@ abstract class RedisOperations {
     }
 
     /* -- List Begin -- */
-    protected fun lset(key: String, valueList: List<String>) {
+    protected fun lrightPushAll(key: String, valueList: List<String>) {
         this.list().rightPushAll(key, valueList).apply {
-            log.debug("[cache] list\$set $key -> $valueList, result: $this")
+            log.debug("[cache] list\$rightPushAll $key -> $valueList, result: $this")
         }
     }
 
-    protected fun ladd(key: String, value: String) {
+    protected fun lrightPush(key: String, value: String) {
         this.list().rightPush(key, value).apply {
-            log.debug("[cache] list\$add $key -> $value, result: $this")
+            log.debug("[cache] list\$rightPush $key -> $value, result: $this")
         }
     }
 

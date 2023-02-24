@@ -169,11 +169,11 @@ abstract class BaseCache<E : ICacheKeyEnum> : RedisOperations(), ICache {
 
     /* -- List Begin -- */
     protected fun lset(cacheKeyEnum: E, valueList: List<String>) {
-        super.lset(cacheKeyEnum.getKey(), valueList)
+        super.lrightPushAll(cacheKeyEnum.getKey(), valueList)
     }
 
     protected fun ladd(cacheKeyEnum: E, value: String) {
-        super.ladd(cacheKeyEnum.getKey(), value)
+        super.lrightPush(cacheKeyEnum.getKey(), value)
     }
 
     protected fun list(cacheKeyEnum: E): List<String>? {
@@ -224,8 +224,8 @@ abstract class BaseCache<E : ICacheKeyEnum> : RedisOperations(), ICache {
         key: String,
         keyConvertFunction: Function<String, R1>,
         valueConvertFunction: Function<String, R2>
-    ): Map<R1, Set<R2>> {
-        val keySet = keys4Prefix(key) ?: return emptyMap()
+    ): Map<R1, Set<R2>>? {
+        val keySet = keys4Prefix(key) ?: return null
         return keySet.stream().map {
             val members = super.members(it) ?: return@map null
             val resValue = members.stream().map(valueConvertFunction).collect(Collectors.toSet())
@@ -238,15 +238,15 @@ abstract class BaseCache<E : ICacheKeyEnum> : RedisOperations(), ICache {
         cacheKeyEnum: E,
         keyConvertFunction: Function<String, R1>,
         valueConvertFunction: Function<String, R2>
-    ): Map<R1, Set<R2>> {
+    ): Map<R1, Set<R2>>? {
         return this.members4Prefix(cacheKeyEnum.getKey(), keyConvertFunction, valueConvertFunction)
     }
 
-    protected fun members4Prefix(cacheKeyEnum: E): Map<String, Set<String>> {
+    protected fun members4Prefix(cacheKeyEnum: E): Map<String, Set<String>>? {
         return this.members4Prefix(cacheKeyEnum.getKey())
     }
 
-    protected fun members4Prefix(key: String): Map<String, Set<String>> {
+    protected fun members4Prefix(key: String): Map<String, Set<String>>? {
         return this.members4Prefix(key, { string: String -> string }) { string: String -> string }
     }
 }
