@@ -10,6 +10,15 @@ import java.util.concurrent.TimeUnit
 import java.util.stream.Collectors
 import javax.annotation.Resource
 
+/**
+ * redis操作
+ * @title: RedisOperations
+ * @classPath com.dasoops.common.cache.RedisOperations
+ * @author DasoopsNicole@Gmail.com
+ * @date 2023/02/24
+ * @version 1.0.0
+ * @see [RedisOperations]
+ */
 abstract class RedisOperations {
 
     val log: Logger = LoggerFactory.getLogger(javaClass)
