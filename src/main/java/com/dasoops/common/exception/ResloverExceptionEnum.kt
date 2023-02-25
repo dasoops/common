@@ -27,8 +27,8 @@ enum class ResloverExceptionEnum(private val msg: String) : IExceptionEnum {
     }
 
     override fun getException(): CustomException {
-        return ResloverException(this)
+        return ResloverException()
     }
 
-    class ResloverException(exceptionEnum: ResloverExceptionEnum) : CustomException(exceptionEnum)
+    inner class ResloverException : CustomException(this)
 }

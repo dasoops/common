@@ -6,47 +6,40 @@ import java.nio.charset.StandardCharsets
 import javax.servlet.http.HttpServletResponse
 
 /**
- * @Title: ExportUtil
- * @ClassPath com.dasoops.common.util.ExportUtil
- * @Author DasoopsNicole@Gmail.com
- * @Date 2023/02/16
- * @Version 1.0.0
- * @Description: 导出工具
- * @see [ExportUtil]
+ * 导出工具
+ * @author DasoopsNicole@Gmail.com
+ * @date 2023/02/25
  */
-class ExportUtil {
+object ExportUtil {
 
-    companion object {
-
+    /**
+     * 设置响应
+     * @param [response] 响应
+     * @param [fileName] 文件名称
+     * @param [contentType] 内容类型
+     */
+    fun setResponse(response: HttpServletResponse, fileName: String, fileTypeSuffix: String, contentType: String) {
         /**
-         * 设置响应
-         * @param [response] 响应
-         * @param [fileName] 文件名称
-         * @param [contentType] 内容类型
+         * xlsx的ContentType
          */
-        fun setResponse(response: HttpServletResponse, fileName: String, fileTypeSuffix: String, contentType: String) {
-            /**
-             * xlsx的ContentType
-             */
-            //文件编码,类型
-            response.contentType = contentType
-            response.characterEncoding = "utf-8"
-            response.setHeader("Access-Control-Expose-Headers", "Content-Disposition")
+        //文件编码,类型
+        response.contentType = contentType
+        response.characterEncoding = "utf-8"
+        response.setHeader("Access-Control-Expose-Headers", "Content-Disposition")
 
-            //文件名
-            val encodeFileName = URLEncoder.encode(fileName, StandardCharsets.UTF_8).replace("\\+".toRegex(), "%20")
-            response.setHeader("Content-disposition", "attachment;filename*=utf-8''$encodeFileName.$fileTypeSuffix")
-        }
+        //文件名
+        val encodeFileName = URLEncoder.encode(fileName, StandardCharsets.UTF_8).replace("\\+".toRegex(), "%20")
+        response.setHeader("Content-disposition", "attachment;filename*=utf-8''$encodeFileName.$fileTypeSuffix")
+    }
 
-        /**
-         * 设置响应
-         * @param [response] 响应
-         * @param [fileName] 文件名称
-         * @param [contentType] 内容类型
-         */
-        fun setResponse(response: HttpServletResponse, fileName: String, fileTypeSuffix: String, contentType: ContentType) {
-            setResponse(response, fileName, fileTypeSuffix, contentType.value)
-        }
+    /**
+     * 设置响应
+     * @param [response] 响应
+     * @param [fileName] 文件名称
+     * @param [contentType] 内容类型
+     */
+    fun setResponse(response: HttpServletResponse, fileName: String, fileTypeSuffix: String, contentType: ContentType) {
+        setResponse(response, fileName, fileTypeSuffix, contentType.value)
     }
 
 }
