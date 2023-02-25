@@ -15,9 +15,9 @@ enum class CacheExceptionEnum(private val msg: String) : IExceptionEnum {
         return msg;
     }
 
-    override fun getException(): CustomException {
-        return CacheException(this)
+    override fun getException(): CacheException {
+        return CacheException()
     }
 
-    class CacheException(exceptionEnum: CacheExceptionEnum) : CustomException(exceptionEnum)
+    inner class CacheException : CustomException(this)
 }

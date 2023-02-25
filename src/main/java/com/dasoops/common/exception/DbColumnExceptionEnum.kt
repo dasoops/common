@@ -25,9 +25,9 @@ enum class DbColumnExceptionEnum(private val msg: String) : IExceptionEnum {
         return msg;
     }
 
-    override fun getException(): CustomException {
-        return DbColumnException(this)
+    override fun getException(): DbColumnException {
+        return DbColumnException()
     }
 
-    class DbColumnException(exceptionEnum: DbColumnExceptionEnum) : CustomException(exceptionEnum)
+    inner class DbColumnException : CustomException(this)
 }

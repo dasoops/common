@@ -27,9 +27,9 @@ enum class ExportExceptionEnum(private val msg: String) : IUtilExceptionEnum {
         return msg
     }
 
-    override fun getException(): CustomException {
-        return ExportException(this)
+    override fun getException(): ExportException {
+        return ExportException()
     }
 
-    private class ExportException(exceptionEnum: ExportExceptionEnum) : UtilException(exceptionEnum)
+    inner class ExportException : UtilException(this)
 }

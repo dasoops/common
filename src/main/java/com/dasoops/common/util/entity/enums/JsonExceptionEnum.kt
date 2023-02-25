@@ -27,8 +27,8 @@ enum class JsonExceptionEnum(private val msg: String) : IUtilExceptionEnum {
     }
 
     override fun getException(): CustomException {
-        return JsonException(this)
+        return JsonException()
     }
 
-    private class JsonException(exceptionEnum: JsonExceptionEnum) : UtilException(exceptionEnum)
+    inner class JsonException : UtilException(this)
 }

@@ -15,23 +15,27 @@ import lombok.Getter
  *
  * @see IDbColumnEnum
  */
-enum class DbBooleanEnum(override val dbValue:Int) : IDbColumnEnum {
+enum class DbBooleanEnum(override val dbValue: Int) : IDbColumnEnum {
     //
     TRUE(0),
     FALSE(1),
     ;
 
     companion object {
-        fun getBy(dbValue: Int): DbBooleanEnum {
-            return when (dbValue) {
-                1 -> TRUE
-                0 -> FALSE
-                else -> throw DbColumnExceptionEnum.UNDEFINEND_VALUE.exception
+        fun by(dbValue: Int): DbBooleanEnum {
+            return if (dbValue == 1) {
+                TRUE
+            } else {
+                FALSE
             }
         }
 
-        fun getBy(booleanValue: Boolean): DbBooleanEnum {
-            return if (booleanValue) TRUE else FALSE
+        fun by(booleanValue: Boolean): DbBooleanEnum {
+            return if (booleanValue) {
+                TRUE
+            } else {
+                FALSE
+            }
         }
     }
 }
