@@ -1,6 +1,7 @@
 package com.dasoops.common.util.point
 
 import cn.hutool.core.util.HexUtil
+import com.dasoops.common.entity.enums.database.DbBooleanEnum
 
 /**
  * str解析器
@@ -33,7 +34,15 @@ object Parser {
     }
 
     fun bool(char: Char): Boolean {
-        return char.code == 49
+        return char.code != 48
+    }
+
+    fun dbBool(char: Char): DbBooleanEnum {
+        return if (this.bool(char)) {
+            DbBooleanEnum.TRUE
+        } else {
+            DbBooleanEnum.FALSE
+        }
     }
 
     inline fun <reified E : Enum<*>> enum(str: String): List<E> {
