@@ -234,6 +234,22 @@ abstract class BaseCache<E : ICacheKeyEnum> : RedisOperations(), ICache {
         this.sadd(cacheKeyEnum.getKey(), valueSet)
     }
 
+    protected fun sremove(key: String, value: String) {
+        super.sremove(key, value)
+    }
+
+    protected fun sremove(cacheKeyEnum: E, value: String) {
+        this.sremove(cacheKeyEnum.getKey(), value)
+    }
+
+    protected fun sremove(key: String, value: List<String>) {
+        super.sremove(key, *value.toTypedArray())
+    }
+
+    protected fun sremove(cacheKeyEnum: E, value: List<String>) {
+        super.sremove(cacheKeyEnum.getKey(), *value.toTypedArray())
+    }
+
     protected fun saddAndExpire(key: String, valueSet: Set<String>, time: Long, timeUnit: TimeUnit) {
         transaction {
             super.sadd(key, *valueSet.toTypedArray())

@@ -209,6 +209,12 @@ abstract class RedisOperations {
         }
     }
 
+    protected fun sremove(key: String, vararg value: String) {
+        this.set().remove(key, *value).apply {
+            log.debug("[cache] set\$remove $key -> $value, result: $this")
+        }
+    }
+
     protected fun members(key: String): Set<String>? {
         return this.set().members(key).apply {
             log.debug("[cache] set\$members $key, result: $this")

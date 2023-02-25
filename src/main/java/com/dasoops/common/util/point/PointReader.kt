@@ -1,5 +1,6 @@
 package com.dasoops.common.util.point
 
+import cn.hutool.core.collection.CollUtil
 import com.dasoops.common.entity.enums.database.IDbColumnEnum
 
 /**
@@ -106,11 +107,12 @@ open class PointReader private constructor(map: Map<Int, String>) : LinkedHashMa
     companion object {
         /**
          * 构建
-         * @param [inputList] 输入集合
+         * @param [indexList] 索引集合
          * @param [valueList] 值集合
-         * @return [Map<Int, String>]
+         * @param [offset] 偏移量
+         * @return [PointReader]
          */
-        fun from(inputList: List<Int>, valueList: List<String>, offset: Int): PointReader {
+        fun from(indexList: List<Int>, valueList: List<String>, offset: Int): PointReader {
             /* no check 效率
             if (inputList.size != valueList.size) {
                 throw PointResloverExceptionEnum.SIZE_NOT_MATCH.exception
@@ -121,10 +123,16 @@ open class PointReader private constructor(map: Map<Int, String>) : LinkedHashMa
             }
             */
 
-            return PointReader(HashMap<Int, String>().apply {
-                for ((index, key) in inputList.withIndex()) {
-                    put(key - offset, valueList[index])
-                }
+            /*
+                有偏移量 先计算
+                然后调用zip直接转
+             */
+            return PointReader(if (offset != 0) {
+                indexList.map { it + offset }
+            } else {
+                indexList
+            }.run {
+                CollUtil.zip(this, valueList)
             })
         }
     }
