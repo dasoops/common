@@ -1,10 +1,8 @@
-package com.dasoops.common.util
+package com.dasoops.common.util.json
 
 import cn.hutool.core.date.DatePattern
 import com.dasoops.common.entity.enums.database.IDbColumnEnum
-import com.dasoops.common.util.entity.IDbColumnEnumDeserializer
-import com.dasoops.common.util.entity.dto.JsonObj
-import com.dasoops.common.util.entity.other.ListTypeReference
+import com.dasoops.common.util.dbcolumn.IDbColumnEnumDeserializer
 import com.fasterxml.jackson.annotation.JsonAutoDetect
 import com.fasterxml.jackson.annotation.PropertyAccessor
 import com.fasterxml.jackson.core.JsonGenerator
@@ -21,7 +19,7 @@ import java.text.SimpleDateFormat
 
 /**
  * @title: Json
- * @classPath com.dasoops.common.util.Json
+ * @classPath com.dasoops.common.util.json.Json
  * @author DasoopsNicole@Gmail.com
  * @date 2023/02/18
  * @version 1.0.0
@@ -103,7 +101,7 @@ object Json {
     }
 
     fun <T> parseList(jsonStr: String, clazz: Class<T>): List<T> {
-        return serializer.readValue(jsonStr, ListTypeReference())
+        return serializer.readValue(jsonStr, object : TypeReference<List<T>>() {})
     }
 
     fun parseNode(jsonStr: String): JsonNode {

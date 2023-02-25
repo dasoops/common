@@ -1,7 +1,7 @@
 package com.dasoops.common.config
 
 import com.dasoops.common.exception.ResloverExceptionEnum
-import com.dasoops.common.util.DbColumnUtil
+import com.dasoops.common.util.dbcolumn.DbColumnUtil
 import org.springframework.core.convert.converter.Converter
 import org.springframework.core.convert.converter.ConverterFactory
 import org.springframework.format.FormatterRegistry

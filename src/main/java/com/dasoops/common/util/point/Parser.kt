@@ -1,4 +1,4 @@
-package com.dasoops.common.util
+package com.dasoops.common.util.point
 
 import cn.hutool.core.util.HexUtil
 

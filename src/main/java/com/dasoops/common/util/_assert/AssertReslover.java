@@ -1,8 +1,8 @@
-package com.dasoops.common.util.entity.other;
+package com.dasoops.common.util._assert;
 
 /**
  * @title AssertReslover
- * @classPath com.dasoops.common.util.entity.other.AssertReslover
+ * @classPath com.dasoops.common.util.aoe.AssertReslover
  * @author DasoopsNicole@Gmail.com
  * @date 2022/12/31
  * @version 1.0.0

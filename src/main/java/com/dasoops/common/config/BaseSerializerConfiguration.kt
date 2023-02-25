@@ -1,6 +1,6 @@
 package com.dasoops.common.config
 
-import com.dasoops.common.util.Json
+import com.dasoops.common.util.json.Json
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.context.annotation.Bean
 

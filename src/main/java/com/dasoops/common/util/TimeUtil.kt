@@ -1,6 +1,5 @@
 package com.dasoops.common.util
 
-import com.dasoops.common.util.entity.dto.TimeDto
 import java.util.concurrent.TimeUnit
 
 /**

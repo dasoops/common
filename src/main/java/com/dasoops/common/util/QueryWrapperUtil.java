@@ -6,7 +6,7 @@ import com.dasoops.common.entity.enums.param.ISortColumnEnum;
 import com.dasoops.common.entity.enums.param.SortRuleEnum;
 import com.dasoops.common.entity.param.SortParam;
 import com.dasoops.common.exception.CustomException;
-import com.dasoops.common.util.entity.enums.AssertExceptionEnum;
+import com.dasoops.common.util._assert.AssertExceptionEnum;
 
 import java.util.List;
 

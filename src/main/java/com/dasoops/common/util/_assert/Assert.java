@@ -1,8 +1,6 @@
-package com.dasoops.common.util;
+package com.dasoops.common.util._assert;
 
 import cn.hutool.core.util.ObjUtil;
-import com.dasoops.common.util.entity.other.AssertReslover;
-import com.dasoops.common.util.entity.other.DefaultAssertReslover;
 
 import java.util.function.Function;
 import java.util.function.Supplier;

@@ -1,8 +1,7 @@
-package com.dasoops.common.util.entity;
+package com.dasoops.common.util.dbcolumn;
 
 import com.dasoops.common.entity.enums.database.IDbColumnEnum;
 import com.dasoops.common.exception.DbColumnExceptionEnum;
-import com.dasoops.common.util.DbColumnUtil;
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.BeanProperty;

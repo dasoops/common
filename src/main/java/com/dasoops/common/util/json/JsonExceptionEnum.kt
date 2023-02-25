@@ -1,13 +1,15 @@
-package com.dasoops.common.util.entity.enums
+package com.dasoops.common.util.json
 
 import com.dasoops.common.entity.enums.exception.IExceptionEnum
 import com.dasoops.common.exception.CustomException
+import com.dasoops.common.util.IUtilExceptionEnum
+import com.dasoops.common.util.UtilException
 
 /**
  * @author DasoopsNicole@Gmail.com
  * @version 1.0.0
  * @title ExportExceptionEnum
- * @classPath com.dasoops.common.util.entity.enums.ExportExceptionEnum
+ * @classPath com.dasoops.common.util.export.ExportExceptionEnum
  * @date 2022/12/30
  * @description json异常枚举(903xx)
  * @see IExceptionEnum

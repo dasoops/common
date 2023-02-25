@@ -1,12 +1,11 @@
-package com.dasoops.common.util.entity.other;
+package com.dasoops.common.util._assert;
 
 
 import com.dasoops.common.exception.CustomException;
-import com.dasoops.common.util.entity.enums.AssertExceptionEnum;
 
 /**
  * @title DefaultAssertReslover
- * @classPath com.dasoops.common.util.entity.other.DefaultAssertReslover
+ * @classPath com.dasoops.common.util.aoe.DefaultAssertReslover
  * @author DasoopsNicole@Gmail.com
  * @date 2022/12/31
  * @version 1.0.0

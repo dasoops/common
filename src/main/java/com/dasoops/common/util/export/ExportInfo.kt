@@ -1,4 +1,4 @@
-package com.dasoops.common.util.entity.dto
+package com.dasoops.common.util.export
 
 /**
  * @Title: ExportDto

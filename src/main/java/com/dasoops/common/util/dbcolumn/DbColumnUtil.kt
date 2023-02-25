@@ -1,4 +1,4 @@
-package com.dasoops.common.util
+package com.dasoops.common.util.dbcolumn
 
 import com.dasoops.common.entity.enums.database.IDbColumnEnum
 import com.dasoops.common.exception.DbColumnExceptionEnum

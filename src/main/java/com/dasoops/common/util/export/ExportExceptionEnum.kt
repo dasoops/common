@@ -1,11 +1,12 @@
-package com.dasoops.common.util.entity.enums
+package com.dasoops.common.util.export
 
 import com.dasoops.common.entity.enums.exception.IExceptionEnum
-import com.dasoops.common.exception.CustomException
+import com.dasoops.common.util.IUtilExceptionEnum
+import com.dasoops.common.util.UtilException
 
 /**
  * @title ExportExceptionEnum
- * @classPath com.dasoops.common.util.entity.enums.ExportExceptionEnum
+ * @classPath com.dasoops.common.util.export.ExportExceptionEnum
  * @author DasoopsNicole@Gmail.com
  * @date 2022/12/30
  * @version 1.0.0
