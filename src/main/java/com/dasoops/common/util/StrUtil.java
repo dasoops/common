@@ -8,11 +8,11 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 /**
+ * @author DasoopsNicole@Gmail.com
+ * @version 1.0.0
  * @title FormatUtil
  * @classPath com.dasoops.common.util.FormatUtil
- * @author DasoopsNicole@Gmail.com
  * @date 2023/02/16
- * @version 1.0.0
  * @description 格式化文本工具
  * @see [StrUtil]
  */

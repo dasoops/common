@@ -34,7 +34,6 @@ abstract class RedisOperations {
     /* -- Operations Begin -- */
     private fun value(): ValueOperations<String, String> {
         return redis.opsForValue()
-        //return value
     }
 
     private fun list(): ListOperations<String, String> {
@@ -121,9 +120,14 @@ abstract class RedisOperations {
     }
 
     protected fun setAndExpire(key: String, value: String, time: Long, timeUnit: TimeUnit) {
-        this.transaction {
-            this.value().set(key, value)
-            this.expire(key, time, timeUnit)
+        this.value().set(key, value, time, timeUnit).apply {
+            log.debug("[cache] value\$setAndExpire $key -> $value, expireAt $time${timeUnit.name}")
+        }
+    }
+
+    protected fun setIfAbsent(key: String, value: String, time: Long, timeUnit: TimeUnit): Boolean {
+        return this.value().setIfAbsent(key, value, time, timeUnit) ?: false.apply {
+            log.debug("[cache] value\$setIfAbsent $key -> $value, expireAt $time${timeUnit.name}, result: $this")
         }
     }
 

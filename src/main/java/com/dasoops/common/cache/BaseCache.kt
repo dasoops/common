@@ -1,10 +1,13 @@
 package com.dasoops.common.cache
 
+import cn.hutool.core.util.RandomUtil
 import cn.hutool.core.util.StrUtil
 import cn.hutool.core.util.TypeUtil
 import com.dasoops.common.entity.enums.cache.ICacheKeyEnum
 import com.dasoops.common.exception.BaseCacheExceptionEnum
 import com.dasoops.common.extension.toJsonStr
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeoutOrNull
 import org.springframework.data.redis.connection.DataType
 import org.springframework.data.redis.core.StringRedisTemplate
 import java.util.concurrent.TimeUnit
@@ -126,6 +129,32 @@ abstract class BaseCache<E : ICacheKeyEnum> : RedisOperations(), ICache {
 
     protected fun setAndExpire(cacheKeyEnum: E, value: String, time: Long, timeUnit: TimeUnit) {
         super.setAndExpire(cacheKeyEnum.getKey(), value, time, timeUnit)
+    }
+
+    protected fun lock(cacheKeyEnum: E, value: String, time: Long, timeUnit: TimeUnit) {
+        this.lock(cacheKeyEnum.getKey(), value, time, timeUnit)
+    }
+
+    protected fun lock(key: String, value: String, time: Long, timeUnit: TimeUnit) = runBlocking {
+        // 上锁 成功直接返回
+        // 失败50ms - 100ms 重试, 随机数意图是错开尝试时间
+        // 超时时间2000ms 超时直接抛异常
+        withTimeoutOrNull(2000) {
+            repeat(RandomUtil.randomInt(50, 100)) {
+                if (super.setIfAbsent(key, value, time, timeUnit)) {
+                    return@withTimeoutOrNull
+                }
+            }
+        } ?: throw BaseCacheExceptionEnum.GET_LOCK_ERROR.exception
+
+    }
+
+    protected fun unlock(key: String) {
+        this.remove(key)
+    }
+
+    protected fun unlock(cacheKeyEnum: E) {
+        this.remove(cacheKeyEnum.getKey())
     }
 
     /* -- Hash Begin -- */
