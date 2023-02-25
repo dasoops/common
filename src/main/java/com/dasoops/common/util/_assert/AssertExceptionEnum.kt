@@ -1,8 +1,8 @@
 package com.dasoops.common.util._assert
 
 import com.dasoops.common.entity.enums.exception.IExceptionEnum
-import com.dasoops.common.util.IUtilExceptionEnum
-import com.dasoops.common.util.UtilException
+import com.dasoops.common.util.base.IUtilExceptionEnum
+import com.dasoops.common.util.base.UtilException
 
 /**
  * @author DasoopsNicole@Gmail.com

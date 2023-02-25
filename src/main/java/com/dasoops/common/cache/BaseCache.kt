@@ -3,7 +3,7 @@ package com.dasoops.common.cache
 import cn.hutool.core.util.StrUtil
 import cn.hutool.core.util.TypeUtil
 import com.dasoops.common.entity.enums.cache.ICacheKeyEnum
-import com.dasoops.common.exception.CacheExceptionEnum
+import com.dasoops.common.exception.BaseCacheExceptionEnum
 import com.dasoops.common.extension.toJsonStr
 import org.springframework.data.redis.connection.DataType
 import org.springframework.data.redis.core.StringRedisTemplate
@@ -99,7 +99,7 @@ abstract class BaseCache<E : ICacheKeyEnum> : RedisOperations(), ICache {
             DataType.HASH -> entries(key)?.toJsonStr()
             DataType.LIST -> list(key)?.toJsonStr()
             DataType.STRING -> get(key)?.toJsonStr()
-            else -> throw CacheExceptionEnum.UNDEFINED_CAST.exception
+            else -> throw BaseCacheExceptionEnum.UNDEFINED_CAST.exception
         }
     }
 

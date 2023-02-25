@@ -1,7 +1,9 @@
 package com.dasoops.common.util.point
 
+import cn.hutool.core.util.EnumUtil
 import cn.hutool.core.util.HexUtil
 import com.dasoops.common.entity.enums.database.DbBooleanEnum
+import com.dasoops.common.entity.enums.database.IDbColumnEnum
 
 /**
  * str解析器
@@ -45,9 +47,11 @@ object Parser {
         }
     }
 
-    inline fun <reified E : Enum<*>> enum(str: String): List<E>? {
+    inline fun <reified E : IDbColumnEnum> enum(str: String): List<E>? {
         val enumConstantArray = E::class.java.enumConstants
         return HexUtil.toHex(int(str))
-            .filter { it.code == 49 }.mapIndexed { i, _ -> enumConstantArray[i] }.ifEmpty { null }
+            .filter { it.code == 49 }
+            .map { value -> enumConstantArray.first { it.dbValue == value.digitToInt() } }
+            .ifEmpty { null }
     }
 }

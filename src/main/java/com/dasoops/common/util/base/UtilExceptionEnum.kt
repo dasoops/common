@@ -1,11 +1,11 @@
-package com.dasoops.common.util
+package com.dasoops.common.util.base
 
 import com.dasoops.common.entity.enums.exception.IExceptionEnum
 import com.dasoops.common.exception.CustomException
 
 /**
  * @Title: UtilException
- * @ClassPath com.dasoops.common.util.UtilException
+ * @ClassPath com.dasoops.common.util.base.UtilException
  * @Author DasoopsNicole@Gmail.com
  * @Date 2023/02/18
  * @Version 1.0.0

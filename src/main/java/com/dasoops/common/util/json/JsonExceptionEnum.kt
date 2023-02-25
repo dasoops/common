@@ -2,8 +2,8 @@ package com.dasoops.common.util.json
 
 import com.dasoops.common.entity.enums.exception.IExceptionEnum
 import com.dasoops.common.exception.CustomException
-import com.dasoops.common.util.IUtilExceptionEnum
-import com.dasoops.common.util.UtilException
+import com.dasoops.common.util.base.IUtilExceptionEnum
+import com.dasoops.common.util.base.UtilException
 
 /**
  * @author DasoopsNicole@Gmail.com

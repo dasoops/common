@@ -3,7 +3,7 @@ package com.dasoops.common.config;
 import com.dasoops.common.entity.enums.exception.ExceptionEnum;
 import com.dasoops.common.entity.result.SimpleResult;
 import com.dasoops.common.exception.CustomException;
-import com.dasoops.common.exception.ResloverExceptionEnum;
+import com.dasoops.common.exception.DataResolverExceptionEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
@@ -52,7 +52,7 @@ public abstract class BaseExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public SimpleResult catchHttpMessageNotReadableException(HttpMessageNotReadableException e) {
         log.error("catch catchHttpMessageNotReadableException: ", e);
-        return SimpleResult.fail(ResloverExceptionEnum.PARAMETER_RESLOVE_ERROR);
+        return SimpleResult.fail(DataResolverExceptionEnum.PARAMETER_RESLOVE_ERROR);
     }
 
     /**
@@ -63,7 +63,7 @@ public abstract class BaseExceptionHandler {
     @ExceptionHandler(BindException.class)
     public SimpleResult catchBindException(BindException e) {
         log.error("catch catchBindException: ", e);
-        return SimpleResult.fail(ResloverExceptionEnum.MISSING_REQUIRED_PARAM);
+        return SimpleResult.fail(DataResolverExceptionEnum.MISSING_REQUIRED_PARAM);
     }
 
     /**

@@ -1,5 +1,7 @@
 package com.dasoops.common.util.point
 
+import com.dasoops.common.entity.enums.database.IDbColumnEnum
+
 /**
  * 点解析器
  * @title: PointReslover
@@ -96,7 +98,7 @@ open class PointReader private constructor(map: Map<Int, String>) : LinkedHashMa
      * @param [index] 索引
      * @return [List<E>] enumList
      */
-    inline fun <reified E : Enum<*>> enum(index: Int): List<E>? {
+    inline fun <reified E : IDbColumnEnum> enum(index: Int): List<E>? {
         return Parser.enum(get(index))
     }
 

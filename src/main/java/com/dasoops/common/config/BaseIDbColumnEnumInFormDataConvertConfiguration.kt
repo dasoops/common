@@ -1,6 +1,6 @@
 package com.dasoops.common.config
 
-import com.dasoops.common.exception.ResloverExceptionEnum
+import com.dasoops.common.exception.DataResolverExceptionEnum
 import com.dasoops.common.util.dbcolumn.DbColumnUtil
 import org.springframework.core.convert.converter.Converter
 import org.springframework.core.convert.converter.ConverterFactory
@@ -32,7 +32,7 @@ open class BaseIDbColumnEnumInFormDataConvertConfiguration : WebMvcConfigurer {
 
         private class IntegerToIDbColumnEnumConvert<T : IDbColumnEnum>(private val enumType: Class<out T>) : Converter<Int, T> {
             override fun convert(source: Int): T {
-                return DbColumnUtil.getBy(enumType, source) ?: throw ResloverExceptionEnum.PARAMETER_RESLOVE_ERROR.exception
+                return DbColumnUtil.getBy(enumType, source) ?: throw DataResolverExceptionEnum.PARAMETER_RESLOVE_ERROR.exception
             }
         }
     }
@@ -44,7 +44,7 @@ open class BaseIDbColumnEnumInFormDataConvertConfiguration : WebMvcConfigurer {
 
         private class StringToIDbColumnEnumConvert<T : IDbColumnEnum>(private val enumType: Class<out T>) : Converter<String, T> {
             override fun convert(source: String): T {
-                return DbColumnUtil.getBy(enumType, Integer.valueOf(source)) ?: throw ResloverExceptionEnum.PARAMETER_RESLOVE_ERROR.exception
+                return DbColumnUtil.getBy(enumType, Integer.valueOf(source)) ?: throw DataResolverExceptionEnum.PARAMETER_RESLOVE_ERROR.exception
             }
         }
     }

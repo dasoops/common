@@ -2,6 +2,7 @@ package com.dasoops.common.util.point
 
 import cn.hutool.core.util.NumberUtil
 import com.dasoops.common.entity.enums.database.DbBooleanEnum
+import com.dasoops.common.entity.enums.database.IDbColumnEnum
 
 /**
  * 点解析器
@@ -144,7 +145,7 @@ open class ValueReader(val iterator: Iterator<String>) {
      * convert value to enum list
      * @return [List<E>] enum list
      */
-    inline fun <reified E : Enum<*>> enum(): List<E>? {
+    inline fun <reified E : IDbColumnEnum> enum(): List<E>? {
         return Parser.enum(next())
     }
 }
