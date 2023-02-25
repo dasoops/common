@@ -45,9 +45,9 @@ object Parser {
         }
     }
 
-    inline fun <reified E : Enum<*>> enum(str: String): List<E> {
+    inline fun <reified E : Enum<*>> enum(str: String): List<E>? {
         val enumConstantArray = E::class.java.enumConstants
         return HexUtil.toHex(int(str))
-            .filter { it.code == 49 }.mapIndexed { i, _ -> enumConstantArray[i] }
+            .filter { it.code == 49 }.mapIndexed { i, _ -> enumConstantArray[i] }.ifEmpty { null }
     }
 }

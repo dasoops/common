@@ -96,7 +96,7 @@ open class PointReader private constructor(map: Map<Int, String>) : LinkedHashMa
      * @param [index] 索引
      * @return [List<E>] enumList
      */
-    inline fun <reified E : Enum<*>> enum(index: Int): List<E> {
+    inline fun <reified E : Enum<*>> enum(index: Int): List<E>? {
         return Parser.enum(get(index))
     }
 

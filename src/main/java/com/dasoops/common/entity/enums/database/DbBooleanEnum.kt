@@ -15,10 +15,10 @@ import lombok.Getter
  *
  * @see IDbColumnEnum
  */
-enum class DbBooleanEnum(override val dbValue: Int) : IDbColumnEnum {
+enum class DbBooleanEnum(override val dbValue: Int, val bool: Boolean) : IDbColumnEnum {
     //
-    TRUE(0),
-    FALSE(1),
+    TRUE(0, true),
+    FALSE(1, false),
     ;
 
     companion object {

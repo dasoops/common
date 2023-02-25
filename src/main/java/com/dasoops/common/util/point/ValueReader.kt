@@ -29,6 +29,18 @@ open class ValueReader(val iterator: Iterator<String>) {
     }
 
     /**
+     * skip dto
+     * @param [count] skip count
+     * @return [ValueReader] this
+     */
+    fun skipDot(count: Int): ValueReader {
+        for (i in 0..count) {
+            nextDot()
+        }
+        return this
+    }
+
+    /**
      * 声明开始解析一个点
      * @return [ValueReader] this
      */
@@ -106,7 +118,7 @@ open class ValueReader(val iterator: Iterator<String>) {
      * next dot value
      * @return [Char] char value
      */
-    fun dotNext(): Char {
+    fun nextDot(): Char {
         return dotIterator!!.next()
     }
 
@@ -116,7 +128,7 @@ open class ValueReader(val iterator: Iterator<String>) {
      */
     fun bool(): Boolean {
         dotIterator ?: dot()
-        return Parser.bool(dotNext())
+        return Parser.bool(nextDot())
     }
 
     /**
@@ -125,14 +137,14 @@ open class ValueReader(val iterator: Iterator<String>) {
      */
     fun dbBool(): DbBooleanEnum {
         dotIterator ?: dot()
-        return Parser.dbBool(dotNext())
+        return Parser.dbBool(nextDot())
     }
 
     /**
      * convert value to enum list
      * @return [List<E>] enum list
      */
-    inline fun <reified E : Enum<*>> enum(): List<E> {
+    inline fun <reified E : Enum<*>> enum(): List<E>? {
         return Parser.enum(next())
     }
 }
