@@ -61,7 +61,7 @@ abstract class RedisOperations {
         redis.setEnableTransactionSupport(false)
     }
 
-    protected fun keys(key: String): Set<String>? {
+    protected fun keys(key: String): Collection<String>? {
         return redis.keys(StrUtil.addSuffixIfNot(key, "*")).ifEmpty { null }.apply {
             log.debug("[cache] keys $key, result: $this")
         }
@@ -178,7 +178,7 @@ abstract class RedisOperations {
     }
 
     /* -- List Begin -- */
-    protected fun lrightPushAll(key: String, valueList: List<String>) {
+    protected fun lrightPushAll(key: String, valueList: Collection<String>) {
         this.list().rightPushAll(key, valueList).apply {
             log.debug("[cache] list\$rightPushAll $key -> $valueList, result: $this")
         }
@@ -190,7 +190,7 @@ abstract class RedisOperations {
         }
     }
 
-    protected fun list(key: String): List<String>? {
+    protected fun list(key: String): Collection<String>? {
         return list().range(key, 0, -1)?.ifEmpty { null }.apply {
             log.debug("[cache] list\$list $key, result: $this")
         }
@@ -215,7 +215,7 @@ abstract class RedisOperations {
         }
     }
 
-    protected fun members(key: String): Set<String>? {
+    protected fun members(key: String): Collection<String>? {
         return this.set().members(key).apply {
             log.debug("[cache] set\$members $key, result: $this")
         }
