@@ -28,30 +28,25 @@ abstract class BaseMongoDo(
     /**
      * 逻辑删除(true为删除)
      */
-    @TableField(fill = FieldFill.INSERT)
     open val isDelete: DbBooleanEnum = DbBooleanEnum.FALSE,
 
     /**
      * 创建时间
      */
-    @TableField(fill = FieldFill.INSERT)
     open val createTime: Date? = null,
 
     /**
      * 创建用户(通常为Qid)
      */
-    @TableField(fill = FieldFill.INSERT)
     open val createUser: Long? = null,
 
     /**
      * 更新时间
      */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
     open val updateTime: Date? = null,
 
     /**
      * 更新用户(通常为Qid)
      */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
     open val updateUser: Long? = null,
 ) : IDo
