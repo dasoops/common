@@ -23,7 +23,7 @@ abstract class BaseMongoDo(
      * 主键id
      */
     @Id
-    open val rowId: ObjectId? = null,
+    open var rowId: ObjectId? = null,
 
     /**
      * 逻辑删除(true为删除)

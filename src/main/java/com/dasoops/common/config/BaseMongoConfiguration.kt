@@ -1,7 +1,9 @@
 package com.dasoops.common.config
 
-import com.dasoops.common.config.inner.IntegerToIDbColumnEnumConvertFactory
-import com.dasoops.common.config.inner.StringToIDbColumnEnumConvertFactory
+import com.dasoops.common.config.serializer.IDbColumnEnumToIntConvertFactory
+import com.dasoops.common.config.serializer.IntegerToIDbColumnEnumConvertFactory
+import com.dasoops.common.config.serializer.StringToIDbColumnEnumConvertFactory
+import org.springframework.context.annotation.Bean
 import org.springframework.data.mongodb.core.convert.MongoCustomConversions
 
 /**
@@ -19,11 +21,12 @@ open class BaseMongoConfiguration {
      * 自定义序列化
      * @return [MongoCustomConversions]
      */
-    fun mongoCustomConversions(): MongoCustomConversions {
+    @Bean
+    open fun mongoCustomConversions(): MongoCustomConversions {
         return MongoCustomConversions.create {
             it.registerConverterFactory(IntegerToIDbColumnEnumConvertFactory())
             it.registerConverterFactory(StringToIDbColumnEnumConvertFactory())
+            it.registerConverterFactory(IDbColumnEnumToIntConvertFactory())
         }
     }
-
 }

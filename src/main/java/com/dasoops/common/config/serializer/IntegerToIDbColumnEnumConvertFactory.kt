@@ -1,4 +1,4 @@
-package com.dasoops.common.config.inner
+package com.dasoops.common.config.serializer
 
 import com.dasoops.common.entity.enums.database.IDbColumnEnum
 import com.dasoops.common.exception.DataResolverExceptionEnum

@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Bean
  * @date 2023/02/18
  * @description 全局序列化配置类
  */
-abstract class BaseSerializerConfiguration {
+abstract class BaseJsonSerializerConfiguration {
 
     @Bean
     open fun getJacksonObjectMapper(): ObjectMapper {
