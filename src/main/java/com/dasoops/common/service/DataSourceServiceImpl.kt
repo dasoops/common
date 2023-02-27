@@ -21,4 +21,6 @@ abstract class DataSourceServiceImpl<M : BaseMapper<T>, T : BaseDo> : IDataSourc
      */
     @Autowired
     protected lateinit var simpleSql: ServiceImpl<M, T>
+
+
 }

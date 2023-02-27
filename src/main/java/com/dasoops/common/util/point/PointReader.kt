@@ -132,7 +132,8 @@ open class PointReader private constructor(map: Map<Int, String>) : LinkedHashMa
             } else {
                 indexList
             }.run {
-                CollUtil.zip(this, valueList)
+                // 转map
+                this.zip(valueList).toMap()
             })
         }
     }

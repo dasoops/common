@@ -1,5 +1,7 @@
 package com.dasoops.common.extension
 
+import java.util.stream.Collectors
+
 inline fun <K, V, KR, VR> Map<out K, V>.mapTo(
     keyTransform: (Map.Entry<K, V>) -> KR,
     valueTransform: (Map.Entry<K, V>) -> VR
@@ -13,4 +15,11 @@ inline fun <K, V, KR, VR, M : MutableMap<in KR, in VR>> Map<out K, V>.mapTo(
     valueTransform: (Map.Entry<K, V>) -> VR
 ): M {
     return entries.associateByTo(destination, keyTransform, valueTransform)
+}
+
+fun <T, K, V> List<T>.toMap(
+    keyTransform: (T) -> K,
+    valueTransform: (T) -> V
+): MutableMap<K, V> {
+    return stream().collect(Collectors.toMap(keyTransform, valueTransform))
 }

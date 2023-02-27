@@ -11,7 +11,7 @@
 
     <artifactId>common-boot-starter</artifactId>
     <!-- 版本号更新 git commit -->
-    <version>2.1.12</version>
+    <version>2.1.13</version>
     <modelVersion>4.0.0</modelVersion>
     <description>通用组件</description>
 
