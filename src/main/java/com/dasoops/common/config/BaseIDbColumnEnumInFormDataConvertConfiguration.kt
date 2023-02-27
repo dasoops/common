@@ -1,6 +1,7 @@
 package com.dasoops.common.config
 
 import com.dasoops.common.config.serializer.IDbColumnEnumToIntConvertFactory
+import com.dasoops.common.config.serializer.IDbColumnEnumToStringConvertFactory
 import com.dasoops.common.config.serializer.IntegerToIDbColumnEnumConvertFactory
 import com.dasoops.common.config.serializer.StringToIDbColumnEnumConvertFactory
 import org.springframework.core.convert.converter.ConverterFactory
