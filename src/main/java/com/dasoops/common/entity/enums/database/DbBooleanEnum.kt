@@ -17,8 +17,8 @@ import lombok.Getter
  */
 enum class DbBooleanEnum(override val dbValue: Int, val bool: Boolean) : IDbColumnEnum {
     //
-    TRUE(0, true),
-    FALSE(1, false),
+    TRUE(1, true),
+    FALSE(0, false),
     ;
 
     companion object {

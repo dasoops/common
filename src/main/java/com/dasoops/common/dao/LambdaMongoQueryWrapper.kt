@@ -15,15 +15,16 @@ import org.springframework.data.mongodb.core.MongoTemplate
 open class LambdaMongoQueryWrapper<T : BaseMongoDo>(
     private val template: MongoTemplate,
     private val entityClass: Class<T>
-) : BaseLambdaWrapper<T>() {
+) : BaseLambdaWrapper<T, LambdaMongoQueryWrapper<T>>() {
 
     /**
      * orderBy 升序
      * @param [entityClass] 实体类
      * @param [func] 降序字段
      */
-    fun <T : BaseMongoDo, S> orderBy(entityClass: Class<T>, func: java.util.function.Function<T, S>) {
+    fun <S> orderBy(entityClass: Class<T>, func: java.util.function.Function<T, S>): LambdaMongoQueryWrapper<T> {
         builder.orderBy(entityClass, func)
+        return typethis
     }
 
     /**
@@ -31,8 +32,9 @@ open class LambdaMongoQueryWrapper<T : BaseMongoDo>(
      * @param [entityClass] 实体类
      * @param [func] 升序字段
      */
-    fun <T : BaseMongoDo, S> orderByDesc(entityClass: Class<T>, func: java.util.function.Function<T, S>) {
+    fun <S> orderByDesc(entityClass: Class<T>, func: java.util.function.Function<T, S>): LambdaMongoQueryWrapper<T> {
         builder.orderByDesc(entityClass, func)
+        return typethis
     }
 
     fun one(): T? {

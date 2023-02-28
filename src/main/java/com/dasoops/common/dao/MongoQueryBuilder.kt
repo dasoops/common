@@ -24,7 +24,7 @@ open class MongoQueryBuilder<T : BaseMongoDo> {
         query.addCriteria(Criteria.where(LambdaUtil.getFieldName(func)).`is`(value))
     }
 
-    fun <T : BaseMongoDo> `in`(func: Func1<T, *>, value: List<Any>) {
+    fun <T : BaseMongoDo> `in`(func: Func1<T, *>, value: Collection<Any>) {
         query.addCriteria(Criteria.where(LambdaUtil.getFieldName(func)).`in`(value))
     }
 

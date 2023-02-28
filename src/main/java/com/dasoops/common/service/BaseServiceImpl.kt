@@ -12,15 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired
  * @author DasoopsNicole@Gmail.com
  * @date 2023/02/24
  * @version 1.0.0
- * @see [DataSourceServiceImpl]
+ * @see [BaseServiceImpl]
  */
-abstract class DataSourceServiceImpl<M : BaseMapper<T>, T : BaseDo> : IDataSourceService<T> {
+abstract class BaseServiceImpl<T : BaseDo, M : BaseMapper<T>> : IService {
     /**
      * 简单sql
      * 泛型注入只能AutoWired
      */
     @Autowired
     protected lateinit var simpleSql: ServiceImpl<M, T>
-
 
 }

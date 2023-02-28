@@ -14,20 +14,15 @@ import io.swagger.annotations.ApiModelProperty
  * @Description: 基本页面参数
  */
 abstract class BasePageParam<T : BaseDo>(
-    /**
-     * 当前页码
-     */
-    @ApiModelProperty(value = "当前页码", notes = "当前页码", example = "1", required = false)
-    open val current: Int = 1,
 
-    /**
-     * 每页显示数量
-     */
-    @ApiModelProperty(value = "每页显示数量", notes = "每页显示数量", example = "10", required = false)
-    open var size: Int = 10,
-) : BaseFastBuildParam<T>(), IBuildSelectPage<T> {
+    @ApiModelProperty(value = "当前页码", notes = "当前页码", example = "1", required = true)
+    override val current: Int,
 
-    override fun buildSelectPage(): IPage<T> {
+    @ApiModelProperty(value = "每页显示数量", notes = "每页显示数量", example = "10", required = true)
+    override val size: Int,
+) : BaseFastBuildParam<T>(), IBuildPage<T>, IPageParam {
+
+    override fun buildPage(): IPage<T> {
         return Page(current.toLong(), size.toLong())
     }
 }

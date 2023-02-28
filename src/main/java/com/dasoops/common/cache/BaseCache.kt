@@ -6,6 +6,7 @@ import cn.hutool.core.util.TypeUtil
 import com.dasoops.common.entity.enums.cache.ICacheKeyEnum
 import com.dasoops.common.exception.BaseCacheExceptionEnum
 import com.dasoops.common.extension.toJsonStr
+import com.dasoops.common.task.AutoInit
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeoutOrNull
 import org.springframework.data.redis.connection.DataType
@@ -22,7 +23,7 @@ import java.util.stream.Collectors
  * @date 2023/01/01
  * @description 基地缓存
  */
-abstract class BaseCache<E : ICacheKeyEnum> : RedisOperations(), ICache {
+abstract class BaseCache<E : ICacheKeyEnum> : RedisOperations(), ICache, AutoInit {
 
     /**
      * 设置操作类

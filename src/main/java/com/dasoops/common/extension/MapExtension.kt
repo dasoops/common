@@ -17,7 +17,7 @@ inline fun <K, V, KR, VR, M : MutableMap<in KR, in VR>> Map<out K, V>.mapTo(
     return entries.associateByTo(destination, keyTransform, valueTransform)
 }
 
-fun <T, K, V> List<T>.toMap(
+fun <T, K, V> Collection<T>.toMap(
     keyTransform: (T) -> K,
     valueTransform: (T) -> V
 ): MutableMap<K, V> {

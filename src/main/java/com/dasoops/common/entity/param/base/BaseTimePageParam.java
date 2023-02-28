@@ -9,11 +9,11 @@ import lombok.EqualsAndHashCode;
 import org.jetbrains.annotations.NotNull;
 
 /**
+ * @author DasoopsNicole@Gmail.com
+ * @version 1.0.0
  * @title BasePageParam
  * @classPath com.dasoops.common.entity.param.base.BasePageParam
- * @author DasoopsNicole@Gmail.com
  * @date 2022/12/28
- * @version 1.0.0
  * @description 基本页面参数
  */
 @EqualsAndHashCode(callSuper = true)
@@ -31,6 +31,10 @@ public abstract class BaseTimePageParam<T extends BaseDo> extends BasePageParam<
      */
     @ApiModelProperty(value = "结束时间", notes = "结束时间", required = false)
     private String endTime;
+
+    public BaseTimePageParam(int current, int size) {
+        super(current, size);
+    }
 
     public QueryWrapper<T> buildWrapper(String column) {
         QueryWrapper<T> wrapper = new QueryWrapper<>();

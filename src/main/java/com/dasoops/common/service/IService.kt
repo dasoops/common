@@ -1,7 +1,5 @@
 package com.dasoops.common.service
 
-import com.dasoops.common.task.AutoInit
-
 /**
  * service顶层接口
  * @title: IService
@@ -11,4 +9,4 @@ import com.dasoops.common.task.AutoInit
  * @version 1.0.0
  * @see [IService]
  */
-interface IService : AutoInit
+interface IService

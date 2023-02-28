@@ -18,8 +18,8 @@ import javax.annotation.PostConstruct
  */
 open class InitTask : ITask, ApplicationContextAware {
 
-    private var cacheSet: HashSet<ICache> = HashSet()
-    private var serviceSet: HashSet<IService> = HashSet()
+    private var cacheSet: HashSet<AutoInit> = HashSet()
+    private var serviceSet: HashSet<AutoInit> = HashSet()
     private var otherSet: HashSet<AutoInit> = HashSet()
 
     /**
@@ -49,13 +49,10 @@ open class InitTask : ITask, ApplicationContextAware {
         init(serviceSet)
         //其余初始化
         init(otherSet)
+        InitGlobal.inInitialize = false
     }
 
     fun init(needInitSet: Set<AutoInit>) = runBlocking {
-        needInitSet
-            //异步调用初始化方法
-            .map { launch { it.init() } }
-            //等待
-            .joinAll()
+        needInitSet.map { it.init() }
     }
 }

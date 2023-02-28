@@ -1,9 +1,9 @@
 package com.dasoops.common.dao
 
+import cn.hutool.core.lang.func.Func1
 import cn.hutool.core.lang.func.LambdaUtil
 import com.dasoops.common.entity.dbo.base.BaseMongoDo
 import org.bson.types.ObjectId
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.data.mongodb.core.query.Criteria
 import org.springframework.data.mongodb.core.query.Query
@@ -16,21 +16,21 @@ import javax.annotation.Resource
  * @author DasoopsNicole@Gmail.com
  * @date 2023/02/27
  * @version 1.0.0
- * @see [BaseMongoMapperImpl]
+ * @see [MongoMapper]
  */
-abstract class BaseMongoMapperImpl<T : BaseMongoDo>(
-    val entityClass: Class<T>
+abstract class MongoMapper<T : BaseMongoDo>(
+    open val entityClass: Class<T>
 ) : IMongoMapper<T> {
 
     @Resource
     protected lateinit var mongoTemplate: MongoTemplate
 
-    fun lambdaQuery(): LambdaMongoQueryWrapper<T> {
-        return LambdaMongoQueryWrapper(mongoTemplate, entityClass)
+    fun list(): List<T> {
+        return mongoTemplate.findAll(entityClass)
     }
 
-    fun lambdaUpdate(): LambdaMongoUpdateWrapper<T> {
-        return LambdaMongoUpdateWrapper(mongoTemplate, entityClass)
+    fun saveBatchTo(doList: Collection<T>, collectionName: String) {
+        mongoTemplate.insert(doList, collectionName)
     }
 
     fun saveBatch(doList: Collection<T>) {
@@ -42,10 +42,14 @@ abstract class BaseMongoMapperImpl<T : BaseMongoDo>(
     }
 
     fun removeById(id: ObjectId) {
-        mongoTemplate.remove(Query.query(Criteria.where(LambdaUtil.getFieldName(BaseMongoDo::rowId)).`is`(id)))
+        mongoTemplate.remove(Query.query(Criteria.where(field(BaseMongoDo::rowId)).`is`(id)))
     }
 
-    fun removeBatchById(idList: List<ObjectId>) {
-        mongoTemplate.remove(Query.query(Criteria.where(LambdaUtil.getFieldName(BaseMongoDo::rowId)).`in`(idList)))
+    fun removeBatchById(idList: Collection<ObjectId>) {
+        mongoTemplate.remove(Query.query(Criteria.where(field(BaseMongoDo::rowId)).`in`(idList)))
+    }
+
+    fun field(func: Func1<T, *>): String {
+        return LambdaUtil.getFieldName(func)
     }
 }
