@@ -11,4 +11,4 @@ import com.dasoops.common.entity.enums.exception.ExceptionEnum
  * @version 1.0.0
  * @see [UnexpectedException]
  */
-class UnexpectedException : CustomException(ExceptionEnum.UN_EXPECTED)
+object UnexpectedException : CustomException(ExceptionEnum.UN_EXPECTED)

@@ -2,6 +2,7 @@ package com.dasoops.common.cache
 
 import cn.hutool.core.lang.func.VoidFunc0
 import cn.hutool.core.util.StrUtil
+import com.dasoops.common.extension.toJsonStr
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.data.redis.connection.DataType
@@ -63,71 +64,71 @@ abstract class RedisOperations {
 
     protected fun keys(key: String): Collection<String>? {
         return redis.keys(StrUtil.addSuffixIfNot(key, "*")).ifEmpty { null }.apply {
-            log.debug("[cache] keys $key, result: $this")
+            log.debug("[cache] keys ${key.toJsonStr()}, result: ${this?.toJsonStr()}")
         }
     }
 
     protected fun remove(vararg key: String) {
         redis.delete(listOf(*key)).apply {
-            log.debug("[cache] romove $key, result: $this")
+            log.debug("[cache] romove ${key.toJsonStr()}, result: ${this.toJsonStr()}")
         }
     }
 
     protected fun expire(key: String, timeout: Long, timeUnit: TimeUnit) {
         redis.expire(key, timeout, timeUnit).apply {
-            log.debug("[cache] expire $key, result: $this")
+            log.debug("[cache] expire ${key.toJsonStr()}, result: ${this.toJsonStr()}")
         }
     }
 
     protected fun expire4Prefix(key: String, timeout: Long, timeUnit: TimeUnit) {
         this.keys(key)?.run {
             this@run.forEach { redis.expire(it, timeout, timeUnit) }
-            log.debug("[cache] expire4Prefix $key, result: $this")
+            log.debug("[cache] expire4Prefix ${key.toJsonStr()}, result: ${this.toJsonStr()}")
             return
         }
-        log.debug("[cache] expire4Prefix $key, result: []")
+        log.debug("[cache] expire4Prefix ${key.toJsonStr()}, result: []")
     }
 
     protected fun type(key: String): DataType {
         return redis.type(key).apply {
-            log.debug("[cache] type $key, result: $this")
+            log.debug("[cache] type ${key.toJsonStr()}, result: ${this.toJsonStr()}")
         }
     }
 
     protected fun hasKey(key: String): Boolean {
         return redis.hasKey(key).apply {
-            log.debug("[cache] hasKey $key, result: $this")
+            log.debug("[cache] hasKey ${key.toJsonStr()}, result: ${this.toJsonStr()}")
         }
     }
 
     /* -- Value Begin -- */
     protected fun set(key: String, value: String) {
         this.value().set(key, value).apply {
-            log.debug("[cache] value\$set $key")
+            log.debug("[cache] value\$set ${key.toJsonStr()}")
         }
     }
 
     protected fun get(key: String): String? {
         return this.value().get(key).apply {
-            log.debug("[cache] value\$get $key, result: $this")
+            log.debug("[cache] value\$get ${key.toJsonStr()}, result: ${this?.toJsonStr()}")
         }
     }
 
     protected fun getAndDelete(key: String): String? {
         return this.value().getAndDelete(key).apply {
-            log.debug("[cache] value\$getAndDelete $key, result: $this")
+            log.debug("[cache] value\$getAndDelete ${key.toJsonStr()}, result: ${this?.toJsonStr()}")
         }
     }
 
     protected fun setAndExpire(key: String, value: String, time: Long, timeUnit: TimeUnit) {
         this.value().set(key, value, time, timeUnit).apply {
-            log.debug("[cache] value\$setAndExpire $key -> $value, expireAt $time${timeUnit.name}")
+            log.debug("[cache] value\$setAndExpire ${key.toJsonStr()} -> ${value.toJsonStr()}, expireAt $time${timeUnit.name}")
         }
     }
 
     protected fun setIfAbsent(key: String, value: String, time: Long, timeUnit: TimeUnit): Boolean {
         return this.value().setIfAbsent(key, value, time, timeUnit) ?: false.apply {
-            log.debug("[cache] value\$setIfAbsent $key -> $value, expireAt $time${timeUnit.name}, result: $this")
+            log.debug("[cache] value\$setIfAbsent ${key.toJsonStr()} -> ${value.toJsonStr()}, expireAt $time${timeUnit.name}, result: ${this.toJsonStr()}")
         }
     }
 
@@ -143,81 +144,81 @@ abstract class RedisOperations {
                 { this@RedisOperations.hash().entries(it) }
             ))
         }.apply {
-            log.debug("[cache] hash\$entries4Prefix $prefix, result: $this")
+            log.debug("[cache] hash\$entries4Prefix $prefix, result: ${this?.toJsonStr()}")
         }
     }
 
     protected fun hputAll(key: String, valueMap: Map<String, String>) {
         this.hash().putAll(key, valueMap).apply {
-            log.debug("[cache] hash\$putAll $key -> $valueMap")
+            log.debug("[cache] hash\$putAll ${key.toJsonStr()} -> ${valueMap.toJsonStr()}")
         }
     }
 
     protected fun hget(key: String, hashKey: String): String? {
         return this.hash().get(key, hashKey).apply {
-            log.debug("[cache] hash\$get $key\$$hashKey, result: $this")
+            log.debug("[cache] hash\$get ${key.toJsonStr()}\$$hashKey, result: ${this?.toJsonStr()}")
         }
     }
 
     protected fun hput(key: String, hashKey: String, value: String) {
         this.hash().put(key, hashKey, value).apply {
-            log.debug("[cache] hash\$set $key\$$hashKey -> $value, result: $this")
+            log.debug("[cache] hash\$set ${key.toJsonStr()}\$$hashKey -> ${value.toJsonStr()}, result: ${this.toJsonStr()}")
         }
     }
 
     protected fun hhasKey(key: String, hashKey: String): Boolean {
         return hash().hasKey(key, hashKey).apply {
-            log.debug("[cache] hash\$hasKey $key\$$hashKey, result: $this")
+            log.debug("[cache] hash\$hasKey ${key.toJsonStr()}\$$hashKey, result: ${this.toJsonStr()}")
         }
     }
 
     protected fun hdelete(key: String, hashKey: String) {
         this.hash().delete(key, hashKey).apply {
-            log.debug("[cache] hash\$hasKey $key\$$hashKey, result: $this")
+            log.debug("[cache] hash\$hasKey ${key.toJsonStr()}\$$hashKey, result: ${this.toJsonStr()}")
         }
     }
 
     /* -- List Begin -- */
     protected fun lrightPushAll(key: String, valueList: Collection<String>) {
         this.list().rightPushAll(key, valueList).apply {
-            log.debug("[cache] list\$rightPushAll $key -> $valueList, result: $this")
+            log.debug("[cache] list\$rightPushAll ${key.toJsonStr()} -> ${valueList.toJsonStr()}, result: ${this?.toJsonStr()}")
         }
     }
 
     protected fun lrightPush(key: String, value: String) {
         this.list().rightPush(key, value).apply {
-            log.debug("[cache] list\$rightPush $key -> $value, result: $this")
+            log.debug("[cache] list\$rightPush ${key.toJsonStr()} -> ${value.toJsonStr()}, result: ${this?.toJsonStr()}")
         }
     }
 
     protected fun list(key: String): Collection<String>? {
         return list().range(key, 0, -1)?.ifEmpty { null }.apply {
-            log.debug("[cache] list\$list $key, result: $this")
+            log.debug("[cache] list\$list ${key.toJsonStr()}, result: ${this?.toJsonStr()}")
         }
     }
 
     protected fun lget(key: String, index: Int): String? {
         return list().index(key, index.toLong()).apply {
-            log.debug("[cache] list\$get $key\$$index, result: $this")
+            log.debug("[cache] list\$get ${key.toJsonStr()}\$$index, result: ${this?.toJsonStr()}")
         }
     }
 
     /* -- Set Begin -- */
     protected fun sadd(key: String, vararg value: String) {
         this.set().add(key, *value).apply {
-            log.debug("[cache] set\$set $key -> $value, result: $this")
+            log.debug("[cache] set\$set ${key.toJsonStr()} -> ${value.toJsonStr()}, result: ${this?.toJsonStr()}")
         }
     }
 
     protected fun sremove(key: String, vararg value: String) {
         this.set().remove(key, *value).apply {
-            log.debug("[cache] set\$remove $key -> $value, result: $this")
+            log.debug("[cache] set\$remove ${key.toJsonStr()} -> ${value.toJsonStr()}, result: ${this?.toJsonStr()}")
         }
     }
 
     protected fun members(key: String): Collection<String>? {
         return this.set().members(key).apply {
-            log.debug("[cache] set\$members $key, result: $this")
+            log.debug("[cache] set\$members ${key.toJsonStr()}, result: ${this?.toJsonStr()}")
         }
     }
 }

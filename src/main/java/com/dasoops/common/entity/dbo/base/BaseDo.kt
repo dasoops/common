@@ -31,26 +31,26 @@ abstract class BaseDo(
     open val isDelete: DbBooleanEnum? = null,
 
     /**
-     * 创建时间
-     */
-    @TableField(fill = FieldFill.INSERT)
-    open val createTime: Date? = null,
-
-    /**
      * 创建用户(通常为Qid)
      */
     @TableField(fill = FieldFill.INSERT)
     open val createUser: Long? = null,
 
     /**
-     * 更新时间
+     * 创建时间
      */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    open val updateTime: Date? = null,
+    @TableField(fill = FieldFill.INSERT)
+    open val createTime: Date? = null,
 
     /**
      * 更新用户(通常为Qid)
      */
     @TableField(fill = FieldFill.INSERT_UPDATE)
     open val updateUser: Long? = null,
+
+    /**
+     * 更新时间
+     */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    open val updateTime: Date? = null,
 ) : IDo
