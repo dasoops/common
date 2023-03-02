@@ -16,5 +16,5 @@ abstract class BasePageVo(
      * 总记录数
      */
     @ApiModelProperty(value = "总记录数", notes = "总记录数", required = true)
-    open val total: Long
+    open val total: Int
 ) : BaseVo()

@@ -16,7 +16,7 @@ open class SimplePageVo<T : BaseInnerVo>(
      * 总记录数
      */
     @ApiModelProperty(value = "总记录数", notes = "总记录数", required = true)
-    override val total: Long,
+    override val total: Int,
 
     /**
      * 数据集合
@@ -24,5 +24,5 @@ open class SimplePageVo<T : BaseInnerVo>(
     @ApiModelProperty(value = "数据集合", example = "[]", required = false)
     open val dataList: List<T>
 ) : BasePageVo(total) {
-    constructor(dataList: List<T>) : this(dataList.size.toLong(), dataList)
+    constructor(dataList: List<T>) : this(dataList.size, dataList)
 }
