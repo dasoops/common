@@ -25,6 +25,7 @@ public enum ExceptionEnum implements IExceptionEnum {
     /**
      * 通用异常
      */
+    NO_RECORD(2001, "没有查询到数据"),
     PARAMETER_NOT_NULL(2002, "参数不可为空"),
     SIZE_ZERO(2003, "数据不可为空"),
     UNKNOWN_KEYWORD(2004, "未知的关键词"),

@@ -23,4 +23,6 @@ open class SimplePageVo<T : BaseInnerVo>(
      */
     @ApiModelProperty(value = "数据集合", example = "[]", required = false)
     open val dataList: List<T>
-) : BasePageVo(total)
+) : BasePageVo(total) {
+    constructor(dataList: List<T>) : this(dataList.size.toLong(), dataList)
+}

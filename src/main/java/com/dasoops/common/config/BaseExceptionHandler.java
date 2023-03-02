@@ -1,15 +1,21 @@
 package com.dasoops.common.config;
 
 import com.dasoops.common.entity.enums.exception.ExceptionEnum;
+import com.dasoops.common.entity.result.Result;
 import com.dasoops.common.entity.result.SimpleResult;
+import com.dasoops.common.entity.vo.base.BaseInnerVo;
+import com.dasoops.common.entity.vo.base.SimplePageVo;
 import com.dasoops.common.exception.CustomException;
 import com.dasoops.common.exception.DataResolverExceptionEnum;
+import com.dasoops.common.exception.NoRecordException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.Collections;
 
 /**
  * @author DasoopsNicole@Gmail.com
@@ -27,10 +33,9 @@ public abstract class BaseExceptionHandler {
      *
      * @param e e
      */
-    @ExceptionHandler(CustomException.class)
-    public SimpleResult catchLogicException(CustomException e) {
-        log.error("catch LogicException: ", e);
-        return SimpleResult.fail(e.getExceptionEnum());
+    @ExceptionHandler(NoRecordException.class)
+    public Result<Object> catchNoRecordException(NoRecordException e) {
+        return Result.success(new SimplePageVo<BaseInnerVo>(0, Collections.emptyList()));
     }
 
     /**
@@ -64,6 +69,17 @@ public abstract class BaseExceptionHandler {
     public SimpleResult catchBindException(BindException e) {
         log.error("catch catchBindException: ", e);
         return SimpleResult.fail(DataResolverExceptionEnum.MISSING_REQUIRED_PARAM);
+    }
+
+    /**
+     * 自定义异常处理
+     *
+     * @param e e
+     */
+    @ExceptionHandler(CustomException.class)
+    public SimpleResult catchLogicException(CustomException e) {
+        log.error("catch LogicException: ", e);
+        return SimpleResult.fail(e.getExceptionEnum());
     }
 
     /**
