@@ -1,7 +1,6 @@
 package com.dasoops.common.dao
 
 import com.dasoops.common.entity.dbo.base.BaseMongoDo
-import org.bson.types.ObjectId
 
 /**
  * mongoMapper基类
@@ -15,5 +14,6 @@ import org.bson.types.ObjectId
 interface IMongoMapper<T : BaseMongoDo> {
     companion object {
         val ID = "_id"
+        val MAPPING_ID = "\$_id"
     }
 }

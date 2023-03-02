@@ -42,7 +42,7 @@ open class LambdaMongoQueryWrapper<T : BaseMongoDo>(
     }
 
     fun list(): List<T>? {
-        return template.findAll(entityClass)
+        return template.find(builder.build(), entityClass)
     }
 
 }

@@ -100,7 +100,7 @@ object Json {
         return serializer.readValue(jsonStr, typeReference)
     }
 
-    fun <T> parseList(jsonStr: String, clazz: Class<T>): List<T> {
+    fun <T> parseList(jsonStr: String): List<T> {
         return serializer.readValue(jsonStr, object : TypeReference<List<T>>() {})
     }
 

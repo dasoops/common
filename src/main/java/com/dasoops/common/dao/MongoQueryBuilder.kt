@@ -1,11 +1,11 @@
 package com.dasoops.common.dao
 
-import cn.hutool.core.lang.func.Func1
-import cn.hutool.core.lang.func.LambdaUtil
 import com.dasoops.common.entity.dbo.base.BaseMongoDo
+import com.dasoops.common.util.SqlSelectBuilder
 import org.springframework.data.domain.Sort
 import org.springframework.data.mongodb.core.query.Criteria
 import org.springframework.data.mongodb.core.query.Query
+import kotlin.reflect.KProperty1
 
 /**
  * mongo查询构建器
@@ -20,12 +20,20 @@ open class MongoQueryBuilder<T : BaseMongoDo> {
 
     val query: Query = Query()
 
-    fun <T : BaseMongoDo> eq(func: Func1<T, *>, value: Any) {
-        query.addCriteria(Criteria.where(LambdaUtil.getFieldName(func)).`is`(value))
+    fun <R> eq(func: KProperty1<T, R>, value: R) {
+        query.addCriteria(Criteria.where(SqlSelectBuilder.build(func)).`is`(value))
     }
 
-    fun <T : BaseMongoDo> `in`(func: Func1<T, *>, value: Collection<Any>) {
-        query.addCriteria(Criteria.where(LambdaUtil.getFieldName(func)).`in`(value))
+    fun eq(column: String, value: Any) {
+        query.addCriteria(Criteria.where(column).`is`(value))
+    }
+
+    fun <R> `in`(func: KProperty1<T, R>, value: Collection<R>) {
+        query.addCriteria(Criteria.where(SqlSelectBuilder.build(func)).`in`(value))
+    }
+
+    fun `in`(column: String, value: Any) {
+        query.addCriteria(Criteria.where(column).`in`(value))
     }
 
     /**

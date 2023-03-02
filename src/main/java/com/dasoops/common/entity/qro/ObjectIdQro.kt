@@ -12,4 +12,4 @@ import org.springframework.data.mongodb.core.mapping.Field
  * @version 1.0.0
  * @see [ObjectIdQro]
  */
-data class ObjectIdQro(@Field("_id") val id: ObjectId)
+data class ObjectIdQro(@Field("id") val id: ObjectId)
