@@ -19,12 +19,12 @@ abstract class BaseLambdaWrapper<T : BaseMongoDo, Children : BaseLambdaWrapper<T
     }
 
     fun <R> `in`(func: KProperty1<T, R>, value: Collection<Any>): Children {
-        builder.`in`(func, value)
+        builder.`in`(func, *value.toTypedArray())
         return typethis
     }
 
-    fun <R> `in`(column: String, value: Collection<Any>): Children {
-        builder.`in`(column, value)
+    fun `in`(column: String, value: Collection<Any>): Children {
+        builder.`in`(column, *value.toTypedArray())
         return typethis
     }
 }

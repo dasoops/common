@@ -28,11 +28,11 @@ open class MongoQueryBuilder<T : BaseMongoDo> {
         query.addCriteria(Criteria.where(column).`is`(value))
     }
 
-    fun <R> `in`(func: KProperty1<T, R>, value: Collection<R>) {
+    fun <R> `in`(func: KProperty1<T, R>, vararg value: Any) {
         query.addCriteria(Criteria.where(SqlSelectBuilder.build(func)).`in`(value))
     }
 
-    fun `in`(column: String, value: Any) {
+    fun `in`(column: String, vararg value: Any) {
         query.addCriteria(Criteria.where(column).`in`(value))
     }
 
