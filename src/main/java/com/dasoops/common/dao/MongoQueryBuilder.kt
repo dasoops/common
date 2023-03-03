@@ -29,11 +29,19 @@ open class MongoQueryBuilder<T : BaseMongoDo> {
     }
 
     fun <R> `in`(func: KProperty1<T, R>, vararg value: Any) {
-        query.addCriteria(Criteria.where(SqlSelectBuilder.build(func)).`in`(value))
+        query.addCriteria(Criteria.where(SqlSelectBuilder.build(func)).`in`(*value))
+    }
+
+    fun <R> `in`(func: KProperty1<T, R>, value: Collection<Any>) {
+        query.addCriteria(Criteria.where(SqlSelectBuilder.build(func)).`in`(*value.toTypedArray()))
     }
 
     fun `in`(column: String, vararg value: Any) {
-        query.addCriteria(Criteria.where(column).`in`(value))
+        query.addCriteria(Criteria.where(column).`in`(*value))
+    }
+
+    fun `in`(column: String, value: Collection<Any>) {
+        query.addCriteria(Criteria.where(column).`in`(*value.toTypedArray()))
     }
 
     /**

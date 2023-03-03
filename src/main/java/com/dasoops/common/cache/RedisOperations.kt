@@ -6,12 +6,12 @@ import com.dasoops.common.extension.toJsonStr
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.data.redis.connection.DataType
-import org.springframework.data.redis.core.ValueOperations
+import org.springframework.data.redis.core.HashOperations
 import org.springframework.data.redis.core.ListOperations
 import org.springframework.data.redis.core.SetOperations
-import org.springframework.data.redis.core.ZSetOperations
-import org.springframework.data.redis.core.HashOperations
 import org.springframework.data.redis.core.StringRedisTemplate
+import org.springframework.data.redis.core.ValueOperations
+import org.springframework.data.redis.core.ZSetOperations
 import java.util.concurrent.TimeUnit
 import java.util.stream.Collectors
 import javax.annotation.Resource
@@ -217,7 +217,7 @@ abstract class RedisOperations {
     }
 
     protected fun members(key: String): Collection<String>? {
-        return this.set().members(key).apply {
+        return this.set().members(key).ifEmpty { null }.apply {
             log.debug("[cache] set\$members ${key.toJsonStr()}, result: ${this?.toJsonStr()}")
         }
     }
