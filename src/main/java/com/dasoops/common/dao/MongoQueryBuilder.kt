@@ -16,14 +16,14 @@ import kotlin.reflect.KProperty1
  * @version 1.0.0
  * @see [MongoQueryBuilder]
  */
-open class MongoQueryBuilder<T : BaseMongoDo> {
+open class MongoQueryBuilder {
 
     val query: Query = Query()
 
     /**
      * 相等
      */
-    fun <R : Any> eq(func: KProperty1<T, R>, value: R) {
+    fun <R : Any> eq(func: KProperty1<*, R>, value: R) {
         this.eq(SqlSelectBuilder.build(func), value)
     }
 
@@ -44,7 +44,7 @@ open class MongoQueryBuilder<T : BaseMongoDo> {
     /**
      * 不相等
      */
-    fun <R : Any> ne(func: KProperty1<T, R>, value: Any) {
+    fun <R : Any> ne(func: KProperty1<*, R>, value: Any) {
         this.eq(SqlSelectBuilder.build(func), value)
     }
 
@@ -58,7 +58,7 @@ open class MongoQueryBuilder<T : BaseMongoDo> {
     /**
      * 大于
      */
-    fun <R : Any> gt(func: KProperty1<T, R>, value: Any) {
+    fun <R : Any> gt(func: KProperty1<*, R>, value: Any) {
         this.eq(SqlSelectBuilder.build(func), value)
     }
 
@@ -72,7 +72,7 @@ open class MongoQueryBuilder<T : BaseMongoDo> {
     /**
      * 大于等于
      */
-    fun <R : Any> ge(func: KProperty1<T, R>, value: Any) {
+    fun <R : Any> ge(func: KProperty1<*, R>, value: Any) {
         this.eq(SqlSelectBuilder.build(func), value)
     }
 
@@ -86,7 +86,7 @@ open class MongoQueryBuilder<T : BaseMongoDo> {
     /**
      * 小于
      */
-    fun <R : Any> lt(func: KProperty1<T, R>, value: Any) {
+    fun <R : Any> lt(func: KProperty1<*, R>, value: Any) {
         this.eq(SqlSelectBuilder.build(func), value)
     }
 
@@ -100,21 +100,21 @@ open class MongoQueryBuilder<T : BaseMongoDo> {
     /**
      * 小于等于
      */
-    fun <R : Any> le(func: KProperty1<T, R>, value: Any) {
+    fun <R : Any> le(func: KProperty1<*, R>, value: Any) {
         this.eq(SqlSelectBuilder.build(func), value)
     }
 
     /**
      * 包含
      */
-    fun <R : Any> `in`(func: KProperty1<T, R>, vararg value: Any) {
+    fun <R : Any> `in`(func: KProperty1<*, R>, vararg value: Any) {
         query.addCriteria(Criteria.where(SqlSelectBuilder.build(func)).`in`(*value))
     }
 
     /**
      * 包含
      */
-    fun <R : Any> `in`(func: KProperty1<T, R>, value: Collection<Any>) {
+    fun <R : Any> `in`(func: KProperty1<*, R>, value: Collection<Any>) {
         query.addCriteria(Criteria.where(SqlSelectBuilder.build(func)).`in`(*value.toTypedArray()))
     }
 
@@ -137,7 +137,7 @@ open class MongoQueryBuilder<T : BaseMongoDo> {
      * @param [entityClass] 实体类
      * @param [func] 降序字段
      */
-    fun <T : BaseMongoDo, S> orderBy(entityClass: Class<T>, func: java.util.function.Function<T, S>) {
+    fun <T : BaseMongoDo, S> orderBy(entityClass: Class<T>, func: java.util.function.Function<*, S>) {
         query.with(Sort.sort(entityClass).by(func))
     }
 
@@ -146,7 +146,7 @@ open class MongoQueryBuilder<T : BaseMongoDo> {
      * @param [entityClass] 实体类
      * @param [func] 升序字段
      */
-    fun <T : BaseMongoDo, S> orderByDesc(entityClass: Class<T>, func: java.util.function.Function<T, S>) {
+    fun <T : BaseMongoDo, S> orderByDesc(entityClass: Class<T>, func: java.util.function.Function<*, S>) {
         query.with(Sort.sort(entityClass).by(func).descending())
     }
 
