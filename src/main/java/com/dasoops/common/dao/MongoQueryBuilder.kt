@@ -133,11 +133,25 @@ open class MongoQueryBuilder {
     }
 
     /**
+     * 之间
+     */
+    fun between(column: String, minValue: Any, maxValue: Any) {
+        query.addCriteria(Criteria.where(column).gte(minValue).lte(maxValue))
+    }
+
+    /**
+     * 之间
+     */
+    fun <R : Any> between(func: KProperty1<*, R>, minValue: Any, maxValue: Any) {
+        this.between(SqlSelectBuilder.build(func), minValue, maxValue)
+    }
+
+    /**
      * orderBy 升序
      * @param [entityClass] 实体类
      * @param [func] 降序字段
      */
-    fun <T : BaseMongoDo, S> orderBy(entityClass: Class<T>, func: java.util.function.Function<*, S>) {
+    fun <T : BaseMongoDo, S> orderBy(entityClass: Class<T>, func: java.util.function.Function<T, S>) {
         query.with(Sort.sort(entityClass).by(func))
     }
 
@@ -146,7 +160,7 @@ open class MongoQueryBuilder {
      * @param [entityClass] 实体类
      * @param [func] 升序字段
      */
-    fun <T : BaseMongoDo, S> orderByDesc(entityClass: Class<T>, func: java.util.function.Function<*, S>) {
+    fun <T : BaseMongoDo, S> orderByDesc(entityClass: Class<T>, func: java.util.function.Function<T, S>) {
         query.with(Sort.sort(entityClass).by(func).descending())
     }
 

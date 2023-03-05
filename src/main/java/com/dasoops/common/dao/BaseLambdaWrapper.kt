@@ -5,7 +5,7 @@ import kotlin.reflect.KProperty1
 
 abstract class BaseLambdaWrapper<T : BaseMongoDo, Children : BaseLambdaWrapper<T, Children>> {
 
-    val builder = MongoQueryBuilder<T>()
+    val builder = MongoQueryBuilder()
     protected val typethis = this as Children
 
     /**
@@ -117,6 +117,22 @@ abstract class BaseLambdaWrapper<T : BaseMongoDo, Children : BaseLambdaWrapper<T
      */
     fun `in`(column: String, value: Collection<Any>): Children {
         builder.`in`(column, *value.toTypedArray())
+        return typethis
+    }
+
+    /**
+     * 包含
+     */
+    fun <R : Any> between(func: KProperty1<*, R>, minValue: Any, maxValue: Any): Children {
+        builder.between(func, minValue, maxValue)
+        return typethis
+    }
+
+    /**
+     * 包含
+     */
+    fun between(column: String, minValue: Any, maxValue: Any): Children {
+        builder.between(column, minValue, maxValue)
         return typethis
     }
 }

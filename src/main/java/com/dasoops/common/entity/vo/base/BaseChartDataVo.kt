@@ -1,10 +1,8 @@
-package com.dasoops.common.entity.vo.base;
+package com.dasoops.common.entity.vo.base
 
-import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
-import java.util.List;
+import io.swagger.annotations.ApiModelProperty
+import lombok.Data
+import lombok.EqualsAndHashCode
 
 /**
  * @title BaseChartDataDto
@@ -14,14 +12,10 @@ import java.util.List;
  * @version 1.0.0
  * @description 图表数据vo基类
  */
-@EqualsAndHashCode(callSuper = true)
-@Data
-public abstract class BaseChartDataVo extends BaseVo{
-
+abstract class BaseChartDataVo(
     /**
      * 索引
      */
     @ApiModelProperty(value = "索引", notes = "索引", example = "[\"1月1日\",\"1月2日\"]", required = true)
-    private List<String> indexList;
-
-}
+    open val indexList: List<String>
+) : BaseVo()
