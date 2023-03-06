@@ -9,6 +9,7 @@ import com.dasoops.common.exception.CustomException;
 import com.dasoops.common.exception.DataResolverExceptionEnum;
 import com.dasoops.common.exception.NoRecordException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanInstantiationException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -36,6 +37,17 @@ public abstract class BaseExceptionHandler {
     @ExceptionHandler(NoRecordException.class)
     public Result<Object> catchNoRecordException(NoRecordException e) {
         return Result.success(new SimplePageVo<BaseInnerVo>(0, Collections.emptyList()));
+    }
+
+    /**
+     * 消息解析异常处理
+     *
+     * @param e e
+     */
+    @ExceptionHandler(BeanInstantiationException.class)
+    public SimpleResult catchBeanInstantiationException(BeanInstantiationException e) {
+        log.error("缺少必填参数: ", e);
+        return SimpleResult.fail(DataResolverExceptionEnum.MISSING_REQUIRED_PARAM);
     }
 
     /**
