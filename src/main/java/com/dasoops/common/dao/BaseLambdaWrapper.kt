@@ -135,4 +135,39 @@ abstract class BaseLambdaWrapper<T : BaseMongoDo, Children : BaseLambdaWrapper<T
         builder.between(column, minValue, maxValue)
         return typethis
     }
+
+    /**
+     * orderByAsc 升序
+     * @param [column] 字段
+     */
+    fun orderBy(column: String): Children {
+        builder.orderByAsc(column)
+        return typethis
+    }
+
+    /**
+     * orderByAsc 升序
+     * @param [func] 字段
+     */
+    fun <R : Any> orderBy(func: KProperty1<T, R>): Children {
+        builder.orderByAsc(func)
+        return typethis
+    }
+
+    /**
+     * orderByDesc 降序
+     */
+    fun <R : Any> orderByDesc(func: KProperty1<T, R>): Children {
+        builder.orderByDesc(func)
+        return typethis
+    }
+
+    /**
+     * orderByDesc 降序
+     * @param [column] 列
+     */
+    fun <S> orderByDesc(column: String): Children {
+        builder.orderByDesc(column)
+        return typethis
+    }
 }

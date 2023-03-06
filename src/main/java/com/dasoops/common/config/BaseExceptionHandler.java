@@ -78,7 +78,7 @@ public abstract class BaseExceptionHandler {
      */
     @ExceptionHandler(CustomException.class)
     public SimpleResult catchLogicException(CustomException e) {
-        log.error("catch LogicException: ", e);
+        log.error("catch CustomException: ",  e);
         return SimpleResult.fail(e.getExceptionEnum());
     }
 

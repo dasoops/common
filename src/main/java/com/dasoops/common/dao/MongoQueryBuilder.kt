@@ -148,20 +148,34 @@ open class MongoQueryBuilder {
 
     /**
      * orderBy 升序
-     * @param [entityClass] 实体类
-     * @param [func] 降序字段
+     * @param [column] 字段
      */
-    fun <T : BaseMongoDo, S> orderBy(entityClass: Class<T>, func: java.util.function.Function<T, S>) {
-        query.with(Sort.sort(entityClass).by(func))
+    fun orderByAsc(column: String) {
+        query.with(Sort.by(Sort.Direction.ASC, column))
+    }
+
+    /**
+     * orderBy 升序
+     * @param [func] 字段
+     */
+    fun <R : Any> orderByAsc(func: KProperty1<*, R>) {
+        this.orderByAsc(SqlSelectBuilder.build(func))
     }
 
     /**
      * orderBy 降序
-     * @param [entityClass] 实体类
-     * @param [func] 升序字段
+     * @param [column] 字段
      */
-    fun <T : BaseMongoDo, S> orderByDesc(entityClass: Class<T>, func: java.util.function.Function<T, S>) {
-        query.with(Sort.sort(entityClass).by(func).descending())
+    fun orderByDesc(column: String) {
+        query.with(Sort.by(Sort.Direction.DESC, column))
+    }
+
+    /**
+     * orderBy 降序
+     * @param [func] 字段
+     */
+    fun <R : Any> orderByDesc(func: KProperty1<*, R>) {
+        this.orderByDesc(SqlSelectBuilder.build(func))
     }
 
     fun build(): Query {
