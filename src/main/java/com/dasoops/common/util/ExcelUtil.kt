@@ -4,8 +4,8 @@ import com.alibaba.excel.EasyExcel
 import com.alibaba.excel.ExcelWriter
 import com.alibaba.excel.write.metadata.WriteSheet
 import com.alibaba.excel.write.style.column.LongestMatchColumnWidthStyleStrategy
-import com.dasoops.common.util.export.ExportInfo
 import com.dasoops.common.util.export.ExportExceptionEnum
+import com.dasoops.common.util.export.ExportInfo
 import com.dasoops.common.util.export.ExportUtil
 import org.slf4j.LoggerFactory
 import java.io.IOException
@@ -17,6 +17,19 @@ class ExcelUtil {
     companion object {
 
         private val log = LoggerFactory.getLogger(this::class.java);
+
+        /**
+         * 简单导出(自动提取基类)
+         * 仅支持kt
+         *
+         * @param [response] response
+         * @param [dataList] 数据集合
+         */
+
+        @JvmSynthetic
+        inline fun <reified T> ktSimpleExport(response: HttpServletResponse, dataList: List<T>) {
+            simpleExport(response, dataList, "default")
+        }
 
         /**
          * 简单导出(自动提取基类)
