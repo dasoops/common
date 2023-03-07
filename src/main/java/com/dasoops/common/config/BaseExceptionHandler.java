@@ -35,8 +35,8 @@ public abstract class BaseExceptionHandler {
      * @param e e
      */
     @ExceptionHandler(NoRecordException.class)
-    public Result<Object> catchNoRecordException(NoRecordException e) {
-        return Result.success(new SimplePageVo<BaseInnerVo>(0, Collections.emptyList()));
+    public SimpleResult catchNoRecordException(NoRecordException e) {
+        return SimpleResult.fail(ExceptionEnum.NO_RECORD);
     }
 
     /**
