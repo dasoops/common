@@ -1,6 +1,5 @@
 package com.dasoops.common.exception
 
-import com.dasoops.common.entity.enums.exception.ExceptionEnum
 import com.dasoops.common.entity.enums.exception.IExceptionEnum
 
 /**
@@ -14,6 +13,7 @@ import com.dasoops.common.entity.enums.exception.IExceptionEnum
  */
 enum class ProjectExceptionEnum(private val msg: String) : IExceptionEnum {
     NO_AUTH("没有权限这样操作"),
+    UN_EXPECTED("预期外的异常"),
     NO_RECORD("没有查询到数据"),
     ;
 
@@ -32,5 +32,6 @@ enum class ProjectExceptionEnum(private val msg: String) : IExceptionEnum {
 
 open class ProjectException(exceptionEnum: ProjectExceptionEnum) : CustomException(exceptionEnum)
 
-object UnexpectedException : CustomException(ExceptionEnum.UN_EXPECTED)
-object NoRecordException : CustomException(ExceptionEnum.NO_RECORD)
+object UnexpectedException : CustomException(ProjectExceptionEnum.UN_EXPECTED)
+object NoRecordException : CustomException(ProjectExceptionEnum.NO_RECORD)
+object NoAuthException : CustomException(ProjectExceptionEnum.NO_AUTH)
