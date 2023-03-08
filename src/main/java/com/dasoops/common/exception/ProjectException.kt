@@ -30,7 +30,7 @@ enum class ProjectExceptionEnum(private val msg: String) : IExceptionEnum {
     }
 }
 
-class ProjectException(exceptionEnum: ProjectExceptionEnum) : CustomException(exceptionEnum)
+open class ProjectException(exceptionEnum: ProjectExceptionEnum) : CustomException(exceptionEnum)
 
 object UnexpectedException : CustomException(ExceptionEnum.UN_EXPECTED)
 object NoRecordException : CustomException(ExceptionEnum.NO_RECORD)
