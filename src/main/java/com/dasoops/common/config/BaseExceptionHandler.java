@@ -1,13 +1,10 @@
 package com.dasoops.common.config;
 
 import com.dasoops.common.entity.enums.exception.ExceptionEnum;
-import com.dasoops.common.entity.result.Result;
 import com.dasoops.common.entity.result.SimpleResult;
-import com.dasoops.common.entity.vo.base.BaseInnerVo;
-import com.dasoops.common.entity.vo.base.SimplePageVo;
 import com.dasoops.common.exception.CustomException;
 import com.dasoops.common.exception.DataResolverExceptionEnum;
-import com.dasoops.common.exception.NoRecordException;
+import com.dasoops.common.exception.ProjectException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanInstantiationException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -15,8 +12,6 @@ import org.springframework.validation.BindException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import java.util.Collections;
 
 /**
  * @author DasoopsNicole@Gmail.com
@@ -29,14 +24,16 @@ import java.util.Collections;
 @Slf4j
 @RestControllerAdvice
 public abstract class BaseExceptionHandler {
+
     /**
-     * 自定义异常处理
+     * 消息解析异常处理
      *
      * @param e e
      */
-    @ExceptionHandler(NoRecordException.class)
-    public SimpleResult catchNoRecordException(NoRecordException e) {
-        return SimpleResult.fail(ExceptionEnum.NO_RECORD);
+    @ExceptionHandler(ProjectException.class)
+    public SimpleResult catchProjectException(ProjectException e) {
+        log.error("项目内部异常: ", e);
+        return SimpleResult.fail(e.getExceptionEnum());
     }
 
     /**
@@ -89,8 +86,8 @@ public abstract class BaseExceptionHandler {
      * @param e e
      */
     @ExceptionHandler(CustomException.class)
-    public SimpleResult catchLogicException(CustomException e) {
-        log.error("catch CustomException: ",  e);
+    public SimpleResult catchCustomException(CustomException e) {
+        log.error("catch CustomException: ", e);
         return SimpleResult.fail(e.getExceptionEnum());
     }
 
