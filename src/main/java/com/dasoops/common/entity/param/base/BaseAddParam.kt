@@ -1,6 +1,6 @@
-package com.dasoops.common.entity.param.base;
+package com.dasoops.common.entity.param.base
 
-import com.dasoops.common.entity.dbo.base.BaseDo;
+import com.dasoops.common.entity.dbo.base.BaseDo
 
 /**
  * @title BaseAddParam
@@ -11,5 +11,4 @@ import com.dasoops.common.entity.dbo.base.BaseDo;
  * @description 新增param基类
  * @see BaseFastBuildParam
  */
-public abstract class BaseAddParam<T extends BaseDo> extends BaseFastBuildParam<T> {
-}
+abstract class BaseAddParam<T : BaseDo> : BaseFastBuildParam<T>()

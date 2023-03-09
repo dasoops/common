@@ -1,4 +1,4 @@
-package com.dasoops.common.entity.param.base;
+package com.dasoops.common.entity.param.base
 
 /**
  * @title BaseParam
@@ -8,5 +8,4 @@ package com.dasoops.common.entity.param.base;
  * @version 1.0.0
  * @description param基类
  */
-public abstract class BaseParam implements IParam {
-}
+abstract class BaseParam : IParam

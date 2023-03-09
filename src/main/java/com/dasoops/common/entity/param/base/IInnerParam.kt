@@ -1,6 +1,4 @@
-package com.dasoops.common.entity.param.base;
-
-import java.io.Serializable;
+package com.dasoops.common.entity.param.base
 
 /**
  * @author DasoopsNicole@Gmail.com
@@ -11,5 +9,4 @@ import java.io.Serializable;
  * @description 内部Param顶层接口
  * @see Serializable
  */
-public interface IInnerParam extends IParam {
-}
+interface IInnerParam : IParam

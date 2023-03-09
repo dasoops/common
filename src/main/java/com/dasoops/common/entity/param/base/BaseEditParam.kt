@@ -1,6 +1,6 @@
-package com.dasoops.common.entity.param.base;
+package com.dasoops.common.entity.param.base
 
-import com.dasoops.common.entity.dbo.base.BaseDo;
+import com.dasoops.common.entity.dbo.base.BaseDo
 
 /**
  * @title BaseEditParam
@@ -11,7 +11,4 @@ import com.dasoops.common.entity.dbo.base.BaseDo;
  * @description 编辑param基类
  * @see BaseFastBuildParam
  */
-public abstract class BaseDeleteParam<T extends BaseDo> extends BaseEditAndDeleteParam<T> {
-
-
-}
+abstract class BaseEditParam<T : BaseDo>(rowId: Long) : BaseEditAndDeleteParam<T>(rowId), IBuildDo<T>
