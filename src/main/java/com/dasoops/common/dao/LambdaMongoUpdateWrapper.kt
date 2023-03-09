@@ -15,7 +15,7 @@ import org.springframework.data.mongodb.core.MongoTemplate
 open class LambdaMongoUpdateWrapper<T : BaseMongoDo>(
     private val template: MongoTemplate,
     private val entityClass: Class<T>
-) : LambdaMongoQueryWrapper<T>(template, entityClass) {
+) :  BaseLambdaWrapper<T, LambdaMongoQueryWrapper<T>>() {
 
     fun remove() {
         template.remove(builder.build(), entityClass)
