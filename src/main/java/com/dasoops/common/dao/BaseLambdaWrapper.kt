@@ -170,4 +170,15 @@ abstract class BaseLambdaWrapper<T : BaseMongoDo, Children : BaseLambdaWrapper<T
         builder.orderByDesc(column)
         return typethis
     }
+
+    fun limit(limit: Int): Children {
+        builder.limit(limit)
+        return typethis
+    }
+
+    fun skip(skip: Long): Children {
+        builder.skip(skip)
+        return typethis
+    }
+
 }

@@ -9,8 +9,4 @@ abstract class SimpleMongoMapperImpl<T : BaseMongoDo>(
     fun lambdaQuery(): LambdaMongoQueryWrapper<T> {
         return LambdaMongoQueryWrapper(mongoTemplate, entityClass)
     }
-
-    fun lambdaUpdate(): LambdaMongoUpdateWrapper<T> {
-        return LambdaMongoUpdateWrapper(mongoTemplate, entityClass)
-    }
 }

@@ -1,6 +1,5 @@
 package com.dasoops.common.dao
 
-import com.dasoops.common.entity.dbo.base.BaseMongoDo
 import com.dasoops.common.util.SqlSelectBuilder
 import org.springframework.data.domain.Sort
 import org.springframework.data.mongodb.core.query.Criteria
@@ -23,15 +22,15 @@ open class MongoQueryBuilder {
     /**
      * 相等
      */
-    fun <R : Any> eq(func: KProperty1<*, R>, value: R) {
-        this.eq(SqlSelectBuilder.build(func), value)
+    fun eq(column: String, value: Any) {
+        query.addCriteria(Criteria.where(column).`is`(value))
     }
 
     /**
      * 相等
      */
-    fun eq(column: String, value: Any) {
-        query.addCriteria(Criteria.where(column).`is`(value))
+    fun <R : Any> eq(func: KProperty1<*, R>, value: R) {
+        this.eq(SqlSelectBuilder.build(func), value)
     }
 
     /**
@@ -176,6 +175,22 @@ open class MongoQueryBuilder {
      */
     fun <R : Any> orderByDesc(func: KProperty1<*, R>) {
         this.orderByDesc(SqlSelectBuilder.build(func))
+    }
+
+    /**
+     * 查询条数
+     * @param [limit] 限制
+     */
+    fun limit(limit: Int) {
+        query.limit(limit)
+    }
+
+    /**
+     * 跳过记录
+     * @param [skip] 跳过
+     */
+    fun skip(skip: Long) {
+        query.skip(skip)
     }
 
     fun build(): Query {
