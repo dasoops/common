@@ -2,6 +2,7 @@ package com.dasoops.common.cache.v2.base
 
 import com.dasoops.common.util.json.toJsonStr
 import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 interface CacheLogger {
 
@@ -9,6 +10,7 @@ interface CacheLogger {
      * 日志操作类
      */
     val log: Logger
+        get() = LoggerFactory.getLogger(javaClass)
 
     /**
      * key

@@ -14,12 +14,6 @@ abstract class CacheImpl<Entity : Any>(
     override val keyStr: String
 ) : Cache<Entity>, AutoInit, CacheLogger {
 
-    override val log: Logger = LoggerFactory.getLogger(javaClass)
-
-    override fun keyStr: String {
-        return keyStr
-    }
-
     override fun init() {
         clear()
     }

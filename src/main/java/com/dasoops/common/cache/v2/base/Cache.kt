@@ -25,10 +25,6 @@ interface Cache<Entity : Any> : CacheOrFactory {
      */
     val keyStr: String
 
-    fun keyStr: String {
-        return keyStr
-    }
-
     /**
      * 设置值
      * @param [data] 数据
