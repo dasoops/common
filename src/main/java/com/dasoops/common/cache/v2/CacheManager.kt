@@ -31,7 +31,8 @@ abstract class CacheManager : AutoInit {
 
     open fun createSimpleCache() = simple { }
 
-    open fun createGroupCache() = group { }
+    open fun createGroupCache() = group {
+    }
 
     fun simple(func: SimpleCacheBuilderDsl.() -> Unit): Unit = SimpleCacheBuilderDsl(redis).func()
 

@@ -13,7 +13,7 @@ class HashFactoryBuilder<HK : Any, HV : Any>(
     private val hashKeyClass: Class<HK>,
     private val hashValueClass: Class<HV>,
 ) : FactoryBuilder {
-    internal fun <Key : Any> getBy(keyClass: Class<Key>, keyConverter: Converter<Key, String> = DefaultToStringConvert()): HashFactory<Key, HK, HV> {
+    fun <Key : Any> getBy(keyClass: Class<Key>, keyConverter: Converter<Key, String> = DefaultToStringConvert()): HashFactory<Key, HK, HV> {
         return HashFactory(redis, keyStr, hashKeyClass, hashValueClass, keyConverter).apply { CacheManager.cacheList.add(this) }
     }
 }

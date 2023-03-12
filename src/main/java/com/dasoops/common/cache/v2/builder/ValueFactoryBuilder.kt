@@ -12,7 +12,7 @@ class ValueFactoryBuilder<Entity : Any>(
     private val keyStr: String,
     private val entityClass: Class<Entity>
 ) : FactoryBuilder {
-    internal fun <Key : Any> getBy(keyClass: Class<Key>, keyConverter: Converter<Key, String> = DefaultToStringConvert()): ValueFactory<Key, Entity> {
+    fun <Key : Any> getBy(keyClass: Class<Key>, keyConverter: Converter<Key, String> = DefaultToStringConvert()): ValueFactory<Key, Entity> {
         return ValueFactory(redis, keyStr, entityClass, keyConverter).apply { CacheManager.cacheList.add(this) }
     }
 }
