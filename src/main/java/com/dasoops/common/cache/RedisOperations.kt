@@ -2,7 +2,7 @@ package com.dasoops.common.cache
 
 import cn.hutool.core.lang.func.VoidFunc0
 import cn.hutool.core.util.StrUtil
-import com.dasoops.common.extension.toJsonStr
+import com.dasoops.common.util.json.toJsonStr
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.data.redis.connection.DataType

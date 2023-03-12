@@ -1,6 +1,7 @@
 package com.dasoops.common.task
 
 import com.dasoops.common.cache.ICache
+import com.dasoops.common.cache.v2.CacheManager
 import com.dasoops.common.service.IService
 import kotlinx.coroutines.*
 import org.springframework.context.ApplicationContext
@@ -21,6 +22,7 @@ open class InitTask : ITask, ApplicationContextAware {
     private var cacheSet: HashSet<AutoInit> = HashSet()
     private var serviceSet: HashSet<AutoInit> = HashSet()
     private var otherSet: HashSet<AutoInit> = HashSet()
+    private var cacheManager: CacheManager? = null
 
     /**
      * 设置应用程序上下文
@@ -31,6 +33,7 @@ open class InitTask : ITask, ApplicationContextAware {
 
         autoInitMap.values.forEach {
             when (it) {
+                is CacheManager -> cacheManager = it
                 is ICache -> cacheSet.add(it)
                 is IService -> serviceSet.add(it)
                 else -> otherSet.add(it)
@@ -43,16 +46,17 @@ open class InitTask : ITask, ApplicationContextAware {
      */
     @PostConstruct
     fun init() {
+        cacheManager?.run { init(this) }
         //缓存初始化
-        init(cacheSet)
+        init(*cacheSet.toTypedArray())
         //服务层初始化
-        init(serviceSet)
+        init(*serviceSet.toTypedArray())
         //其余初始化
-        init(otherSet)
+        init(*otherSet.toTypedArray())
         InitGlobal.inInitialize = false
     }
 
-    fun init(needInitSet: Set<AutoInit>) = runBlocking {
-        needInitSet.map { it.init() }
+    fun init(vararg autoInit: AutoInit) = runBlocking {
+        autoInit.map { it.init() }
     }
 }

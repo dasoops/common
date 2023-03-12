@@ -1,6 +1,4 @@
-package com.dasoops.common.extension
-
-import com.dasoops.common.util.json.Json
+package com.dasoops.common.util.json
 
 fun Any.toJsonStr(): String {
     return Json.toJsonStr(this)

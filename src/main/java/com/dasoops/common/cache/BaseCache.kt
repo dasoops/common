@@ -5,7 +5,7 @@ import cn.hutool.core.util.StrUtil
 import cn.hutool.core.util.TypeUtil
 import com.dasoops.common.entity.enums.cache.ICacheKeyEnum
 import com.dasoops.common.exception.BaseCacheExceptionEnum
-import com.dasoops.common.extension.toJsonStr
+import com.dasoops.common.util.json.toJsonStr
 import com.dasoops.common.task.AutoInit
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeoutOrNull

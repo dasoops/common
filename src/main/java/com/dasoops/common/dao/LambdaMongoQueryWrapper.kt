@@ -1,7 +1,6 @@
 package com.dasoops.common.dao
 
 import com.baomidou.mybatisplus.core.metadata.IPage
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page
 import com.dasoops.common.entity.dbo.base.BaseMongoDo
 import org.springframework.data.mongodb.core.MongoTemplate
 
@@ -72,11 +71,13 @@ open class LambdaMongoQueryWrapper<T : BaseMongoDo>(
     fun listMerge(vararg collectionNameArray: String): List<T>? {
         val otherCollectionRecords = collectionNameArray.mapNotNull {
             this.list(it)
-        }.ifEmpty { return null }.flatten()
+        }.flatten()
         //合并 主表有记录就主表添加副表,不然就只返回副表
-        return this.list()?.apply {
+        val dataList = this.list()?.apply {
             toMutableList().addAll(otherCollectionRecords)
         } ?: otherCollectionRecords
+
+        return dataList.ifEmpty { null }
     }
 
     /**
