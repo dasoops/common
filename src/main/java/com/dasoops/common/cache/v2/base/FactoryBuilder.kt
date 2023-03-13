@@ -6,5 +6,4 @@ package com.dasoops.common.cache.v2.base
  * @date 2023/03/12
  * @see [FactoryBuilder]
  */
-interface FactoryBuilder {
-}
+interface FactoryBuilder

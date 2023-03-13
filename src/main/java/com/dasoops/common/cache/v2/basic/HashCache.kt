@@ -43,4 +43,11 @@ interface HashCache<K : Any, V : Any> : Cache<Map<K, V>> {
      * @param [hashKey] 散列键
      */
     fun remove4Key(hashKey: K): Boolean
+
+    /**
+     * 获取
+     * @param [hashKey] 散列键
+     * @return [V?]
+     */
+    fun get(hashKey: K): V?
 }

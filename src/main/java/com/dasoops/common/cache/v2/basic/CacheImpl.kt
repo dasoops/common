@@ -1,46 +1,50 @@
 package com.dasoops.common.cache.v2.basic
 
-import cn.hutool.core.lang.func.VoidFunc0
-import com.dasoops.common.cache.v2.base.CacheLogger
+import cn.hutool.core.lang.func.Func0
 import com.dasoops.common.cache.v2.base.Cache
+import com.dasoops.common.cache.v2.base.CacheTemplate
+import com.dasoops.common.cache.v2.base.SimpleCacheLogger
 import com.dasoops.common.task.AutoInit
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
-import org.springframework.data.redis.core.StringRedisTemplate
+import org.springframework.data.redis.core.RedisOperations
+import org.springframework.data.redis.core.SessionCallback
 import java.util.concurrent.TimeUnit
 
 abstract class CacheImpl<Entity : Any>(
-    override val redis: StringRedisTemplate,
-    override val keyStr: String
-) : Cache<Entity>, AutoInit, CacheLogger {
+    protected open val redis: CacheTemplate,
+    protected open val keyStr: String
+) : Cache<Entity>, AutoInit, SimpleCacheLogger {
 
     override fun init() {
         clear()
     }
 
     override fun clear() {
-        redis.delete(keyStr).apply { andLog("clear", this) }
+        redis.delete(keyStr).apply { andLog("clear", keyStr, this) }
     }
 
     override fun isEmpty(): Boolean {
-        return redis.hasKey(keyStr).apply { andLog("isEmpty", this) }
+        return redis.hasKey(keyStr).apply { andLog("isEmpty", keyStr, this) }
     }
 
     override fun isPresent(): Boolean {
-        return redis.hasKey(keyStr).apply { andLog("isPresent", this) }
+        return redis.hasKey(keyStr).apply { andLog("isPresent", keyStr, this) }
     }
 
     override fun expire(timeout: Long, timeUnit: TimeUnit): Boolean {
-        return redis.expire(keyStr, timeout, timeUnit).apply { andLog("isPresent", this) }
+        return redis.expire(keyStr, timeout, timeUnit).andLog("isPresent", keyStr, this)
     }
 
-    override fun transaction(func: VoidFunc0) {
-        andLog("transaction begin", "none")
-        redis.setEnableTransactionSupport(true)
-        redis.multi()
-        func.callWithRuntimeException()
-        redis.exec()
-        redis.setEnableTransactionSupport(false)
-        andLog("transaction begin", "none")
+    override fun <R> transaction(func: Func0<R>): R {
+        log("transaction begin", keyStr, "none")
+        val result = redis.execute(object : SessionCallback<R> {
+            override fun <K : Any?, V : Any?> execute(operations: RedisOperations<K, V>): R? {
+                operations.multi()
+                val call = func.call()
+                operations.exec()
+                return call
+            }
+        })
+        log("transaction end", keyStr, "none")
+        return result
     }
 }

@@ -5,10 +5,12 @@ import com.dasoops.common.cache.v2.builder.HashFactoryBuilder
 import com.dasoops.common.cache.v2.builder.ListFactoryBuilder
 import com.dasoops.common.cache.v2.builder.ValueFactoryBuilder
 import com.dasoops.common.cache.v2.base.CacheFactory
+import com.dasoops.common.cache.v2.base.CacheTemplate
 import com.dasoops.common.cache.v2.factory.CacheFactoryImpl
+import org.springframework.core.convert.converter.Converter
 import org.springframework.data.redis.core.StringRedisTemplate
 
-class GroupCacheBuilderDsl internal constructor(val redis: StringRedisTemplate) {
+class GroupCacheBuilderDsl internal constructor(val redis: CacheTemplate) {
     inline fun <reified Entity : Any> list(keyStr: String, entityClass: Class<Entity> = Entity::class.java): ListFactoryBuilder<Entity> {
         return ListFactoryBuilder(redis, keyStr, entityClass)
     }
@@ -21,7 +23,10 @@ class GroupCacheBuilderDsl internal constructor(val redis: StringRedisTemplate) 
         return HashFactoryBuilder(redis, keyStr, keyClass, valueClass)
     }
 
-    inline fun <reified Key : Any, InnerKey : Any, Inner : CacheOrFactory> CacheFactory<InnerKey, Inner>.getBy(keyClass: Class<Key>): CacheFactory<Key, CacheFactory<InnerKey, Inner>> {
-        return CacheFactoryImpl(this)
+    inline fun <reified Key : Any, InnerKey : Any, Inner : CacheOrFactory> CacheFactory<InnerKey, Inner>.getBy(
+        keyClass: Class<Key>,
+        keyConverter: Converter<Key, String>
+    ): CacheFactory<Key, CacheFactory<InnerKey, Inner>> {
+        return CacheFactoryImpl(this, keyConverter)
     }
 }

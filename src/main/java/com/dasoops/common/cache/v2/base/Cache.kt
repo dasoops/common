@@ -1,7 +1,6 @@
 package com.dasoops.common.cache.v2.base
 
-import cn.hutool.core.lang.func.VoidFunc0
-import org.springframework.data.redis.core.StringRedisTemplate
+import cn.hutool.core.lang.func.Func0
 import java.util.concurrent.TimeUnit
 
 /**
@@ -14,16 +13,6 @@ import java.util.concurrent.TimeUnit
  * @see [Cache]
  */
 interface Cache<Entity : Any> : CacheOrFactory {
-
-    /**
-     * 操作类
-     */
-    val redis: StringRedisTemplate
-
-    /**
-     * keyStr
-     */
-    val keyStr: String
 
     /**
      * 设置值
@@ -64,6 +53,7 @@ interface Cache<Entity : Any> : CacheOrFactory {
     /**
      * 开始事务
      * @param [func] 函数
+     * @return [R]
      */
-    fun transaction(func: VoidFunc0)
+    fun <R> transaction(func: Func0<R>): R
 }

@@ -1,5 +1,6 @@
 package com.dasoops.common.cache.v2.basic.impl
 
+import com.dasoops.common.cache.v2.base.CacheTemplate
 import com.dasoops.common.cache.v2.basic.CacheImpl
 import com.dasoops.common.cache.v2.basic.HashCache
 import com.dasoops.common.extension.mapTo
@@ -18,10 +19,10 @@ import org.springframework.data.redis.core.StringRedisTemplate
  * @see [HashCacheImpl]
  */
 open class HashCacheImpl<K : Any, V : Any>(
-    override val redis: StringRedisTemplate,
+    override val redis: CacheTemplate,
     override val keyStr: String,
-    open val keyClass: Class<K>,
-    open val valueClass: Class<V>,
+    protected val keyClass: Class<K>,
+    protected val valueClass: Class<V>,
 ) : CacheImpl<Map<K, V>>(redis, keyStr), HashCache<K, V> {
 
     fun ops(): HashOperations<String, String, String> = redis.opsForHash()
@@ -37,35 +38,42 @@ open class HashCacheImpl<K : Any, V : Any>(
         return entries()
     }
 
+    override fun get(hashKey: K): V? {
+        return ops()
+            .get(keyStr, hashKey)
+            .andLog("get", keyStr)
+            ?.parse(valueClass)
+    }
+
     override fun entries(): Map<K, V>? {
         return ops()
             .entries(keyStr)
-            .apply { andLog("entries", this) }
+            .andLog("entries", keyStr)
             .mapTo({ it.key.parse(keyClass) }, { it.value.parse(valueClass) })
             .ifEmpty { null }
     }
 
     override fun put(valueMap: Map<K, V>) {
         return ops()
-            .putAll(keyStr, valueMap.mapTo({ it.key.toJsonStr() }, { it.value.toJsonStr() }))
-            .apply { andLog("put(valueMap)", this, valueMap) }
+            .putAll(keyStr, valueMap.mapTo({ it.key.toString() }, { it.value.toJsonStr() }))
+            .andLog("put(valueMap)", keyStr, valueMap)
     }
 
     override fun put(hashKey: K, value: V) {
         return ops()
-            .put(keyStr, hashKey.toJsonStr(), value.toJsonStr())
-            .apply { andLog("put(hashKey,value)", this, hashKey, value) }
+            .put(keyStr, hashKey.toString(), value.toJsonStr())
+            .andLog("put(hashKey,value)", keyStr, hashKey, value)
     }
 
     override fun hasHashKey(hashKey: K): Boolean {
         return ops()
-            .hasKey(keyStr, hashKey.toJsonStr())
-            .apply { andLog("hasHashKey", this, hashKey) }
+            .hasKey(keyStr, hashKey.toString())
+            .andLog("hasHashKey", keyStr, hashKey)
     }
 
     override fun remove4Key(hashKey: K): Boolean {
         return ops()
-            .hasKey(keyStr, hashKey.toJsonStr())
-            .apply { andLog("remove4Key", this, hashKey.toJsonStr()) }
+            .hasKey(keyStr, hashKey.toString())
+            .andLog("remove4Key", keyStr, hashKey.toJsonStr())
     }
 }

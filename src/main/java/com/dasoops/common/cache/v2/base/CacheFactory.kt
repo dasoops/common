@@ -20,7 +20,7 @@ interface CacheFactory<Key : Any, Inner : CacheOrFactory> : CacheOrFactory {
      * @param [key] 关键
      * @return [Inner]
      */
-    fun get(key: Key?): Inner
+    fun get(key: Key): Inner
 
     /**
      * 键

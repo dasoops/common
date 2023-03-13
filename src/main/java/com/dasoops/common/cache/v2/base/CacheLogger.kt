@@ -4,13 +4,13 @@ import com.dasoops.common.util.json.toJsonStr
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-interface CacheLogger {
-
-    /**
-     * 日志操作类
-     */
-    val log: Logger
-        get() = LoggerFactory.getLogger(javaClass)
+/**
+ * 缓存日志记录器
+ * @author DasoopsNicole@Gmail.com
+ * @date 2023/03/12
+ * @see [CacheLogger]
+ */
+interface CacheLogger : SimpleCacheLogger {
 
     /**
      * key
@@ -22,7 +22,7 @@ interface CacheLogger {
      * @param [method] 方法
      * @param [result] 结果
      */
-    fun andLog(method: String, result: Any) {
+    fun log(method: String, result: Any) {
         log.debug("[cache] $keyStr $method -> ${result.toJsonStr()}")
     }
 
@@ -32,17 +32,8 @@ interface CacheLogger {
      * @param [result] 结果
      * @param [param] param
      */
-    fun andLog(method: String, result: Any, vararg param: Any) {
+    fun log(method: String, result: Any, vararg param: Any) {
         log.debug("[cache] $keyStr $method ${param.joinToString(",") { it.toJsonStr() }} -> ${result.toJsonStr()}")
-    }
-
-    /**
-     * 日志输出
-     * @param [method] 方法
-     * @param [keyStr] keyStr
-     */
-    fun andLog(method: String, keyStr: String, result: Any) {
-        log.debug("[cache] $keyStr $method -> ${result.toJsonStr()}")
     }
 
     /**
@@ -59,15 +50,6 @@ interface CacheLogger {
      * @param [method] 方法
      */
     fun <T : Any> T.andLog(method: String): T {
-        log.debug("[cache] $keyStr $method -> ${this.toJsonStr()}")
-        return this
-    }
-
-    /**
-     * 日志输出
-     * @param [method] 方法
-     */
-    fun <T : Any> T.andLog(method: String, keyStr: String): T {
         log.debug("[cache] $keyStr $method -> ${this.toJsonStr()}")
         return this
     }

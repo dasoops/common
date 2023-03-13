@@ -14,17 +14,17 @@ import org.springframework.core.convert.converter.Converter
  */
 open class CacheFactoryImpl<Key : Any, Inner : CacheFactory<*, out CacheOrFactory>>(
     private val inner: Inner,
-    override val keyConvert: Converter<Key, String> = DefaultToStringConvert(),
-) : CacheFactory<Key, Inner>, ConvertKey<Key> {
+    private val keyConvert: Converter<Key, String>,
+) : CacheFactory<Key, Inner> {
     override var innerKey: String? = null
 
     override fun keys(key: String): Collection<Cache<*>>? {
         return inner.keys("${innerKey ?: ""}:$key")
     }
 
-    override fun get(key: Key?): Inner {
+    override fun get(key: Key): Inner {
         return inner.apply {
-            innerKey = "${innerKey ?: ""}:${convert(key)}"
+            innerKey = "${innerKey ?: ""}:${keyConvert.convert(key)}"
         }
     }
 

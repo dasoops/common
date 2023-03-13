@@ -3,12 +3,15 @@ package com.dasoops.common.cache.v2
 import com.dasoops.common.cache.v2.base.Cache
 import com.dasoops.common.cache.v2.base.CacheFactory
 import com.dasoops.common.cache.v2.base.CacheOrFactory
+import com.dasoops.common.cache.v2.base.CacheTemplate
 import com.dasoops.common.cache.v2.builder.dsl.GroupCacheBuilderDsl
 import com.dasoops.common.cache.v2.builder.dsl.SimpleCacheBuilderDsl
 import com.dasoops.common.task.AutoInit
-import org.springframework.data.redis.core.StringRedisTemplate
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
+import org.springframework.boot.autoconfigure.condition.ConditionalOnSingleCandidate
+import org.springframework.context.annotation.Bean
+import org.springframework.data.redis.connection.RedisConnectionFactory
 import javax.annotation.Resource
-
 
 /**
  * 缓存管理器
@@ -21,8 +24,21 @@ import javax.annotation.Resource
  */
 abstract class CacheManager : AutoInit {
 
+    lateinit var cacheTemplate: CacheTemplate
+
     @Resource
-    lateinit var redis: StringRedisTemplate
+    open fun setCacheTemplate(redisConnectionFactory: RedisConnectionFactory) {
+        cacheTemplate = CacheTemplate(redisConnectionFactory)
+        cacheTemplate.setEnableTransactionSupport(true)
+        cacheTemplate.afterPropertiesSet()
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    @ConditionalOnSingleCandidate(
+        RedisConnectionFactory::class
+    )
+
 
     override fun init() {
         createSimpleCache()
@@ -34,9 +50,9 @@ abstract class CacheManager : AutoInit {
     open fun createGroupCache() = group {
     }
 
-    fun simple(func: SimpleCacheBuilderDsl.() -> Unit): Unit = SimpleCacheBuilderDsl(redis).func()
+    fun simple(func: SimpleCacheBuilderDsl.() -> Unit): Unit = SimpleCacheBuilderDsl(cacheTemplate).func()
 
-    fun group(func: GroupCacheBuilderDsl.() -> Unit): Unit = GroupCacheBuilderDsl(redis).func()
+    fun group(func: GroupCacheBuilderDsl.() -> Unit): Unit = GroupCacheBuilderDsl(cacheTemplate).func()
 
     fun clear() {
         cacheList.forEach {
