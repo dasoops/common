@@ -43,6 +43,7 @@ abstract class CacheManager(prefix: String = "") : AutoInit {
     override fun init() {
         createSimpleCache()
         createGroupCache()
+        clear()
     }
 
     open fun createSimpleCache() = simple { }
