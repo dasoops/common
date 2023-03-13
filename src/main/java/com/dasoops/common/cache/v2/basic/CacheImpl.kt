@@ -25,7 +25,7 @@ abstract class CacheImpl<Entity : Any>(
 ) : Cache<Entity>, AutoInit, SimpleCacheLogger {
 
     protected fun keyStr(): String {
-        return "${CacheManager.prefix}$keyStr"
+        return keyStr
     }
 
     override fun init() {
