@@ -29,7 +29,7 @@ enum class PointResloverExceptionEnum(private val msg: String) : IExceptionEnum 
         return msg
     }
 
-    override fun getException(): PointResloverException {
+    override fun get(): PointResloverException {
         return PointResloverException()
     }
 

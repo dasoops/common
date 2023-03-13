@@ -9,9 +9,9 @@ import com.dasoops.common.entity.enums.exception.IExceptionEnum
  * @author DasoopsNicole@Gmail.com
  * @date 2023/03/04
  * @version 1.0.0
- * @see [ProjectExceptionEnum]
+ * @see [ProjectException]
  */
-enum class ProjectExceptionEnum(private val msg: String) : IExceptionEnum {
+enum class ProjectException(private val msg: String) : IExceptionEnum {
     NO_AUTH("没有权限这样操作"),
     UN_EXPECTED("预期外的异常"),
     NO_RECORD("没有查询到数据"),
@@ -25,13 +25,13 @@ enum class ProjectExceptionEnum(private val msg: String) : IExceptionEnum {
         return msg
     }
 
-    override fun getException(): ProjectException {
-        return ProjectException(this)
+    override fun get(): ProjectExceptionEntity {
+        return ProjectExceptionEntity(this)
     }
 }
 
-open class ProjectException(exceptionEnum: IExceptionEnum) : CustomException(exceptionEnum)
+open class ProjectExceptionEntity(exceptionEnum: IExceptionEnum) : CustomException(exceptionEnum)
 
-object UnexpectedException : CustomException(ProjectExceptionEnum.UN_EXPECTED)
-object NoRecordException : CustomException(ProjectExceptionEnum.NO_RECORD)
-object NoAuthException : CustomException(ProjectExceptionEnum.NO_AUTH)
+object UnexpectedException : CustomException(ProjectException.UN_EXPECTED)
+object NoRecordException : CustomException(ProjectException.NO_RECORD)
+object NoAuthException : CustomException(ProjectException.NO_AUTH)

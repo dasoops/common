@@ -1,7 +1,7 @@
 package com.dasoops.common.config.serializer
 
 import com.dasoops.common.entity.enums.database.IDbColumnEnum
-import com.dasoops.common.exception.DataResolverExceptionEnum
+import com.dasoops.common.exception.DataResolverException
 import com.dasoops.common.util.dbcolumn.DbColumnUtil
 import org.springframework.core.convert.converter.Converter
 import org.springframework.core.convert.converter.ConverterFactory
@@ -22,7 +22,7 @@ open class StringToIDbColumnEnumConvertFactory : ConverterFactory<String, IDbCol
 
     private class StringToIDbColumnEnumConvert<T : IDbColumnEnum>(private val enumType: Class<out T>) : Converter<String, T> {
         override fun convert(source: String): T {
-            return DbColumnUtil.getBy(enumType, Integer.valueOf(source)) ?: throw DataResolverExceptionEnum.PARAMETER_RESLOVE_ERROR.exception
+            return DbColumnUtil.getBy(enumType, Integer.valueOf(source)) ?: throw DataResolverException.PARAMETER_RESLOVE_ERROR.get()
         }
     }
 }

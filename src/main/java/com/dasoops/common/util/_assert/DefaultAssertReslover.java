@@ -16,36 +16,36 @@ public class DefaultAssertReslover implements AssertReslover {
 
     @Override
     public void allMustNull() {
-        throw new CustomException(AssertExceptionEnum.PARAMETER_IS_NULL);
+        throw new CustomException(AssertException.PARAMETER_IS_NULL);
     }
 
     @Override
     public void allMustNotNull() {
-        throw new CustomException(AssertExceptionEnum.PARAMETER_NOT_NULL);
+        throw new CustomException(AssertException.PARAMETER_NOT_NULL);
     }
 
     @Override
     public void isTrue() {
-        throw new CustomException(AssertExceptionEnum.IS_TRUE);
+        throw new CustomException(AssertException.IS_TRUE);
     }
 
     @Override
     public void isFalse() {
-        throw new CustomException(AssertExceptionEnum.IS_FALSE);
+        throw new CustomException(AssertException.IS_FALSE);
     }
 
     @Override
     public void dbExecuteMustSuccess() {
-        throw new CustomException(AssertExceptionEnum.DB_EXECUTE_FAILED);
+        throw new CustomException(AssertException.DB_EXECUTE_FAILED);
     }
 
     @Override
     public void dbExecuteReturnMustNotNull() {
-        throw new CustomException(AssertExceptionEnum.DB_EXECUTE_RETURN_NOT_NULL);
+        throw new CustomException(AssertException.DB_EXECUTE_RETURN_NOT_NULL);
     }
 
     @Override
     public void dbExecuteResNotZero() {
-        throw new CustomException(AssertExceptionEnum.DB_EXECUTE_RETURN_NOT_ZERO);
+        throw new CustomException(AssertException.DB_EXECUTE_RETURN_NOT_ZERO);
     }
 }

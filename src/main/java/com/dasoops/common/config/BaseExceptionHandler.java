@@ -3,8 +3,8 @@ package com.dasoops.common.config;
 import com.dasoops.common.entity.enums.exception.ExceptionEnum;
 import com.dasoops.common.entity.result.SimpleResult;
 import com.dasoops.common.exception.CustomException;
-import com.dasoops.common.exception.DataResolverExceptionEnum;
-import com.dasoops.common.exception.ProjectException;
+import com.dasoops.common.exception.DataResolverException;
+import com.dasoops.common.exception.ProjectExceptionEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanInstantiationException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -30,8 +30,8 @@ public abstract class BaseExceptionHandler {
      *
      * @param e e
      */
-    @ExceptionHandler(ProjectException.class)
-    public SimpleResult catchProjectException(ProjectException e) {
+    @ExceptionHandler(ProjectExceptionEntity.class)
+    public SimpleResult catchProjectException(ProjectExceptionEntity e) {
         log.error("项目内部异常: ", e);
         return SimpleResult.fail(e.getExceptionEnum());
     }
@@ -44,7 +44,7 @@ public abstract class BaseExceptionHandler {
     @ExceptionHandler(BeanInstantiationException.class)
     public SimpleResult catchBeanInstantiationException(BeanInstantiationException e) {
         log.error("缺少必填参数: ", e);
-        return SimpleResult.fail(DataResolverExceptionEnum.MISSING_REQUIRED_PARAM);
+        return SimpleResult.fail(DataResolverException.MISSING_REQUIRED_PARAM);
     }
 
     /**
@@ -66,7 +66,7 @@ public abstract class BaseExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public SimpleResult catchHttpMessageNotReadableException(HttpMessageNotReadableException e) {
         log.error("catch catchHttpMessageNotReadableException: ", e);
-        return SimpleResult.fail(DataResolverExceptionEnum.PARAMETER_RESLOVE_ERROR);
+        return SimpleResult.fail(DataResolverException.PARAMETER_RESLOVE_ERROR);
     }
 
     /**
@@ -77,7 +77,7 @@ public abstract class BaseExceptionHandler {
     @ExceptionHandler(BindException.class)
     public SimpleResult catchBindException(BindException e) {
         log.error("catch catchBindException: ", e);
-        return SimpleResult.fail(DataResolverExceptionEnum.MISSING_REQUIRED_PARAM);
+        return SimpleResult.fail(DataResolverException.MISSING_REQUIRED_PARAM);
     }
 
     /**

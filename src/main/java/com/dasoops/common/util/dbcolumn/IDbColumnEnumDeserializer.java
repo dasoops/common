@@ -1,7 +1,7 @@
 package com.dasoops.common.util.dbcolumn;
 
 import com.dasoops.common.entity.enums.database.IDbColumnEnum;
-import com.dasoops.common.exception.DbColumnExceptionEnum;
+import com.dasoops.common.exception.DbColumnException;
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.BeanProperty;
@@ -40,7 +40,7 @@ public class IDbColumnEnumDeserializer extends JsonDeserializer<IDbColumnEnum> i
     public IDbColumnEnum deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
         IDbColumnEnum dbColumnEnum = DbColumnUtil.INSTANCE.getBy(propertyClass, Integer.parseInt(p.getText()));
         if (dbColumnEnum == null) {
-            throw DbColumnExceptionEnum.UNDEFINEND_VALUE.getException();
+            throw DbColumnException.UNDEFINEND_VALUE.get();
         }
         return dbColumnEnum;
     }

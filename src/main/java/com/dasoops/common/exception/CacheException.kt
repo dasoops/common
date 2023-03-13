@@ -2,7 +2,7 @@ package com.dasoops.common.exception
 
 import com.dasoops.common.entity.enums.exception.IExceptionEnum
 
-enum class BaseCacheExceptionEnum(private val msg: String) : IExceptionEnum {
+enum class CacheException(private val msg: String) : IExceptionEnum {
 
     UNDEFINED_CAST("未实现的转换"),
     GET_LOCK_ERROR("获取锁失败"),
@@ -16,9 +16,9 @@ enum class BaseCacheExceptionEnum(private val msg: String) : IExceptionEnum {
         return msg;
     }
 
-    override fun getException(): BaseCacheException {
-        return BaseCacheException()
+    override fun get(): CacheExceptionEntity {
+        return CacheExceptionEntity()
     }
 
-    inner class BaseCacheException : CustomException(this)
+    inner class CacheExceptionEntity : CustomException(this)
 }

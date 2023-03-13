@@ -13,7 +13,7 @@ import com.dasoops.common.util.base.UtilException
  * @description 导出异常枚举(901xx)
  * @see IExceptionEnum
  */
-enum class ExportExceptionEnum(private val msg: String) : IUtilExceptionEnum {
+enum class ExportException(private val msg: String) : IUtilExceptionEnum {
 
     DATA_NULL("导出数据为空"),
     URL_ENCODER_ERROR("导出部分url转码错误"),
@@ -28,9 +28,9 @@ enum class ExportExceptionEnum(private val msg: String) : IUtilExceptionEnum {
         return msg
     }
 
-    override fun getException(): ExportException {
-        return ExportException()
+    override fun get(): ExportExceptionEntity {
+        return ExportExceptionEntity()
     }
 
-    inner class ExportException : UtilException(this)
+    inner class ExportExceptionEntity : UtilException(this)
 }

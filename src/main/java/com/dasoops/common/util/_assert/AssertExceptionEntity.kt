@@ -13,7 +13,7 @@ import com.dasoops.common.util.base.UtilException
  * @description 断言异常(3xxx)
  * @see IExceptionEnum
  */
-enum class AssertExceptionEnum(private val msg: String) : IUtilExceptionEnum {
+enum class AssertException(private val msg: String) : IUtilExceptionEnum {
 
     IS_TRUE("值必须为true"),
     IS_FALSE("值必须为false"),
@@ -33,9 +33,9 @@ enum class AssertExceptionEnum(private val msg: String) : IUtilExceptionEnum {
         return msg
     }
 
-    override fun getException(): AssertException {
-        return AssertException(this)
+    override fun get(): AssertExceptionEntity {
+        return AssertExceptionEntity()
     }
 
-    class AssertException(exceptionEnum: AssertExceptionEnum) : UtilException(exceptionEnum)
+    inner class AssertExceptionEntity : UtilException(this)
 }

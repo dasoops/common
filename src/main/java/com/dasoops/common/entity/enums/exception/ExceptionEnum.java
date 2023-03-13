@@ -65,7 +65,7 @@ public enum ExceptionEnum implements IExceptionEnum {
     private final String msg;
 
     @Override
-    public CustomException getException() {
+    public CustomException get() {
         return new CustomException(this);
     }
 }

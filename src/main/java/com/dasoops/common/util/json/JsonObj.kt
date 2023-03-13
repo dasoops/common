@@ -57,7 +57,7 @@ class JsonObj : LinkedHashMap<String, Any>() {
                 }
             }
 
-            else -> throw JsonExceptionEnum.CANT_CAST.exception
+            else -> throw JsonExceptionEnum.CANT_CAST.get()
         }
     }
 
@@ -74,7 +74,7 @@ class JsonObj : LinkedHashMap<String, Any>() {
                 }
             }
 
-            else -> throw JsonExceptionEnum.CANT_CAST.exception
+            else -> throw JsonExceptionEnum.CANT_CAST.get()
         }
     }
 
@@ -95,7 +95,7 @@ class JsonObj : LinkedHashMap<String, Any>() {
                 }
             }
 
-            else -> throw JsonExceptionEnum.CANT_CAST.exception
+            else -> throw JsonExceptionEnum.CANT_CAST.get()
         }
     }
 
@@ -112,7 +112,7 @@ class JsonObj : LinkedHashMap<String, Any>() {
                 }
             }
 
-            else -> throw JsonExceptionEnum.CANT_CAST.exception
+            else -> throw JsonExceptionEnum.CANT_CAST.get()
         }
     }
 
@@ -129,7 +129,7 @@ class JsonObj : LinkedHashMap<String, Any>() {
                 }
             }
 
-            else -> throw JsonExceptionEnum.CANT_CAST.exception
+            else -> throw JsonExceptionEnum.CANT_CAST.get()
         }
     }
 
@@ -142,7 +142,7 @@ class JsonObj : LinkedHashMap<String, Any>() {
             is Instant -> Date(value.toEpochMilli())
             is ZonedDateTime -> Date(value.toInstant().toEpochMilli())
             is LocalDateTime -> DateUtil.date(value)
-            else -> throw JsonExceptionEnum.CANT_CAST.exception
+            else -> throw JsonExceptionEnum.CANT_CAST.get()
         }
     }
 }

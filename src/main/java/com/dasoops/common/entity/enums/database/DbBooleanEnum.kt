@@ -1,9 +1,5 @@
 package com.dasoops.common.entity.enums.database
 
-import com.dasoops.common.exception.DbColumnExceptionEnum
-import lombok.AllArgsConstructor
-import lombok.Getter
-
 /**
  * @author DasoopsNicole@Gmail.com
  * @version 1.0.0

@@ -4,7 +4,7 @@ import cn.hutool.core.util.RandomUtil
 import cn.hutool.core.util.StrUtil
 import cn.hutool.core.util.TypeUtil
 import com.dasoops.common.entity.enums.cache.ICacheKeyEnum
-import com.dasoops.common.exception.BaseCacheExceptionEnum
+import com.dasoops.common.exception.CacheException
 import com.dasoops.common.util.json.toJsonStr
 import com.dasoops.common.task.AutoInit
 import kotlinx.coroutines.runBlocking
@@ -103,7 +103,7 @@ abstract class BaseCache<E : ICacheKeyEnum> : RedisOperations(), ICache, AutoIni
             DataType.HASH -> entries(key)?.toJsonStr()
             DataType.LIST -> list(key)?.toJsonStr()
             DataType.STRING -> get(key)?.toJsonStr()
-            else -> throw BaseCacheExceptionEnum.UNDEFINED_CAST.exception
+            else -> throw CacheException.UNDEFINED_CAST.get()
         }
     }
 
@@ -146,7 +146,7 @@ abstract class BaseCache<E : ICacheKeyEnum> : RedisOperations(), ICache, AutoIni
                     return@withTimeoutOrNull
                 }
             }
-        } ?: throw BaseCacheExceptionEnum.GET_LOCK_ERROR.exception
+        } ?: throw CacheException.GET_LOCK_ERROR.get()
 
     }
 

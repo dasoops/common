@@ -1,7 +1,7 @@
 package com.dasoops.common.util.dbcolumn
 
 import com.dasoops.common.entity.enums.database.IDbColumnEnum
-import com.dasoops.common.exception.DbColumnExceptionEnum
+import com.dasoops.common.exception.DbColumnException
 import java.util.*
 
 /**
@@ -18,7 +18,7 @@ object DbColumnUtil {
      */
     fun getAllProbableValue(clazz: Class<out IDbColumnEnum>): List<Int?> {
         if (!clazz.isEnum) {
-            throw DbColumnExceptionEnum.NOT_ENUM.exception
+            throw DbColumnException.NOT_ENUM.get()
         }
 
         val enumConstantArray = clazz.enumConstants
@@ -30,7 +30,7 @@ object DbColumnUtil {
      */
     fun <T : IDbColumnEnum> getBy(clazz: Class<out T>, value: Int): T? {
         if (!clazz.isEnum) {
-            throw DbColumnExceptionEnum.NOT_ENUM.exception
+            throw DbColumnException.NOT_ENUM.get()
         }
 
         return Arrays.stream(clazz.enumConstants).filter { it.dbValue == value }.findFirst().orElse(null)

@@ -9,9 +9,9 @@ import com.dasoops.common.entity.enums.exception.IExceptionEnum
  * @author DasoopsNicole@Gmail.com
  * @date 2023/02/25
  * @version 1.0.0
- * @see [DataResolverExceptionEnum]
+ * @see [DataResolverException]
  */
-enum class DataResolverExceptionEnum(private val msg: String) : IExceptionEnum {
+enum class DataResolverException(private val msg: String) : IExceptionEnum {
 
     PARAMETER_RESLOVE_ERROR("输入参数解析异常"),
     MISSING_REQUIRED_PARAM("缺少必填参数"),
@@ -26,9 +26,9 @@ enum class DataResolverExceptionEnum(private val msg: String) : IExceptionEnum {
         return msg
     }
 
-    override fun getException(): CustomException {
-        return ResolverException()
+    override fun get(): CustomException {
+        return DataResloverExceptionEntity()
     }
 
-    inner class ResolverException : CustomException(this)
+    inner class DataResloverExceptionEntity : CustomException(this)
 }
