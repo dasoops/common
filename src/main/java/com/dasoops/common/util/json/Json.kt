@@ -4,6 +4,7 @@ import cn.hutool.core.date.DatePattern
 import com.dasoops.common.entity.enums.database.IDbColumnEnum
 import com.dasoops.common.util.dbcolumn.IDbColumnEnumDeserializer
 import com.fasterxml.jackson.annotation.JsonAutoDetect
+import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.PropertyAccessor
 import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.core.type.TypeReference
@@ -48,8 +49,13 @@ object Json {
                 // 数据库字段枚举反序列化
                 // 重写SimpleDeserializers.findEnumDeserializer()方法,不然不生效
                 setDeserializers(object : SimpleDeserializers() {
-                    override fun findEnumDeserializer(type: Class<*>?, config: DeserializationConfig?, beanDesc: BeanDescription?): JsonDeserializer<*>? {
-                        return super.findEnumDeserializer(type, config, beanDesc) ?: type?.interfaces?.firstNotNullOf { _classMappings[ClassKey(it)] }
+                    override fun findEnumDeserializer(
+                        type: Class<*>?,
+                        config: DeserializationConfig?,
+                        beanDesc: BeanDescription?
+                    ): JsonDeserializer<*>? {
+                        return super.findEnumDeserializer(type, config, beanDesc)
+                            ?: type?.interfaces?.firstNotNullOf { _classMappings[ClassKey(it)] }
                     }
                 }.apply {
                     addDeserializer(IDbColumnEnum::class.java, IDbColumnEnumDeserializer())
@@ -72,6 +78,9 @@ object Json {
 
             // 大小写宽容
             configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true)
+
+            // 默认序列化时忽略null字段
+            serializationInclusion(JsonInclude.Include.NON_NULL)
 
             // kotlin模块
             addModule(kotlinModule())

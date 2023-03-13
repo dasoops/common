@@ -1,5 +1,6 @@
 package com.dasoops.common.cache.v2.builder.dsl
 
+import com.dasoops.common.cache.v2.CacheManager
 import com.dasoops.common.cache.v2.base.CacheFactory
 import com.dasoops.common.cache.v2.base.CacheOrFactory
 import com.dasoops.common.cache.v2.base.CacheTemplate
@@ -25,21 +26,21 @@ class GroupCacheBuilderDsl internal constructor(val redis: CacheTemplate) {
         keyStr: String,
         entityClass: Class<Entity> = Entity::class.java
     ): ListFactoryBuilder<Entity> {
-        return ListFactoryBuilder(redis, keyStr, entityClass)
+        return ListFactoryBuilder(redis, CacheManager.prefix + keyStr, entityClass)
     }
 
     inline fun <reified Entity : Any> set(
         keyStr: String,
         entityClass: Class<Entity> = Entity::class.java
     ): SetFactoryBuilder<Entity> {
-        return SetFactoryBuilder(redis, keyStr, entityClass)
+        return SetFactoryBuilder(redis, CacheManager.prefix + keyStr, entityClass)
     }
 
     inline fun <reified Entity : Any> value(
         keyStr: String,
         entityClass: Class<Entity> = Entity::class.java
     ): ValueFactoryBuilder<Entity> {
-        return ValueFactoryBuilder(redis, keyStr, entityClass)
+        return ValueFactoryBuilder(redis, CacheManager.prefix + keyStr, entityClass)
     }
 
     inline fun <reified HK : Any, reified HV : Any> hash(
@@ -47,7 +48,7 @@ class GroupCacheBuilderDsl internal constructor(val redis: CacheTemplate) {
         keyClass: Class<HK> = HK::class.java,
         valueClass: Class<HV> = HV::class.java
     ): HashFactoryBuilder<HK, HV> {
-        return HashFactoryBuilder(redis, keyStr, keyClass, valueClass)
+        return HashFactoryBuilder(redis, CacheManager.prefix + keyStr, keyClass, valueClass)
     }
 
     inline fun <reified Key : Any, InnerKey : Any, Inner : CacheOrFactory> CacheFactory<InnerKey, Inner>.getBy(

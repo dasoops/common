@@ -1,7 +1,5 @@
 package com.dasoops.common.cache.v2.base
 
-import com.dasoops.common.cache.v2.CacheManager
-
 /**
  * 抽象缓存工厂
  * @title: AbstractCacheFactory
@@ -16,6 +14,6 @@ abstract class AbstractCacheFactory<Key : Any, Inner : CacheOrFactory>(protected
 
 
     protected fun keyStr(): String {
-        return CacheManager.prefix + keyStr
+        return keyStr
     }
 }

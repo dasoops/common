@@ -25,21 +25,29 @@ class SimpleCacheBuilderDsl internal constructor(val redis: CacheTemplate) {
         keyStr: String,
         entityClass: Class<Entity> = Entity::class.java
     ): ValueCache<Entity> {
-        return ValueCacheImpl(redis, keyStr, entityClass).apply { CacheManager.cacheList.add(this) }
+        return ValueCacheImpl(
+            redis,
+            CacheManager.prefix + keyStr,
+            entityClass
+        ).apply { CacheManager.cacheList.add(this) }
     }
 
     inline fun <reified Entity : Any> list(
         keyStr: String,
         entityClass: Class<Entity> = Entity::class.java
     ): ListCache<Entity> {
-        return ListCacheImpl(redis, keyStr, entityClass).apply { CacheManager.cacheList.add(this) }
+        return ListCacheImpl(
+            redis,
+            CacheManager.prefix + keyStr,
+            entityClass
+        ).apply { CacheManager.cacheList.add(this) }
     }
 
     inline fun <reified Entity : Any> set(
         keyStr: String,
         entityClass: Class<Entity> = Entity::class.java
     ): SetCache<Entity> {
-        return SetCacheImpl(redis, keyStr, entityClass).apply { CacheManager.cacheList.add(this) }
+        return SetCacheImpl(redis, CacheManager.prefix + keyStr, entityClass).apply { CacheManager.cacheList.add(this) }
     }
 
     inline fun <reified Key : Any, reified Value : Any> hash(
@@ -47,6 +55,11 @@ class SimpleCacheBuilderDsl internal constructor(val redis: CacheTemplate) {
         keyClass: Class<Key> = Key::class.java,
         valueClass: Class<Value> = Value::class.java
     ): HashCache<Key, Value> {
-        return HashCacheImpl(redis, keyStr, keyClass, valueClass).apply { CacheManager.cacheList.add(this) }
+        return HashCacheImpl(
+            redis,
+            CacheManager.prefix + keyStr,
+            keyClass,
+            valueClass
+        ).apply { CacheManager.cacheList.add(this) }
     }
 }

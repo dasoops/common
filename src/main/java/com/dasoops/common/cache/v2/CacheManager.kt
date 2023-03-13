@@ -29,8 +29,6 @@ abstract class CacheManager(prefix: String = "") : AutoInit {
     @Resource
     open fun setCacheTemplate(redisConnectionFactory: RedisConnectionFactory) {
         cacheTemplate = CacheTemplate(redisConnectionFactory)
-        cacheTemplate.setEnableTransactionSupport(true)
-        cacheTemplate.afterPropertiesSet()
     }
 
     @Bean
