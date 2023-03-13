@@ -2,31 +2,42 @@ package com.dasoops.common.cache.v2.factory
 
 import com.dasoops.common.cache.v2.base.CacheFactory
 import com.dasoops.common.cache.v2.base.CacheTemplate
-import com.dasoops.common.cache.v2.basic.ListCache
-import com.dasoops.common.cache.v2.basic.impl.ListCacheImpl
+import com.dasoops.common.cache.v2.basic.SetCache
+import com.dasoops.common.cache.v2.basic.impl.SetCacheImpl
 import org.springframework.core.convert.converter.Converter
 
 /**
- * list cache factory
+ * set cache factory
  * @author DasoopsNicole@Gmail.com
  * @date 2023/03/12
- * @see [ListFactory]
+ * @see [SetFactory]
  */
-open class ListFactory<Key : Any, Entity : Any>(
+open class SetFactory<Key : Any, Entity : Any>(
     private val redis: CacheTemplate,
     private val keyStr: String,
     private val entityClass: Class<Entity>,
     private val keyConvert: Converter<Key, String>
-) : CacheFactory<Key, ListCache<Entity>>{
+) : CacheFactory<Key, SetCache<Entity>> {
     override var innerKey: String? = null
 
-    override fun get(key: Key): ListCache<Entity> {
-        return ListCacheImpl(redis, "$keyStr${innerKey ?: "null"}:${keyConvert.convert(key)}", entityClass)
+    override fun get(key: Key): SetCache<Entity> {
+        return SetCacheImpl(
+            redis,
+            com.dasoops.common.util.Converter.cacheKey(keyConvert, keyStr, innerKey, key), entityClass
+        )
     }
 
-    override fun keys(key: String): Collection<ListCache<Entity>> {
-        val keys = redis.keys("$keyStr:$key")
-        return keys.map { ListCacheImpl(redis, it, entityClass) }
+    override fun keys(key: String?): Collection<SetCache<Entity>>? {
+        val finalInnerKey = if (innerKey == null) {
+            ""
+        } else {
+            "$innerKey:"
+        }
+        return CommonOperations.keys4Pattern(
+            redis,
+            "$keyStr:$finalInnerKey$key:"
+        )
+            ?.map { SetCacheImpl(redis, it, entityClass) }
     }
 
     override fun clear() {

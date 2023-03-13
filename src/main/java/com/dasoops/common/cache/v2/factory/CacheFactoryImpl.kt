@@ -1,9 +1,8 @@
 package com.dasoops.common.cache.v2.factory
 
 import com.dasoops.common.cache.v2.base.Cache
-import com.dasoops.common.cache.v2.base.CacheOrFactory
 import com.dasoops.common.cache.v2.base.CacheFactory
-import com.dasoops.common.util.convert.DefaultToStringConvert
+import com.dasoops.common.cache.v2.base.CacheOrFactory
 import org.springframework.core.convert.converter.Converter
 
 /**
@@ -18,14 +17,20 @@ open class CacheFactoryImpl<Key : Any, Inner : CacheFactory<*, out CacheOrFactor
 ) : CacheFactory<Key, Inner> {
     override var innerKey: String? = null
 
-    override fun keys(key: String): Collection<Cache<*>>? {
-        return inner.keys("${innerKey ?: ""}:$key")
+    override fun get(key: Key): Inner {
+        inner.innerKey = if (innerKey == null) {
+            keyConvert.convert(key)
+        } else {
+            "${innerKey}:${keyConvert.convert(key)}"
+        }
+        return inner
     }
 
-    override fun get(key: Key): Inner {
-        return inner.apply {
-            innerKey = "${innerKey ?: ""}:${keyConvert.convert(key)}"
+    override fun keys(key: String?): Collection<Cache<*>>? {
+        if (innerKey != null) {
+            inner.innerKey += "${innerKey}:${inner.innerKey}"
         }
+        return inner.keys(key)
     }
 
     override fun clear() {

@@ -9,9 +9,9 @@ import com.dasoops.common.cache.v2.base.Cache
  * @author DasoopsNicole@Gmail.com
  * @date 2023/03/10
  * @version 1.0.0
- * @see [ListCache]
+ * @see [SetCache]
  */
-interface ListCache<Entity : Any> : Cache<Collection<Entity>> {
+interface SetCache<Entity : Any> : Cache<Collection<Entity>> {
     /**
      * 获取所有
      * @return [Collection<T>?]
@@ -36,11 +36,20 @@ interface ListCache<Entity : Any> : Cache<Collection<Entity>> {
      * @param [value] 值集合
      * @return [Long]
      */
-    fun remove(count: Long, value: Entity): Long
+    fun remove(vararg value: Entity): Long
 
     /**
      * 删除
-     * @param [value] 值集合
+     * @param [count] 数量
+     * @param [valueList] 值集合
+     * @return [Long]
      */
-    fun remove(value: Entity): Long
+    fun remove(valueList: Collection<Entity>): Long
+
+    /**
+     * 交集
+     * @param [value] 值
+     * @return [Collection<Entity>?]
+     */
+    fun intersection(vararg value: Entity): Collection<Entity>?
 }

@@ -5,7 +5,6 @@ import com.dasoops.common.cache.v2.base.CacheTemplate
 import com.dasoops.common.cache.v2.basic.HashCache
 import com.dasoops.common.cache.v2.basic.impl.HashCacheImpl
 import org.springframework.core.convert.converter.Converter
-import org.springframework.data.redis.core.StringRedisTemplate
 
 /**
  * hash cache factory
@@ -23,14 +22,28 @@ open class HashFactory<Key : Any, K : Any, V : Any>(
     override var innerKey: String? = null
 
     override fun get(key: Key): HashCache<K, V> {
-        return HashCacheImpl(redis, "$keyStr:${keyConvert.convert(key)}", keyClass, valueClass)
+        return HashCacheImpl(
+            redis,
+            com.dasoops.common.util.Converter.cacheKey(keyConvert, keyStr, innerKey, key),
+            keyClass,
+            valueClass
+        )
     }
 
-    override fun keys(key: String): Collection<HashCache<K, V>>? {
-        return CommonCacheOperations.keys4Pattern(redis, key)?.map { HashCacheImpl(redis, it, keyClass, valueClass) }
+    override fun keys(key: String?): Collection<HashCache<K, V>>? {
+        val finalInnerKey = if (innerKey == null) {
+            ""
+        } else {
+            "$innerKey:"
+        }
+        return CommonOperations.keys4Pattern(
+            redis,
+            "$keyStr:$finalInnerKey$key:"
+        )
+            ?.map { HashCacheImpl(redis, it, keyClass, valueClass) }
     }
 
     override fun clear() {
-        return CommonCacheOperations.clear4Pattern(redis, keyStr)
+        return CommonOperations.clear4Pattern(redis, keyStr)
     }
 }

@@ -20,13 +20,27 @@ interface ListCache<Entity : Any> : Cache<Collection<Entity>> {
 
     /**
      * 添加
-     * @param [valueArray] 值集合
+     * @param [value] 值集合
      */
-    fun push(vararg valueArray: Entity): Long
+    fun push(vararg value: Entity): Long
 
     /**
      * 添加
      * @param [valueList] 值集合
      */
     fun push(valueList: Collection<Entity>): Long
+
+    /**
+     * 删除
+     * @param [count] 数量
+     * @param [value] 值集合
+     * @return [Long]
+     */
+    fun remove(count: Long, value: Entity): Long
+
+    /**
+     * 删除
+     * @param [value] 值集合
+     */
+    fun remove(value: Entity): Long
 }

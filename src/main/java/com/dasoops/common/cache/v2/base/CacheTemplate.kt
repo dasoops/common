@@ -13,4 +13,5 @@ import org.springframework.data.redis.core.StringRedisTemplate
  * @see [CacheTemplate]
  */
 class CacheTemplate(redisConnectionFactory: RedisConnectionFactory) : StringRedisTemplate(redisConnectionFactory) {
+
 }

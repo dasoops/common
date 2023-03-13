@@ -1,6 +1,7 @@
 package com.dasoops.common.cache.v2.basic
 
 import cn.hutool.core.lang.func.Func0
+import com.dasoops.common.cache.v2.CacheManager
 import com.dasoops.common.cache.v2.base.Cache
 import com.dasoops.common.cache.v2.base.CacheTemplate
 import com.dasoops.common.cache.v2.base.SimpleCacheLogger
@@ -9,33 +10,46 @@ import org.springframework.data.redis.core.RedisOperations
 import org.springframework.data.redis.core.SessionCallback
 import java.util.concurrent.TimeUnit
 
+/**
+ * 缓存基本实现
+ * @title: CacheImpl
+ * @classPath com.dasoops.common.cache.v2.basic.CacheImpl
+ * @author DasoopsNicole@Gmail.com
+ * @date 2023/03/13
+ * @version 1.0.0
+ * @see [CacheImpl]
+ */
 abstract class CacheImpl<Entity : Any>(
     protected open val redis: CacheTemplate,
     protected open val keyStr: String
 ) : Cache<Entity>, AutoInit, SimpleCacheLogger {
+
+    protected fun keyStr(): String {
+        return "${CacheManager.prefix}$keyStr"
+    }
 
     override fun init() {
         clear()
     }
 
     override fun clear() {
-        redis.delete(keyStr).apply { andLog("clear", keyStr, this) }
+        redis.delete(keyStr()).apply { andLog("clear", keyStr(), this) }
     }
 
     override fun isEmpty(): Boolean {
-        return redis.hasKey(keyStr).apply { andLog("isEmpty", keyStr, this) }
+        return redis.hasKey(keyStr()).apply { andLog("isEmpty", keyStr(), this) }
     }
 
     override fun isPresent(): Boolean {
-        return redis.hasKey(keyStr).apply { andLog("isPresent", keyStr, this) }
+        return redis.hasKey(keyStr()).apply { andLog("isPresent", keyStr(), this) }
     }
 
     override fun expire(timeout: Long, timeUnit: TimeUnit): Boolean {
-        return redis.expire(keyStr, timeout, timeUnit).andLog("isPresent", keyStr, this)
+        return redis.expire(keyStr(), timeout, timeUnit).andLog("isPresent", keyStr(), this)
     }
 
     override fun <R> transaction(func: Func0<R>): R {
-        log("transaction begin", keyStr, "none")
+        log("transaction begin", keyStr(), "none")
         val result = redis.execute(object : SessionCallback<R> {
             override fun <K : Any?, V : Any?> execute(operations: RedisOperations<K, V>): R? {
                 operations.multi()
@@ -44,7 +58,7 @@ abstract class CacheImpl<Entity : Any>(
                 return call
             }
         })
-        log("transaction end", keyStr, "none")
+        log("transaction end", keyStr(), "none")
         return result
     }
 }

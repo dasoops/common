@@ -22,7 +22,7 @@ import javax.annotation.Resource
  * @version 1.0.0
  * @see [CacheManager]
  */
-abstract class CacheManager : AutoInit {
+abstract class CacheManager(prefix: String = "") : AutoInit {
 
     lateinit var cacheTemplate: CacheTemplate
 
@@ -63,7 +63,12 @@ abstract class CacheManager : AutoInit {
         }
     }
 
+    init {
+        CacheManager.prefix = prefix
+    }
+
     companion object {
         val cacheList = mutableListOf<CacheOrFactory>()
+        lateinit var prefix: String
     }
 }

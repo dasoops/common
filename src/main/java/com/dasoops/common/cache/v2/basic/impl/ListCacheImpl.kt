@@ -6,7 +6,6 @@ import com.dasoops.common.cache.v2.basic.ListCache
 import com.dasoops.common.util.json.parse
 import com.dasoops.common.util.json.toJsonStr
 import org.springframework.data.redis.core.ListOperations
-import org.springframework.data.redis.core.StringRedisTemplate
 
 /**
  * 集合缓存impl
@@ -26,7 +25,7 @@ open class ListCacheImpl<Entity : Any>(
     fun ops(): ListOperations<String, String> = redis.opsForList()
 
     override fun set(data: Collection<Entity>) {
-        return transaction{
+        return transaction {
             clear()
             this.push(data)
         }
@@ -37,21 +36,33 @@ open class ListCacheImpl<Entity : Any>(
     }
 
     override fun list(): Collection<Entity>? {
-        return ops().range(keyStr, 0, -1)
-            ?.andLog("list", keyStr, this)
+        return ops().range(keyStr(), 0, -1)
+            ?.andLog("list", keyStr())
             ?.map { it.parse(entityClass) }
             ?.ifEmpty { null }
     }
 
-    override fun push(vararg valueArray: Entity): Long {
-        return ops().rightPushAll(keyStr, valueArray.map { it.toJsonStr() })
-            ?.andLog("push", keyStr, this, valueArray)
+    override fun push(vararg value: Entity): Long {
+        return ops().rightPushAll(keyStr(), value.map { it.toJsonStr() })
+            ?.andLog("push", keyStr(), value)
             ?: 0
     }
 
     override fun push(valueList: Collection<Entity>): Long {
-        return ops().rightPushAll(keyStr, valueList.map { it.toJsonStr() })
-            ?.andLog("push", keyStr, this, valueList)
+        return ops().rightPushAll(keyStr(), valueList.map { it.toJsonStr() })
+            ?.andLog("push", keyStr(), valueList)
+            ?: 0
+    }
+
+    override fun remove(count: Long, value: Entity): Long {
+        return ops().remove(keyStr(), count, value)
+            .andLog("remove(count,value)", keyStr())
+            ?: 0
+    }
+
+    override fun remove(value: Entity): Long {
+        return ops().remove(keyStr(), 0, value)
+            .andLog("remove(value)", keyStr())
             ?: 0
     }
 }

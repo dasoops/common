@@ -27,28 +27,28 @@ open class ValueCacheImpl<Entity : Any>(
     protected fun ops(): ValueOperations<String, String> = redis.opsForValue()
 
     override fun set(data: Entity) {
-        return ops().set(keyStr, data.toJsonStr())
-            .andLog("set", keyStr, this)
+        return ops().set(keyStr(), data.toJsonStr())
+            .andLog("set", keyStr(), this)
     }
 
     override fun get(): Entity? {
-        return ops().get(keyStr)
-            ?.andLog("get", keyStr, this)
+        return ops().get(keyStr())
+            ?.andLog("get", keyStr(), this)
             ?.parse(entityClass)
     }
 
     override fun setAndExpire(value: String, time: Long, timeUnit: TimeUnit) {
-        return ops().set(keyStr, value.toJsonStr(), time, timeUnit)
-            .apply { andLog("setAndExpire(value,time,timeUnit)", keyStr, this, value, time, timeUnit) }
+        return ops().set(keyStr(), value.toJsonStr(), time, timeUnit)
+            .apply { andLog("setAndExpire(value,time,timeUnit)", keyStr(), this, value, time, timeUnit) }
     }
 
     override fun setIfAbsent(value: String): Boolean {
-        return (ops().setIfAbsent(keyStr, value.toJsonStr()) == true)
-            .andLog("setIfAbsent", keyStr, value)
+        return (ops().setIfAbsent(keyStr(), value.toJsonStr()) == true)
+            .andLog("setIfAbsent", keyStr(), value)
     }
 
     override fun setIfAbsent(value: String, time: Long, timeUnit: TimeUnit): Boolean {
-        return (ops().setIfAbsent(keyStr, value.toJsonStr(), time, timeUnit) == true)
-            .andLog("setIfAbsent(value,time,timeUnit)", keyStr, this, value, time, timeUnit)
+        return (ops().setIfAbsent(keyStr(), value.toJsonStr(), time, timeUnit) == true)
+            .andLog("setIfAbsent(value,time,timeUnit)", keyStr(), this, value, time, timeUnit)
     }
 }

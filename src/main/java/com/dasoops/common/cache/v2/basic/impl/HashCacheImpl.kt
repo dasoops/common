@@ -40,40 +40,40 @@ open class HashCacheImpl<K : Any, V : Any>(
 
     override fun get(hashKey: K): V? {
         return ops()
-            .get(keyStr, hashKey)
-            .andLog("get", keyStr)
+            .get(keyStr(), hashKey)
+            .andLog("get", keyStr())
             ?.parse(valueClass)
     }
 
     override fun entries(): Map<K, V>? {
         return ops()
-            .entries(keyStr)
-            .andLog("entries", keyStr)
+            .entries(keyStr())
+            .andLog("entries", keyStr())
             .mapTo({ it.key.parse(keyClass) }, { it.value.parse(valueClass) })
             .ifEmpty { null }
     }
 
     override fun put(valueMap: Map<K, V>) {
         return ops()
-            .putAll(keyStr, valueMap.mapTo({ it.key.toString() }, { it.value.toJsonStr() }))
-            .andLog("put(valueMap)", keyStr, valueMap)
+            .putAll(keyStr(), valueMap.mapTo({ it.key.toString() }, { it.value.toJsonStr() }))
+            .andLog("put(valueMap)", keyStr(), valueMap)
     }
 
     override fun put(hashKey: K, value: V) {
         return ops()
-            .put(keyStr, hashKey.toString(), value.toJsonStr())
-            .andLog("put(hashKey,value)", keyStr, hashKey, value)
+            .put(keyStr(), hashKey.toString(), value.toJsonStr())
+            .andLog("put(hashKey,value)", keyStr(), hashKey, value)
     }
 
     override fun hasHashKey(hashKey: K): Boolean {
         return ops()
-            .hasKey(keyStr, hashKey.toString())
-            .andLog("hasHashKey", keyStr, hashKey)
+            .hasKey(keyStr(), hashKey.toString())
+            .andLog("hasHashKey", keyStr(), hashKey)
     }
 
     override fun remove4Key(hashKey: K): Boolean {
         return ops()
-            .hasKey(keyStr, hashKey.toString())
-            .andLog("remove4Key", keyStr, hashKey.toJsonStr())
+            .hasKey(keyStr(), hashKey.toString())
+            .andLog("remove4Key", keyStr(), hashKey.toJsonStr())
     }
 }

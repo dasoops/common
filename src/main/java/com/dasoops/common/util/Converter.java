@@ -10,14 +10,29 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
+ * @author DasoopsNicole@Gmail.com
+ * @version 1.0.0
  * @title Convert
  * @classPath com.dasoops.common.util.Convert
- * @author DasoopsNicole@Gmail.com
  * @date 2022/12/28
- * @version 1.0.0
  * @description 转换工具类
  */
-public class Convert {
+public class Converter {
+
+    /**
+     * 转换为缓存key
+     *
+     * @param converter 转换器
+     * @param keyStr    关键str
+     * @param innerKey  内心关键
+     * @param key       关键
+     * @return {@link String}
+     */
+    public static <T> String cacheKey(org.springframework.core.convert.converter.Converter<T, String> keyConvert, String keyStr, String innerKey, T key) {
+        return StrUtil.format("{}:{}{}",
+                keyStr, innerKey == null ? "" : (innerKey + ":"), keyConvert.convert(key)
+        );
+    }
 
     /**
      * 简单转stringMap,方便redis使用
@@ -27,8 +42,8 @@ public class Convert {
      */
     public static Map<String, String> toStrMap(Map<?, ?> toConvertMap) {
         return toConvertMap.entrySet().stream().collect(Collectors.toMap(
-                entry -> String.valueOf(entry.getKey()),
-                entry -> String.valueOf(entry.getValue())
+                entry -> java.lang.String.valueOf(entry.getKey()),
+                entry -> java.lang.String.valueOf(entry.getValue())
         ));
     }
 
