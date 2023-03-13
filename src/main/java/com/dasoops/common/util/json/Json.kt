@@ -57,7 +57,7 @@ object Json {
             })
 
             // 美化输出
-            configure(SerializationFeature.INDENT_OUTPUT, true)
+            configure(SerializationFeature.INDENT_OUTPUT, false)
 
             // 反序列化的时候如果多了其他属性,不抛出异常
             configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)

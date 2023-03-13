@@ -33,19 +33,19 @@ abstract class CacheImpl<Entity : Any>(
     }
 
     override fun clear() {
-        redis.delete(keyStr()).apply { andLog("clear", keyStr(), this) }
+        redis.delete(keyStr()).apply { log("clear", keyStr(), this) }
     }
 
     override fun isEmpty(): Boolean {
-        return redis.hasKey(keyStr()).apply { andLog("isEmpty", keyStr(), this) }
+        return redis.hasKey(keyStr()).apply { log("isEmpty", keyStr(), this) }
     }
 
     override fun isPresent(): Boolean {
-        return redis.hasKey(keyStr()).apply { andLog("isPresent", keyStr(), this) }
+        return redis.hasKey(keyStr()).apply { log("isPresent", keyStr(), this) }
     }
 
     override fun expire(timeout: Long, timeUnit: TimeUnit): Boolean {
-        return redis.expire(keyStr(), timeout, timeUnit).andLog("isPresent", keyStr(), this)
+        return redis.expire(keyStr(), timeout, timeUnit).apply { log("isPresent", keyStr(), this) }
     }
 
     override fun <R> transaction(func: Func0<R>): R {

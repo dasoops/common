@@ -1,5 +1,7 @@
 package com.dasoops.common.cache.v2.base
 
+import com.dasoops.common.cache.v2.CacheManager
+
 /**
  * cache Factory 基类
  * @author DasoopsNicole@Gmail.com

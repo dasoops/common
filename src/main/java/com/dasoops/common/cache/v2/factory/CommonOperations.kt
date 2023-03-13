@@ -14,10 +14,13 @@ object CommonOperations : SimpleCacheLogger {
 
     fun keys4Pattern(redis: CacheTemplate, pattern: String): Set<String>? {
         val finalPattern = StrUtil.addSuffixIfNot(pattern, "*")
-        return redis.keys(finalPattern).andLog("keys", finalPattern).ifEmpty { null }
+        return redis.keys(finalPattern).apply {
+            log("keys", finalPattern, this)
+        }.ifEmpty { null }
     }
 
     fun clear4Pattern(redis: CacheTemplate, pattern: String) {
-        redis.delete(this.keys4Pattern(redis, pattern) ?: return).andLog("delete", StrUtil.addSuffixIfNot(pattern, "*"))
+        redis.delete(this.keys4Pattern(redis, pattern) ?: return)
+            .apply { log("delete", StrUtil.addSuffixIfNot(pattern, "*"), this) }
     }
 }

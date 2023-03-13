@@ -37,38 +37,38 @@ open class SetCacheImpl<Entity : Any>(
 
     override fun list(): Collection<Entity>? {
         return ops().members(keyStr())
-            .andLog("list", keyStr())
+            .apply { log("list", keyStr(), this) }
             .ifEmpty { null }
             ?.map { it.parse(entityClass) }
     }
 
     override fun push(vararg value: Entity): Long {
         return ops().add(keyStr(), *value.map { it.toJsonStr() }.toTypedArray())
-            .andLog("push", keyStr(), value)
+            .apply { log("push", keyStr(), this, value) }
             ?: 0
     }
 
     override fun push(valueList: Collection<Entity>): Long {
         return ops().add(keyStr(), *valueList.map { it.toJsonStr() }.toTypedArray())
-            .andLog("push", keyStr(), valueList)
+            .apply { log("push", keyStr(), this, valueList) }
             ?: 0
     }
 
     override fun remove(vararg value: Entity): Long {
         return ops().remove(keyStr(), *value)
-            .andLog("remove", keyStr(), *value)
+            .apply { log("remove", keyStr(), this, *value) }
             ?: 0
     }
 
     override fun remove(valueList: Collection<Entity>): Long {
         return ops().remove(keyStr(), valueList)
-            .andLog("remove", keyStr(), valueList)
+            .apply { log("remove", keyStr(), this, valueList) }
             ?: 0
     }
 
     override fun intersection(vararg value: Entity): Collection<Entity>? {
         return ops().intersect(keyStr(), value.map { it.toJsonStr() })
-            .andLog("intersection", keyStr(), *value)
+            .apply { log("intersection", keyStr(), this, value) }
             ?.map { it.parse(entityClass) }
     }
 }

@@ -6,8 +6,8 @@ import com.dasoops.common.cache.v2.basic.HashCache
 import com.dasoops.common.extension.mapTo
 import com.dasoops.common.util.json.parse
 import com.dasoops.common.util.json.toJsonStr
+import org.checkerframework.checker.units.qual.K
 import org.springframework.data.redis.core.HashOperations
-import org.springframework.data.redis.core.StringRedisTemplate
 
 /**
  * 哈希缓存impl
@@ -41,14 +41,14 @@ open class HashCacheImpl<K : Any, V : Any>(
     override fun get(hashKey: K): V? {
         return ops()
             .get(keyStr(), hashKey)
-            .andLog("get", keyStr())
+            .apply { log("get", keyStr(), this) }
             ?.parse(valueClass)
     }
 
     override fun entries(): Map<K, V>? {
         return ops()
             .entries(keyStr())
-            .andLog("entries", keyStr())
+            .apply { log("entries", keyStr(), this) }
             .mapTo({ it.key.parse(keyClass) }, { it.value.parse(valueClass) })
             .ifEmpty { null }
     }
@@ -56,24 +56,24 @@ open class HashCacheImpl<K : Any, V : Any>(
     override fun put(valueMap: Map<K, V>) {
         return ops()
             .putAll(keyStr(), valueMap.mapTo({ it.key.toString() }, { it.value.toJsonStr() }))
-            .andLog("put(valueMap)", keyStr(), valueMap)
+            .apply { log("put(valueMap)", keyStr(), this, valueMap) }
     }
 
     override fun put(hashKey: K, value: V) {
         return ops()
             .put(keyStr(), hashKey.toString(), value.toJsonStr())
-            .andLog("put(hashKey,value)", keyStr(), hashKey, value)
+            .apply { log("put(hashKey,value)", keyStr(), this, hashKey, value) }
     }
 
     override fun hasHashKey(hashKey: K): Boolean {
         return ops()
             .hasKey(keyStr(), hashKey.toString())
-            .andLog("hasHashKey", keyStr(), hashKey)
+            .apply { log("hasHashKey", keyStr(), this, hashKey) }
     }
 
     override fun remove4Key(hashKey: K): Boolean {
         return ops()
             .hasKey(keyStr(), hashKey.toString())
-            .andLog("remove4Key", keyStr(), hashKey.toJsonStr())
+            .apply { log("remove4Key", keyStr(), this, hashKey) }
     }
 }

@@ -1,6 +1,6 @@
 package com.dasoops.common.cache.v2.factory
 
-import com.dasoops.common.cache.v2.base.CacheFactory
+import com.dasoops.common.cache.v2.base.AbstractCacheFactory
 import com.dasoops.common.cache.v2.base.CacheTemplate
 import com.dasoops.common.cache.v2.basic.SetCache
 import com.dasoops.common.cache.v2.basic.impl.SetCacheImpl
@@ -14,16 +14,16 @@ import org.springframework.core.convert.converter.Converter
  */
 open class SetFactory<Key : Any, Entity : Any>(
     private val redis: CacheTemplate,
-    private val keyStr: String,
+    override val keyStr: String,
     private val entityClass: Class<Entity>,
     private val keyConvert: Converter<Key, String>
-) : CacheFactory<Key, SetCache<Entity>> {
+) : AbstractCacheFactory<Key, SetCache<Entity>>(keyStr) {
     override var innerKey: String? = null
 
     override fun get(key: Key): SetCache<Entity> {
         return SetCacheImpl(
             redis,
-            com.dasoops.common.util.Converter.cacheKey(keyConvert, keyStr, innerKey, key), entityClass
+            com.dasoops.common.util.Converter.cacheKey(keyConvert, keyStr(), innerKey, key), entityClass
         )
     }
 
@@ -35,12 +35,12 @@ open class SetFactory<Key : Any, Entity : Any>(
         }
         return CommonOperations.keys4Pattern(
             redis,
-            "$keyStr:$finalInnerKey$key:"
+            "${keyStr()}:$finalInnerKey$key:"
         )
             ?.map { SetCacheImpl(redis, it, entityClass) }
     }
 
     override fun clear() {
-        return CommonOperations.clear4Pattern(redis, keyStr)
+        return CommonOperations.clear4Pattern(redis, keyStr())
     }
 }

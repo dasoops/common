@@ -37,32 +37,32 @@ open class ListCacheImpl<Entity : Any>(
 
     override fun list(): Collection<Entity>? {
         return ops().range(keyStr(), 0, -1)
-            ?.andLog("list", keyStr())
+            ?.apply { log("list", keyStr(), this) }
             ?.map { it.parse(entityClass) }
             ?.ifEmpty { null }
     }
 
     override fun push(vararg value: Entity): Long {
         return ops().rightPushAll(keyStr(), value.map { it.toJsonStr() })
-            ?.andLog("push", keyStr(), value)
+            ?.apply { log("push", keyStr(), value, this) }
             ?: 0
     }
 
     override fun push(valueList: Collection<Entity>): Long {
         return ops().rightPushAll(keyStr(), valueList.map { it.toJsonStr() })
-            ?.andLog("push", keyStr(), valueList)
+            ?.apply { log("push", keyStr(), valueList, this) }
             ?: 0
     }
 
     override fun remove(count: Long, value: Entity): Long {
         return ops().remove(keyStr(), count, value)
-            .andLog("remove(count,value)", keyStr())
+            .apply { log("remove(count,value)", keyStr(), this) }
             ?: 0
     }
 
     override fun remove(value: Entity): Long {
         return ops().remove(keyStr(), 0, value)
-            .andLog("remove(value)", keyStr())
+            .apply { log("remove(value)", keyStr(), this) }
             ?: 0
     }
 }

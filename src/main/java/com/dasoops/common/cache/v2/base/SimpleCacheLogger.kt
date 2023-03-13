@@ -23,25 +23,16 @@ interface SimpleCacheLogger {
      * @param [method] 方法
      * @param [keyStr] keyStr
      */
-    fun log(method: String, keyStr: String, result: Any) {
-        log.debug("[cache] $keyStr $method -> ${result.toJsonStr()}")
+    fun log(method: String, keyStr: String, result: Any?) {
+        log.debug("[cache] $keyStr $method -> ${result?.toJsonStr() ?: "null"}")
     }
 
     /**
      * 日志输出
      * @param [method] 方法
+     * @param [keyStr] keyStr
      */
-    fun <T : Any> T.andLog(method: String, keyStr: String): T {
-        log.debug("[cache] $keyStr $method -> ${this.toJsonStr()}")
-        return this
-    }
-
-    /**
-     * 日志输出
-     * @param [method] 方法
-     */
-    fun <T : Any> T.andLog(method: String, keyStr: String, vararg param: Any): T {
-        log.debug("[cache] $keyStr $method ${param.joinToString(",") { it.toJsonStr() }} -> ${this.toJsonStr()}")
-        return this
+    fun log(method: String, keyStr: String, result: Any?, vararg param: Any?) {
+        log.debug("[cache] $keyStr $method param(${param.toJsonStr()}) -> ${result?.toJsonStr() ?: "null"}")
     }
 }

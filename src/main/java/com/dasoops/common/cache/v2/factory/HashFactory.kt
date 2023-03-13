@@ -1,6 +1,6 @@
 package com.dasoops.common.cache.v2.factory
 
-import com.dasoops.common.cache.v2.base.CacheFactory
+import com.dasoops.common.cache.v2.base.AbstractCacheFactory
 import com.dasoops.common.cache.v2.base.CacheTemplate
 import com.dasoops.common.cache.v2.basic.HashCache
 import com.dasoops.common.cache.v2.basic.impl.HashCacheImpl
@@ -14,17 +14,17 @@ import org.springframework.core.convert.converter.Converter
  */
 open class HashFactory<Key : Any, K : Any, V : Any>(
     private val redis: CacheTemplate,
-    private val keyStr: String,
+    override val keyStr: String,
     private val keyClass: Class<K>,
     private val valueClass: Class<V>,
     private val keyConvert: Converter<Key, String>,
-) : CacheFactory<Key, HashCache<K, V>> {
+) : AbstractCacheFactory<Key, HashCache<K, V>>(keyStr) {
     override var innerKey: String? = null
 
     override fun get(key: Key): HashCache<K, V> {
         return HashCacheImpl(
             redis,
-            com.dasoops.common.util.Converter.cacheKey(keyConvert, keyStr, innerKey, key),
+            com.dasoops.common.util.Converter.cacheKey(keyConvert, keyStr(), innerKey, key),
             keyClass,
             valueClass
         )
@@ -38,12 +38,12 @@ open class HashFactory<Key : Any, K : Any, V : Any>(
         }
         return CommonOperations.keys4Pattern(
             redis,
-            "$keyStr:$finalInnerKey$key:"
+            "${keyStr()}:$finalInnerKey$key:"
         )
             ?.map { HashCacheImpl(redis, it, keyClass, valueClass) }
     }
 
     override fun clear() {
-        return CommonOperations.clear4Pattern(redis, keyStr)
+        return CommonOperations.clear4Pattern(redis, keyStr())
     }
 }

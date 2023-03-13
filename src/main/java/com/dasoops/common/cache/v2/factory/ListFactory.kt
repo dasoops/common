@@ -1,5 +1,6 @@
 package com.dasoops.common.cache.v2.factory
 
+import com.dasoops.common.cache.v2.base.AbstractCacheFactory
 import com.dasoops.common.cache.v2.base.CacheFactory
 import com.dasoops.common.cache.v2.base.CacheTemplate
 import com.dasoops.common.cache.v2.basic.ListCache
@@ -14,16 +15,16 @@ import org.springframework.core.convert.converter.Converter
  */
 open class ListFactory<Key : Any, Entity : Any>(
     private val redis: CacheTemplate,
-    private val keyStr: String,
+    override val keyStr: String,
     private val entityClass: Class<Entity>,
     private val keyConvert: Converter<Key, String>
-) : CacheFactory<Key, ListCache<Entity>> {
+) : AbstractCacheFactory<Key, ListCache<Entity>>(keyStr) {
     override var innerKey: String? = null
 
     override fun get(key: Key): ListCache<Entity> {
         return ListCacheImpl(
             redis,
-            com.dasoops.common.util.Converter.cacheKey(keyConvert, keyStr, innerKey, key),
+            com.dasoops.common.util.Converter.cacheKey(keyConvert, keyStr(), innerKey, key),
             entityClass
         )
     }
@@ -36,12 +37,12 @@ open class ListFactory<Key : Any, Entity : Any>(
         }
         return CommonOperations.keys4Pattern(
             redis,
-            "$keyStr:$finalInnerKey$key:"
+            "${keyStr()}:$finalInnerKey$key:"
         )
             ?.map { ListCacheImpl(redis, it, entityClass) }
     }
 
     override fun clear() {
-        return CommonOperations.clear4Pattern(redis, keyStr)
+        return CommonOperations.clear4Pattern(redis, keyStr())
     }
 }
