@@ -27,7 +27,7 @@ open class SetFactory<Key : Any, Entity : Any>(
         )
     }
 
-    override fun keys(key: String?): Collection<SetCache<Entity>>? {
+    override fun keys(): Collection<SetCache<Entity>>? {
         val finalInnerKey = if (innerKey == null) {
             ""
         } else {
@@ -35,7 +35,7 @@ open class SetFactory<Key : Any, Entity : Any>(
         }
         return CommonOperations.keys4Pattern(
             redis,
-            "${keyStr()}:$finalInnerKey$key:"
+            "${keyStr()}:$finalInnerKey"
         )
             ?.map { SetCacheImpl(redis, it, entityClass) }
     }

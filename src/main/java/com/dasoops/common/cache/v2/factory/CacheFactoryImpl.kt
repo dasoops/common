@@ -26,11 +26,11 @@ open class CacheFactoryImpl<Key : Any, Inner : CacheFactory<*, out CacheOrFactor
         return inner
     }
 
-    override fun keys(key: String?): Collection<Cache<*>>? {
+    override fun keys(): Collection<Cache<*>>? {
         if (innerKey != null) {
-            inner.innerKey += "${innerKey}:${inner.innerKey}"
+            inner.innerKey = innerKey
         }
-        return inner.keys(key)
+        return inner.keys()
     }
 
     override fun clear() {

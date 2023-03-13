@@ -29,7 +29,7 @@ open class ListFactory<Key : Any, Entity : Any>(
         )
     }
 
-    override fun keys(key: String?): Collection<ListCache<Entity>>? {
+    override fun keys(): Collection<ListCache<Entity>>? {
         val finalInnerKey = if (innerKey == null) {
             ""
         } else {
@@ -37,7 +37,7 @@ open class ListFactory<Key : Any, Entity : Any>(
         }
         return CommonOperations.keys4Pattern(
             redis,
-            "${keyStr()}:$finalInnerKey$key:"
+            "${keyStr()}:$finalInnerKey"
         )
             ?.map { ListCacheImpl(redis, it, entityClass) }
     }

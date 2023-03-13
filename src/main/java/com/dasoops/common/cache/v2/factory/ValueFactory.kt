@@ -27,7 +27,7 @@ open class ValueFactory<Key : Any, Entity : Any>(
         )
     }
 
-    override fun keys(key: String?): Collection<ValueCache<Entity>>? {
+    override fun keys(): Collection<ValueCache<Entity>>? {
         val finalInnerKey = if (innerKey == null) {
             ""
         } else {
@@ -35,7 +35,7 @@ open class ValueFactory<Key : Any, Entity : Any>(
         }
         return CommonOperations.keys4Pattern(
             redis,
-            "$keyStr:$finalInnerKey$key:"
+            "$keyStr:$finalInnerKey"
         )
             ?.map { ValueCacheImpl(redis, it, entityClass) }
     }

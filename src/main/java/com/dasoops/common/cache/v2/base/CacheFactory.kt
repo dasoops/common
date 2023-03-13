@@ -28,7 +28,7 @@ interface CacheFactory<Key : Any, Inner : CacheOrFactory> : CacheOrFactory {
      * 键
      * @return [Collection<Inner>]
      */
-    fun keys(key: String?): Collection<Cache<*>>?
+    fun keys(): Collection<Cache<*>>?
 
     /**
      * 清除所属key

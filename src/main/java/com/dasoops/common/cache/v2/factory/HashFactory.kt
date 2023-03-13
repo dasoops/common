@@ -30,7 +30,7 @@ open class HashFactory<Key : Any, K : Any, V : Any>(
         )
     }
 
-    override fun keys(key: String?): Collection<HashCache<K, V>>? {
+    override fun keys(): Collection<HashCache<K, V>>? {
         val finalInnerKey = if (innerKey == null) {
             ""
         } else {
@@ -38,7 +38,7 @@ open class HashFactory<Key : Any, K : Any, V : Any>(
         }
         return CommonOperations.keys4Pattern(
             redis,
-            "${keyStr()}:$finalInnerKey$key:"
+            "${keyStr()}:$finalInnerKey"
         )
             ?.map { HashCacheImpl(redis, it, keyClass, valueClass) }
     }
