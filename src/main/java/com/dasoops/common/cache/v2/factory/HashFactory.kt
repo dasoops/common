@@ -43,6 +43,12 @@ open class HashFactory<Key : Any, K : Any, V : Any>(
             ?.map { HashCacheImpl(redis, it, keyClass, valueClass) }
     }
 
+    override fun map(): Map<String, HashCache<K, V>>? {
+        return keys()?.associate {
+            it.keyStr().substringAfterLast(":") to it
+        }
+    }
+
     override fun clear() {
         return CommonOperations.clear4Pattern(redis, keyStr())
     }

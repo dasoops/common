@@ -1,6 +1,6 @@
 package com.dasoops.common.cache.v2.factory
 
-import com.dasoops.common.cache.v2.base.CacheFactory
+import com.dasoops.common.cache.v2.base.AbstractCacheFactory
 import com.dasoops.common.cache.v2.base.CacheTemplate
 import com.dasoops.common.cache.v2.basic.ValueCache
 import com.dasoops.common.cache.v2.basic.impl.ValueCacheImpl
@@ -14,10 +14,10 @@ import org.springframework.core.convert.converter.Converter
  */
 open class ValueFactory<Key : Any, Entity : Any>(
     private val redis: CacheTemplate,
-    private val keyStr: String,
+    override val keyStr: String,
     private val entityClass: Class<Entity>,
     private val keyConvert: Converter<Key, String>
-) : CacheFactory<Key, ValueCache<Entity>> {
+) : AbstractCacheFactory<Key, ValueCache<Entity>>(keyStr) {
     override var innerKey: String? = null
 
     override fun get(key: Key): ValueCache<Entity> {
@@ -38,6 +38,13 @@ open class ValueFactory<Key : Any, Entity : Any>(
             "$keyStr:$finalInnerKey"
         )
             ?.map { ValueCacheImpl(redis, it, entityClass) }
+    }
+
+    override fun map(): Map<String, ValueCache<Entity>>? {
+        //获取最后一级
+        return keys()?.associate {
+            it.keyStr().substringAfterLast(":") to it
+        }
     }
 
     override fun clear() {

@@ -2,6 +2,7 @@ package com.dasoops.common.cache.v2.factory
 
 import com.dasoops.common.cache.v2.base.AbstractCacheFactory
 import com.dasoops.common.cache.v2.base.CacheTemplate
+import com.dasoops.common.cache.v2.basic.ListCache
 import com.dasoops.common.cache.v2.basic.SetCache
 import com.dasoops.common.cache.v2.basic.impl.SetCacheImpl
 import org.springframework.core.convert.converter.Converter
@@ -38,6 +39,12 @@ open class SetFactory<Key : Any, Entity : Any>(
             "${keyStr()}:$finalInnerKey"
         )
             ?.map { SetCacheImpl(redis, it, entityClass) }
+    }
+
+    override fun map(): Map<String, SetCache<Entity>>? {
+        return keys()?.associate {
+            it.keyStr().substringAfterLast(":") to it
+        }
     }
 
     override fun clear() {

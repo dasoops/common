@@ -27,6 +27,11 @@ interface Cache<Entity : Any> : CacheOrFactory {
     fun get(): Entity?
 
     /**
+     * 获取键
+     */
+    fun keyStr(): String
+
+    /**
      * 清理缓存
      */
     fun clear()

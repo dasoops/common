@@ -24,7 +24,7 @@ abstract class CacheImpl<Entity : Any>(
     protected open val keyStr: String
 ) : Cache<Entity>, AutoInit, SimpleCacheLogger {
 
-    protected fun keyStr(): String {
+    override fun keyStr(): String {
         return keyStr
     }
 

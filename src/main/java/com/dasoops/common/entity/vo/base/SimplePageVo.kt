@@ -1,5 +1,6 @@
 package com.dasoops.common.entity.vo.base
 
+import com.baomidou.mybatisplus.core.metadata.IPage
 import io.swagger.annotations.ApiModelProperty
 
 /**
@@ -25,4 +26,5 @@ open class SimplePageVo<T : BaseInnerVo>(
     open val dataList: List<T>
 ) : BasePageVo(total) {
     constructor(dataList: List<T>) : this(dataList.size, dataList)
+    constructor(page: IPage<T>) : this(page.total.toInt(), page.records)
 }

@@ -112,7 +112,7 @@ open class PointReader private constructor(map: Map<Int, String>) : LinkedHashMa
          * @param [offset] 偏移量
          * @return [PointReader]
          */
-        fun from(indexList: List<Int>, valueList: List<String>, offset: Int): PointReader {
+        fun from(indexList: Collection<Int>, valueList: Collection<String>, offset: Int): PointReader {
             /* no check 效率
             if (inputList.size != valueList.size) {
                 throw PointResloverExceptionEnum.SIZE_NOT_MATCH.exception
