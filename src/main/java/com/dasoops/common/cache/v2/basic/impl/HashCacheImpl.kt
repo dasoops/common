@@ -40,7 +40,7 @@ open class HashCacheImpl<K : Any, V : Any>(
 
     override fun get(hashKey: K): V? {
         return ops()
-            .get(keyStr(), hashKey)
+            .get(keyStr(), hashKey.toJsonStr())
             .apply { log("get", keyStr(), this) }
             ?.parse(valueClass)
     }

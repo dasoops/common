@@ -1,6 +1,7 @@
 package com.dasoops.common.entity.vo.base
 
 import com.baomidou.mybatisplus.core.metadata.IPage
+import com.dasoops.common.exception.NoRecordException
 import io.swagger.annotations.ApiModelProperty
 
 /**
@@ -12,7 +13,7 @@ import io.swagger.annotations.ApiModelProperty
  * @version 1.0.0
  * @see [SimplePageVo]
  */
-open class SimplePageVo<T : BaseInnerVo>(
+class SimplePageVo<T : BaseInnerVo>(
     /**
      * 总记录数
      */
@@ -23,8 +24,12 @@ open class SimplePageVo<T : BaseInnerVo>(
      * 数据集合
      */
     @ApiModelProperty(value = "数据集合", example = "[]", required = false)
-    open val dataList: List<T>
+    val dataList: List<T>
 ) : BasePageVo(total) {
+
+    init {
+        dataList.ifEmpty { throw NoRecordException }
+    }
     constructor(dataList: List<T>) : this(dataList.size, dataList)
     constructor(page: IPage<T>) : this(page.total.toInt(), page.records)
 }
