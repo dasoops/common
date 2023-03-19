@@ -3,10 +3,14 @@ package com.dasoops.common.task
 import com.dasoops.common.cache.ICache
 import com.dasoops.common.cache.v2.CacheManager
 import com.dasoops.common.service.IService
-import kotlinx.coroutines.*
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.joinAll
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import org.springframework.boot.ApplicationArguments
+import org.springframework.boot.ApplicationRunner
 import org.springframework.context.ApplicationContext
 import org.springframework.context.ApplicationContextAware
-import javax.annotation.PostConstruct
 
 /**
  * 初始化任务
@@ -17,7 +21,7 @@ import javax.annotation.PostConstruct
  * @version 1.0.0
  * @see [InitTask]
  */
-open class InitTask : ITask, ApplicationContextAware {
+open class InitTask : ITask, ApplicationContextAware, ApplicationRunner {
 
     private var cacheSet: HashSet<AutoInit> = HashSet()
     private var serviceSet: HashSet<AutoInit> = HashSet()
@@ -34,8 +38,8 @@ open class InitTask : ITask, ApplicationContextAware {
         autoInitMap.values.forEach {
             when (it) {
                 is CacheManager -> cacheManager = it
-                is ICache -> cacheSet.add(it)
                 is IService -> serviceSet.add(it)
+                is ICache -> cacheSet.add(it)
                 else -> otherSet.add(it)
             }
         }
@@ -44,8 +48,7 @@ open class InitTask : ITask, ApplicationContextAware {
     /**
      * 初始化
      */
-    @PostConstruct
-    fun init() {
+    suspend fun init() {
         cacheManager?.run { init(this) }
         //缓存初始化
         init(*cacheSet.toTypedArray())
@@ -56,7 +59,11 @@ open class InitTask : ITask, ApplicationContextAware {
         InitGlobal.inInitialize = false
     }
 
-    fun init(vararg autoInit: AutoInit) = runBlocking {
-        autoInit.map { it.init() }
+    suspend fun init(vararg autoInit: AutoInit) = coroutineScope {
+        autoInit.map { launch { it.init() } }.joinAll()
+    }
+
+    override fun run(args: ApplicationArguments?) = runBlocking {
+        init()
     }
 }
