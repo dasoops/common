@@ -16,7 +16,7 @@ object DbColumnUtil {
      * @param clazz clazz
      * @return [List]<[Integer]>
      */
-    fun getAllProbableValue(clazz: Class<out IDbColumnEnum>): List<Int?> {
+    fun getAllProbableValue(clazz: Class<out IDbColumnEnum>): List<Int> {
         if (!clazz.isEnum) {
             throw DbColumnException.NOT_ENUM.get()
         }
