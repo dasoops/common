@@ -33,7 +33,7 @@ object Json {
      * json序列器
      */
     val serializer: ObjectMapper
-
+    
     init {
         serializer = JsonMapper.builder().run {
             addModule(SimpleModule().apply {
@@ -53,12 +53,15 @@ object Json {
                         type: Class<*>,
                         config: DeserializationConfig?,
                         beanDesc: BeanDescription?
-                    ): JsonDeserializer<*>? {
+                    ): JsonDeserializer<*> {
+                        //先使用父类查找器
                         super.findEnumDeserializer(type, config, beanDesc)?.run { return this }
+                        //是否为IDbColumnEnum子类,是直接使用IDbColumnEnum解析器
                         if (IDbColumnEnum::class.java.isAssignableFrom(type)) {
                             _classMappings[ClassKey(IDbColumnEnum::class.java)]?.run { return this }
                         }
-                        return type.interfaces?.firstNotNullOf { _classMappings[ClassKey(it)] }
+                        //查找父类是否有注册解析器
+                        return type.interfaces.firstNotNullOf { _classMappings[ClassKey(it)] }
                     }
                 }.apply {
                     addDeserializer(IDbColumnEnum::class.java, IDbColumnEnumDeserializer())
