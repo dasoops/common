@@ -1,6 +1,5 @@
 package com.dasoops.common.config.dict
 
-import com.dasoops.common.config.DictData
 import com.dasoops.common.entity.result.Result
 import com.github.xiaoymin.knife4j.annotations.ApiSupport
 import io.swagger.annotations.Api

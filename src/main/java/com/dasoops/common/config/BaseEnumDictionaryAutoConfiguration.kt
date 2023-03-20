@@ -1,10 +1,13 @@
 package com.dasoops.common.config
 
+import cn.hutool.core.util.StrUtil
 import com.dasoops.common.cache.v2.factory.CommonOperations.log
+import com.dasoops.common.config.dict.DictData
+import com.dasoops.common.config.dict.DictInner
+import com.dasoops.common.config.dict.DictNode
 import com.dasoops.common.config.dict.DictionaryController
-import com.dasoops.common.config.dict.entity.DictInnerData
-import com.dasoops.common.config.dict.entity.DictNode
 import com.dasoops.common.entity.enums.database.ApiEnum
+import com.google.common.base.CaseFormat
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Import
 import java.io.File
@@ -22,7 +25,7 @@ import java.util.jar.JarFile
 open class BaseEnumDictionaryAutoConfiguration(val basePath: String) {
 
     @Bean
-    fun buildDictData(): DictData {
+    open fun buildDictData(): DictData {
         //构建路径
         val basePath = buildBasePath(basePath)
         log.info("构建路径,path: $basePath")
@@ -33,14 +36,14 @@ open class BaseEnumDictionaryAutoConfiguration(val basePath: String) {
 
         val dictData = DictData()
         classList.forEach { clazz ->
-            dictData[clazz.simpleName] = DictNode(
+            dictData[StrUtil.lowerFirst(clazz.simpleName)] =
                 clazz.enumConstants.map {
-                    DictInnerData(
+                    DictInner(
                         value = it.dbValue,
-                        key = it.key
+                        key = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, it.toString()),
+                        data = it.data,
                     )
-                }
-            )
+                }.toCollection(DictNode())
         }
         return dictData
     }

@@ -10,5 +10,5 @@ interface ApiEnum : IDbColumnEnum {
     /**
      * 含义
      */
-    val key: String
+    val data: HashMap<String, String>
 }
