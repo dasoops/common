@@ -1,6 +1,5 @@
 package com.dasoops.common.util.point
 
-import cn.hutool.core.collection.CollUtil
 import com.dasoops.common.entity.enums.database.IDbColumnEnum
 
 /**
@@ -27,16 +26,19 @@ open class PointReader private constructor(map: Map<Int, String>) : LinkedHashMa
      * @return [ValueReader]
      */
     fun cut(start: Int, length: Int): ValueReader {
-        return ValueReader(this.entries.stream().skip(start.toLong()).limit(length.toLong()).map { it.value }.iterator())
-    }
+        val entryList = this.entries.filter { it.key >= start }
+        if (entryList.size < length) {
+            var flag = start
+            val arrayList = ArrayList(entryList)
+            for ((index, _) in entryList.withIndex()) {
+                if (index != flag) {
+                    arrayList.add(flag, SimpleEntry(flag, "0"))
+                }
+                flag++
+            }
+        }
 
-    /**
-     * 剪切
-     * @param [start] 开始
-     * @return [ValueReader]
-     */
-    fun cut(start: Int): ValueReader {
-        return ValueReader(this.entries.stream().skip(start.toLong()).map { it.value }.iterator())
+        return ValueReader(entryList.map { it.value }.iterator())
     }
 
     /**

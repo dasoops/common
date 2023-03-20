@@ -5,5 +5,8 @@ fun Any.toJsonStr(): String {
 }
 
 fun <T> String.parse(clazz: Class<T>): T {
+    if (clazz == String::class.java) {
+        return this as T
+    }
     return Json.parse(this, clazz)
 }

@@ -1,6 +1,5 @@
 package com.dasoops.common.util.point
 
-import cn.hutool.core.util.EnumUtil
 import cn.hutool.core.util.HexUtil
 import com.dasoops.common.entity.enums.database.DbBooleanEnum
 import com.dasoops.common.entity.enums.database.IDbColumnEnum
@@ -39,8 +38,20 @@ object Parser {
         return char.code != 48
     }
 
+    fun bool(int: Int): Boolean {
+        return int != 0
+    }
+
     fun dbBool(char: Char): DbBooleanEnum {
         return if (this.bool(char)) {
+            DbBooleanEnum.TRUE
+        } else {
+            DbBooleanEnum.FALSE
+        }
+    }
+
+    fun dbBool(int: Int): DbBooleanEnum {
+        return if (this.bool(int)) {
             DbBooleanEnum.TRUE
         } else {
             DbBooleanEnum.FALSE

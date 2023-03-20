@@ -1,8 +1,8 @@
 package com.dasoops.common.util.point
 
-import cn.hutool.core.util.NumberUtil
 import com.dasoops.common.entity.enums.database.DbBooleanEnum
 import com.dasoops.common.entity.enums.database.IDbColumnEnum
+import com.dasoops.common.util.BinaryUtil
 
 /**
  * 点解析器
@@ -15,7 +15,7 @@ import com.dasoops.common.entity.enums.database.IDbColumnEnum
  */
 open class ValueReader(val iterator: Iterator<String>) {
 
-    private var dotIterator: Iterator<Char>? = null
+    private var dotIterator: Iterator<Int>? = null
 
     /**
      * skip
@@ -27,6 +27,10 @@ open class ValueReader(val iterator: Iterator<String>) {
             next()
         }
         return this
+    }
+
+    fun hasNext(): Boolean {
+        return iterator.hasNext()
     }
 
     /**
@@ -46,7 +50,7 @@ open class ValueReader(val iterator: Iterator<String>) {
      * @return [ValueReader] this
      */
     fun dot(): ValueReader {
-        dotIterator = NumberUtil.getBinaryStr(this.int()).toCharArray().iterator()
+        dotIterator = BinaryUtil.buildNumber2Binary16Array(this.int()).iterator()
         return this
     }
 
@@ -64,7 +68,7 @@ open class ValueReader(val iterator: Iterator<String>) {
      * @return [String] string value
      */
     fun next(): String {
-        return next()
+        return iterator.next()
     }
 
     /**
@@ -119,7 +123,7 @@ open class ValueReader(val iterator: Iterator<String>) {
      * next dot value
      * @return [Char] char value
      */
-    fun nextDot(): Char {
+    fun nextDot(): Int {
         return dotIterator!!.next()
     }
 
