@@ -45,18 +45,19 @@ object Resources {
         basePath: String
     ): Collection<Class<*>> {
         val classSet = HashSet<Class<*>>()
+        val finalPath = buildBasePath(basePath)
 
         //根据url类型获取资源
-        val resources: Enumeration<URL> = classLoader.getResources(basePath)
+        val resources: Enumeration<URL> = classLoader.getResources(finalPath)
         while (resources.hasMoreElements()) {
             val url = resources.nextElement()
             if (url.protocol == "file") {
                 val file = File(url.file)
-                scan(classLoader, basePath, file, classSet)
+                scan(classLoader, finalPath, file, classSet)
             } else if (url.protocol == "jar") {
                 //去除前缀和后面的路径
                 val file = File(buildFilePath(url))
-                scanJarSaveToSet(classLoader, basePath, file, classSet)
+                scanJarSaveToSet(classLoader, finalPath, file, classSet)
             }
         }
 

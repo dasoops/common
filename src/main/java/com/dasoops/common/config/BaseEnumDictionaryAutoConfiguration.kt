@@ -23,6 +23,7 @@ open class BaseEnumDictionaryAutoConfiguration(vararg basePath: String) {
     val classList: Collection<Class<ApiEnum>>
 
     init {
+        log.info("初始化字典项")
         classList = Resources.scan(javaClass.classLoader, *basePath)
             .filter { ApiEnum::class.java.isAssignableFrom(it) && it.isEnum }
             .map { it as Class<ApiEnum> }
@@ -30,7 +31,6 @@ open class BaseEnumDictionaryAutoConfiguration(vararg basePath: String) {
 
     @Bean
     open fun buildOnlyValueDictData(): OnlyValueDictData {
-        log.info("初始化字典项")
         return classList.associate { clazz ->
             buildDictName(clazz) to clazz.enumConstants.associate {
                 val key = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, it.toString())
