@@ -33,12 +33,22 @@ open class BaseEnumDictionaryAutoConfiguration(val basePath: String) {
     }
 
     @Bean
+    open fun buildOnlyValueDictData(): OnlyValueDictData {
+        return classList.associate { clazz ->
+            buildDictName(clazz) to clazz.enumConstants.associate {
+                    val key = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, it.toString())
+                    key to it.dbValue
+                }.toMap(OnlyValueDictNode())
+        }.toMap(OnlyValueDictData())
+    }
+
+    @Bean
     open fun buildEasyDictData(): EasyDictData {
         val easyDictData = EasyDictData()
         classList.forEach { clazz ->
-            easyDictData[StrUtil.lowerFirst(clazz.simpleName)] =
+            easyDictData[buildDictName(clazz)] =
                 clazz.enumConstants.associate {
-                    val key = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, it.toString())
+                    val key = buildNodeKey(it)
                     key to DictInner(
                         value = it.dbValue,
                         key = key,
@@ -49,10 +59,11 @@ open class BaseEnumDictionaryAutoConfiguration(val basePath: String) {
         return easyDictData
     }
 
+
     @Bean
     open fun buildDictData(): DictData {
         return classList.map { clazz ->
-            DictNode(StrUtil.lowerFirst(clazz.simpleName), clazz.enumConstants.map {
+            DictNode(buildDictName(clazz), clazz.enumConstants.map {
                 DictInner(
                     value = it.dbValue,
                     key = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, it.toString()),
@@ -192,4 +203,9 @@ open class BaseEnumDictionaryAutoConfiguration(val basePath: String) {
             null
         }
     }
+
+    private fun buildNodeKey(it: ApiEnum): String =
+        CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, it.toString())
+
+    private fun buildDictName(clazz: Class<ApiEnum>): String = StrUtil.lowerFirst(clazz.simpleName)
 }

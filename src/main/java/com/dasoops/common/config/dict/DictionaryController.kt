@@ -21,12 +21,19 @@ import org.springframework.web.bind.annotation.ResponseBody
 class DictionaryController(
     private val easyDictData: EasyDictData,
     private val dictData: DictData,
+    private val onlyValueDictData: OnlyValueDictData,
 ) {
 
     @GetMapping("getEasyDict")
     @ApiOperation(value = "获取简单字典")
     fun getEasyDict(): Result<EasyDictData> {
         return Result.success(easyDictData)
+    }
+
+    @GetMapping("getOnlyValueDict")
+    @ApiOperation(value = "获取仅值字典")
+    fun getOnlyValueDict(): Result<OnlyValueDictData> {
+        return Result.success(onlyValueDictData)
     }
 
     @GetMapping("getDict")

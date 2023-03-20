@@ -66,3 +66,12 @@ data class DictNode(
      */
     val nodeData: List<DictInner>
 )
+
+
+@Api("dict")
+@ApiModel(description = "仅值字典数据")
+class OnlyValueDictData : HashMap<String, OnlyValueDictNode>()
+
+@Api("dict")
+@ApiModel(description = "仅值字典树")
+class OnlyValueDictNode : HashMap<String, Int>()
