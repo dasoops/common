@@ -17,12 +17,13 @@ import java.util.*
  * @see [BaseEnumDictionaryAutoConfiguration]
  */
 @Import(DictionaryController::class)
-open class BaseEnumDictionaryAutoConfiguration {
+open class BaseEnumDictionaryAutoConfiguration(vararg basePath: String) {
 
     private val log = LoggerFactory.getLogger(javaClass)
+    val classList: Collection<Class<ApiEnum>>
 
-    private fun getResources(): Collection<Class<ApiEnum>> {
-        return Resources.getAll()
+    init {
+        classList = Resources.scan(javaClass.classLoader, *basePath)
             .filter { ApiEnum::class.java.isAssignableFrom(it) && it.isEnum }
             .map { it as Class<ApiEnum> }
     }
@@ -30,8 +31,7 @@ open class BaseEnumDictionaryAutoConfiguration {
     @Bean
     open fun buildOnlyValueDictData(): OnlyValueDictData {
         log.info("初始化字典项")
-
-        return getResources().associate { clazz ->
+        return classList.associate { clazz ->
             buildDictName(clazz) to clazz.enumConstants.associate {
                 val key = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, it.toString())
                 key to it.dbValue
@@ -42,7 +42,7 @@ open class BaseEnumDictionaryAutoConfiguration {
     @Bean
     open fun buildEasyDictData(): EasyDictData {
         val easyDictData = EasyDictData()
-        getResources().forEach { clazz ->
+        classList.forEach { clazz ->
             easyDictData[buildDictName(clazz)] =
                 clazz.enumConstants.associate {
                     val key = buildNodeKey(it)
@@ -59,7 +59,7 @@ open class BaseEnumDictionaryAutoConfiguration {
 
     @Bean
     open fun buildDictData(): DictData {
-        return getResources().map { clazz ->
+        return classList.map { clazz ->
             DictNode(buildDictName(clazz), clazz.enumConstants.map {
                 DictInner(
                     value = it.dbValue,

@@ -2,8 +2,6 @@ package com.dasoops.common.util
 
 import cn.hutool.core.util.StrUtil
 import com.dasoops.common.cache.v2.factory.CommonOperations
-import com.dasoops.common.entity.enums.database.ApiEnum
-import com.google.common.base.CaseFormat
 import org.slf4j.LoggerFactory
 import java.io.File
 import java.net.URL
@@ -13,19 +11,27 @@ import java.util.jar.JarFile
 object Resources {
     private val log = LoggerFactory.getLogger(javaClass)
 
-    val classList: Collection<Class<*>>
 
-    init {
-        //构建路径
-        log.info("初始化 Resources")
-        //扫描所有Class,获取实体类和接口
-        val classLoader = this::class.java.classLoader
-        classList = scanClassSaveToSet(classLoader, "")
-        CommonOperations.log.info("Resources 初始化完成")
+    /**
+     * 扫描
+     * @param [basePath] 基本路径
+     * @return [Collection<Class<*>>]
+     */
+    fun scan(vararg basePath: String): Collection<Class<*>> {
+        return this.scan(this::class.java.classLoader, *basePath)
     }
 
-    fun getAll(): Collection<Class<*>> {
-        return classList
+    /**
+     * 扫描
+     * @param [classLoader] 类加载器
+     * @param [basePath] 基本路径
+     * @return [Collection<Class<*>>]
+     */
+    fun scan(
+        classLoader: ClassLoader,
+        vararg basePath: String
+    ): Collection<Class<*>> {
+        return basePath.map { this.scan(classLoader, it) }.flatten()
     }
 
     /**
@@ -34,7 +40,7 @@ object Resources {
      * @param [basePath] 基本路径
      * @return [Pair<Set<Class<*>>, Set<Class<*>>>] [Pair<entitySet,RequestSet>]
      */
-    private fun scanClassSaveToSet(
+    private fun scan(
         classLoader: ClassLoader,
         basePath: String
     ): Collection<Class<*>> {
@@ -46,7 +52,7 @@ object Resources {
             val url = resources.nextElement()
             if (url.protocol == "file") {
                 val file = File(url.file)
-                scanClassSaveToSet(classLoader, basePath, file, classSet)
+                scan(classLoader, basePath, file, classSet)
             } else if (url.protocol == "jar") {
                 //去除前缀和后面的路径
                 val file = File(buildFilePath(url))
@@ -105,7 +111,7 @@ object Resources {
      * @param [file] 文件
      * @param [classSet] 类集合
      */
-    private fun scanClassSaveToSet(
+    private fun scan(
         classLoader: ClassLoader,
         basePath: String,
         file: File,
@@ -115,7 +121,7 @@ object Resources {
         //目录递归
         if (file.exists() && file.isDirectory) {
             Arrays.stream(file.list() ?: return).forEach {
-                scanClassSaveToSet(classLoader, "$basePath/$it", File("${file.path}/$it"), classSet)
+                scan(classLoader, "$basePath/$it", File("${file.path}/$it"), classSet)
             }
             return
         }
