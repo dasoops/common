@@ -50,12 +50,15 @@ object Json {
                 // 重写SimpleDeserializers.findEnumDeserializer()方法,不然不生效
                 setDeserializers(object : SimpleDeserializers() {
                     override fun findEnumDeserializer(
-                        type: Class<*>?,
+                        type: Class<*>,
                         config: DeserializationConfig?,
                         beanDesc: BeanDescription?
                     ): JsonDeserializer<*>? {
-                        return super.findEnumDeserializer(type, config, beanDesc)
-                            ?: type?.interfaces?.firstNotNullOf { _classMappings[ClassKey(it)] }
+                        super.findEnumDeserializer(type, config, beanDesc)?.run { return this }
+                        if (IDbColumnEnum::class.java.isAssignableFrom(type)) {
+                            _classMappings[ClassKey(IDbColumnEnum::class.java)]?.run { return this }
+                        }
+                        return type.interfaces?.firstNotNullOf { _classMappings[ClassKey(it)] }
                     }
                 }.apply {
                     addDeserializer(IDbColumnEnum::class.java, IDbColumnEnumDeserializer())
