@@ -3,6 +3,7 @@ package com.dasoops.common.config.dict
 import com.dasoops.common.entity.result.Result
 import com.github.xiaoymin.knife4j.annotations.ApiSupport
 import io.swagger.annotations.Api
+import io.swagger.annotations.ApiOperation
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseBody
@@ -18,10 +19,18 @@ import org.springframework.web.bind.annotation.ResponseBody
 @ResponseBody
 @RequestMapping("dict")
 class DictionaryController(
-    private val dictData: DictData
+    private val easyDictData: EasyDictData,
+    private val dictData: DictData,
 ) {
 
-    @GetMapping("getData")
+    @GetMapping("getEasyDict")
+    @ApiOperation(value = "获取简单字典")
+    fun getEasyDict(): Result<EasyDictData> {
+        return Result.success(easyDictData)
+    }
+
+    @GetMapping("getDict")
+    @ApiOperation(value = "获取字典")
     fun getDict(): Result<DictData> {
         return Result.success(dictData)
     }

@@ -2,10 +2,7 @@ package com.dasoops.common.config
 
 import cn.hutool.core.util.StrUtil
 import com.dasoops.common.cache.v2.factory.CommonOperations.log
-import com.dasoops.common.config.dict.DictData
-import com.dasoops.common.config.dict.DictInner
-import com.dasoops.common.config.dict.DictNode
-import com.dasoops.common.config.dict.DictionaryController
+import com.dasoops.common.config.dict.*
 import com.dasoops.common.entity.enums.database.ApiEnum
 import com.google.common.base.CaseFormat
 import org.springframework.context.annotation.Bean
@@ -23,29 +20,46 @@ import java.util.jar.JarFile
  */
 @Import(DictionaryController::class)
 open class BaseEnumDictionaryAutoConfiguration(val basePath: String) {
+    val classList: Collection<Class<ApiEnum>>
 
-    @Bean
-    open fun buildDictData(): DictData {
+    init {
         //构建路径
         val basePath = buildBasePath(basePath)
         log.info("构建路径,path: $basePath")
 
         //扫描所有Class,获取实体类和接口
         val classLoader = this::class.java.classLoader
-        val classList = scanClassSaveToSet(classLoader, basePath)
+        classList = scanClassSaveToSet(classLoader, basePath)
+    }
 
-        val dictData = DictData()
+    @Bean
+    open fun buildEasyDictData(): EasyDictData {
+        val easyDictData = EasyDictData()
         classList.forEach { clazz ->
-            dictData[StrUtil.lowerFirst(clazz.simpleName)] =
-                clazz.enumConstants.map {
-                    DictInner(
+            easyDictData[StrUtil.lowerFirst(clazz.simpleName)] =
+                clazz.enumConstants.associate {
+                    val key = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, it.toString())
+                    key to DictInner(
                         value = it.dbValue,
-                        key = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, it.toString()),
+                        key = key,
                         data = it.data,
                     )
-                }.toCollection(DictNode())
+                }.toMap(EasyDictNode())
         }
-        return dictData
+        return easyDictData
+    }
+
+    @Bean
+    open fun buildDictData(): DictData {
+        return classList.map { clazz ->
+            DictNode(StrUtil.lowerFirst(clazz.simpleName), clazz.enumConstants.map {
+                DictInner(
+                    value = it.dbValue,
+                    key = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, it.toString()),
+                    data = it.data,
+                )
+            }.toList())
+        }.toCollection(DictData())
     }
 
     /**

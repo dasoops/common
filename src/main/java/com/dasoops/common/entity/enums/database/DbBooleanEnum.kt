@@ -11,7 +11,10 @@ package com.dasoops.common.entity.enums.database
  *
  * @see IDbColumnEnum
  */
-enum class DbBooleanEnum(override val dbValue: Int, val bool: Boolean) : IDbColumnEnum {
+enum class DbBooleanEnum(
+    override val dbValue: Int,
+    val bool: Boolean
+) : ApiEnum {
     //
     TRUE(1, true),
     FALSE(0, false),
@@ -34,4 +37,7 @@ enum class DbBooleanEnum(override val dbValue: Int, val bool: Boolean) : IDbColu
             }
         }
     }
+
+    override val data: HashMap<String, String>?
+        get() = null
 }

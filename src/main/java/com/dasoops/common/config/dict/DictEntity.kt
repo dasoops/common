@@ -42,9 +42,27 @@ data class DictInner(
 }
 
 @Api("dict")
-@ApiModel(description = "字典数据")
-class DictData : HashMap<String, DictNode>()
+@ApiModel(description = "简单字典数据")
+class EasyDictData : HashMap<String, EasyDictNode>()
 
 @Api("dict")
-@ApiModel(description = "字典树")
-class DictNode : ArrayList<DictInner>()
+@ApiModel(description = "简单字典树")
+class EasyDictNode : HashMap<String, DictInner>()
+
+@Api("dict")
+@ApiModel(description = "标准字典数据")
+class DictData : ArrayList<DictNode>()
+
+@Api("dict")
+@ApiModel(description = "标准字典树")
+data class DictNode(
+    /**
+     * 树名称
+     */
+    @ApiModelProperty(value = "树名称", required = true)
+    val nodeName: String,
+    /**
+     * 树数据
+     */
+    val nodeData: List<DictInner>
+)
