@@ -24,18 +24,18 @@ data class DictInner(
      * 键
      */
     @ApiModelProperty(value = "键", required = true)
-    val key:String,
+    val key: String,
 
     /**
      * 数据
      */
     @ApiModelProperty(value = "数据", required = true)
-    val data: Map<String, String>,
+    val data: Map<String, String>?,
 ) : HashMap<String, Any>() {
     init {
         super.put("value", value)
         super.put("key", key)
-        data.entries.forEach {
+        data?.entries?.forEach {
             super.put(it.key, it.value)
         }
     }
