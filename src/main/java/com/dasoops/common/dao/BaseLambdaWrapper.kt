@@ -138,14 +138,6 @@ abstract class BaseLambdaWrapper<T : BaseMongoDo, Children : BaseLambdaWrapper<T
     }
 
     /**
-     * 包含
-     */
-    fun between(column: String, minValue: Date, maxValue: Date): Children {
-        builder.between(column, minValue, maxValue)
-        return typethis
-    }
-
-    /**
      * orderByAsc 升序
      * @param [column] 字段
      */
