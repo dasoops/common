@@ -1,6 +1,7 @@
 package com.dasoops.common.dao
 
 import com.dasoops.common.entity.dbo.base.BaseMongoDo
+import java.util.*
 import kotlin.reflect.KProperty1
 
 abstract class BaseLambdaWrapper<T : BaseMongoDo, Children : BaseLambdaWrapper<T, Children>> {
@@ -132,6 +133,14 @@ abstract class BaseLambdaWrapper<T : BaseMongoDo, Children : BaseLambdaWrapper<T
      * 包含
      */
     fun between(column: String, minValue: Any, maxValue: Any): Children {
+        builder.between(column, minValue, maxValue)
+        return typethis
+    }
+
+    /**
+     * 包含
+     */
+    fun between(column: String, minValue: Date, maxValue: Date): Children {
         builder.between(column, minValue, maxValue)
         return typethis
     }

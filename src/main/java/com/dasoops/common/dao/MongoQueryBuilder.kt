@@ -1,9 +1,11 @@
 package com.dasoops.common.dao
 
+import cn.hutool.core.date.LocalDateTimeUtil
 import com.dasoops.common.util.SqlSelectBuilder
 import org.springframework.data.domain.Sort
 import org.springframework.data.mongodb.core.query.Criteria
 import org.springframework.data.mongodb.core.query.Query
+import java.util.*
 import kotlin.reflect.KProperty1
 
 /**
@@ -135,7 +137,18 @@ open class MongoQueryBuilder {
      * 之间
      */
     fun between(column: String, minValue: Any, maxValue: Any) {
-        query.addCriteria(Criteria.where(column).gte(minValue).lte(maxValue))
+        query.addCriteria(
+            Criteria.where(column).gte(minValue).lte(maxValue)
+        )
+    }
+
+    /**
+     * 之间
+     */
+    fun between(column: String, minValue: Date, maxValue: Date) {
+        query.addCriteria(
+            Criteria.where(column).gte(LocalDateTimeUtil.of(minValue)).lte(LocalDateTimeUtil.of(maxValue))
+        )
     }
 
     /**
