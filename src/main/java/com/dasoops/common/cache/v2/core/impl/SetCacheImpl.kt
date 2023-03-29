@@ -30,7 +30,7 @@ open class SetCacheImpl<Entity : Any>(
 
     override fun <R> transaction(func: Func1<SetOperation<Entity>, R>): R {
         return super.baseTransaction<R> {
-            func.call(SetOperationImpl(redis, keyStr, entityClass))
+            func.call(SetOperationImpl(it, keyStr, entityClass))
         }
     }
 }

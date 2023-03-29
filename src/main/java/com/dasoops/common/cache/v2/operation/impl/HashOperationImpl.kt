@@ -6,6 +6,7 @@ import com.dasoops.common.extension.mapTo
 import com.dasoops.common.util.json.parse
 import com.dasoops.common.util.json.toJsonStr
 import org.springframework.data.redis.core.BoundHashOperations
+import org.springframework.data.redis.core.RedisOperations
 
 /**
  * 哈希操作实现
@@ -14,7 +15,7 @@ import org.springframework.data.redis.core.BoundHashOperations
  * @see [HashOperationImpl]
  */
 class HashOperationImpl<K : Any, V : Any>(
-    val redis: CacheTemplate,
+    val redis: RedisOperations<String, String>,
     val keyStr: String,
     val keyClass: Class<K>,
     val valueClass: Class<V>,

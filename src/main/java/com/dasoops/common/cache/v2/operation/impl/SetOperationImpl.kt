@@ -5,6 +5,7 @@ import com.dasoops.common.cache.v2.operation.SetOperation
 import com.dasoops.common.util.json.parse
 import com.dasoops.common.util.json.toJsonStr
 import org.springframework.data.redis.core.BoundSetOperations
+import org.springframework.data.redis.core.RedisOperations
 
 /**
  * 不重复集合操作实现
@@ -13,7 +14,7 @@ import org.springframework.data.redis.core.BoundSetOperations
  * @see [SetOperationImpl]
  */
 class SetOperationImpl<Entity : Any>(
-    val redis: CacheTemplate,
+    val redis: RedisOperations<String, String>,
     val keyStr: String,
     val entityClass: Class<Entity>
 ) : SetOperation<Entity> {

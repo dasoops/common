@@ -30,8 +30,7 @@ open class ListCacheImpl<Entity : Any>(
 
     override fun <R> transaction(func: Func1<ListOperation<Entity>, R>): R {
         return super.baseTransaction {
-            val hashOperationImpl = ListCacheImpl(redis, keyStr, entityClass)
-            func.call(hashOperationImpl)
+            func.call(ListOperationImpl(it, keyStr, entityClass))
         }
     }
 }

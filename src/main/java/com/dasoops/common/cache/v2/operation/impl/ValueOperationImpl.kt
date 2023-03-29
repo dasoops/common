@@ -1,10 +1,10 @@
 package com.dasoops.common.cache.v2.operation.impl
 
-import com.dasoops.common.cache.v2.base.CacheTemplate
 import com.dasoops.common.cache.v2.operation.ValueOperation
 import com.dasoops.common.util.json.parse
 import com.dasoops.common.util.json.toJsonStr
 import org.springframework.data.redis.core.BoundValueOperations
+import org.springframework.data.redis.core.RedisOperations
 import java.util.concurrent.TimeUnit
 
 /**
@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit
  * @see [ValueOperationImpl]
  */
 class ValueOperationImpl<Entity : Any>(
-    val redis: CacheTemplate,
+    val redis: RedisOperations<String, String>,
     val keyStr: String,
     val entityClass: Class<Entity>
 ) : ValueOperation<Entity> {

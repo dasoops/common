@@ -21,12 +21,11 @@ open class ValueCacheImpl<Entity : Any>(
     protected val entityClass: Class<Entity>
 ) : CacheImpl<Entity>(redis, keyStr), ValueCache<Entity>,
     ValueOperation<Entity> by ValueOperationImpl(redis, keyStr, entityClass) {
-
     override fun clear() = super.clear()
 
     override fun <R> transaction(func: Func1<ValueOperation<Entity>, R>): R {
         return super.baseTransaction {
-            func.call(ValueOperationImpl(redis, keyStr, entityClass))
+            func.call(ValueOperationImpl(it, keyStr, entityClass))
         }
     }
 }

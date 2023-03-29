@@ -29,10 +29,7 @@ open class HashCacheImpl<K : Any, V : Any>(
         it.set(data)
     }
 
-    override fun <R> transaction(func: Func1<HashOperation<K, V>, R>): R {
-        return super.baseTransaction<R> {
-            val hashOperationImpl = HashOperationImpl(redis, keyStr, keyClass, valueClass)
-            func.call(hashOperationImpl)
-        }
+    override fun <R> transaction(func: Func1<HashOperation<K, V>, R>): R = super.baseTransaction<R> {
+        func.call(HashOperationImpl(it, keyStr, keyClass, valueClass))
     }
 }
