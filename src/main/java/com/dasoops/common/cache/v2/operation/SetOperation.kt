@@ -1,17 +1,35 @@
-package com.dasoops.common.cache.v2.basic
+package com.dasoops.common.cache.v2.operation
 
-import com.dasoops.common.cache.v2.base.Cache
+import com.dasoops.common.cache.v2.logger.SimpleCacheLogger
 
 /**
- * 集合缓存
+ * 不重复集合缓存操作
  * @title: ListCache
  * @classPath com.dasoops.common.cache.v2.basic.ListCache
  * @author DasoopsNicole@Gmail.com
  * @date 2023/03/10
  * @version 1.0.0
- * @see [SetCache]
+ * @see [SetOperation]
  */
-interface SetCache<Entity : Any> : Cache<Collection<Entity>> {
+interface SetOperation<Entity : Any> : SimpleCacheLogger {
+
+    /**
+     * 设置值
+     * @param [data] 数据
+     */
+    fun set(data: Collection<Entity>)
+
+    /**
+     * 获取值
+     * @return [Entity]
+     */
+    fun get(): Collection<Entity>?
+
+    /**
+     * 清理缓存
+     */
+    fun clear()
+
     /**
      * 获取所有
      * @return [Collection<T>?]

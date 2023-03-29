@@ -1,4 +1,4 @@
-package com.dasoops.common.cache.v2.base
+package com.dasoops.common.cache.v2.builder
 
 /**
  * factory builder 标记接口

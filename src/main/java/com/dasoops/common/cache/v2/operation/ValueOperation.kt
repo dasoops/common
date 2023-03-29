@@ -1,18 +1,33 @@
-package com.dasoops.common.cache.v2.basic
+package com.dasoops.common.cache.v2.operation
 
-import com.dasoops.common.cache.v2.base.Cache
+import com.dasoops.common.cache.v2.logger.SimpleCacheLogger
 import java.util.concurrent.TimeUnit
 
 /**
- * 值缓存
- * @title: ValueCache
- * @classPath com.dasoops.common.cache.v2.basic.ValueCache
+ * 值缓存操作
  * @author DasoopsNicole@Gmail.com
- * @date 2023/03/10
- * @version 1.0.0
- * @see [ValueCache]
+ * @date 2023/03/28
+ * @see [ValueOperation]
  */
-interface ValueCache<Entity : Any> : Cache<Entity> {
+interface ValueOperation<Entity : Any> : SimpleCacheLogger {
+
+    /**
+     * 清除
+     */
+    fun clear()
+
+    /**
+     * 设置值
+     * @param [data] 数据
+     */
+    fun set(data: Entity)
+
+    /**
+     * 获取值
+     * @return [Entity]
+     */
+    fun get(): Entity?
+
     /**
      * set并添加过期时间
      * @param [value] 值

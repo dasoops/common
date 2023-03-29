@@ -1,6 +1,6 @@
-package com.dasoops.common.cache.v2.basic
+package com.dasoops.common.cache.v2.operation
 
-import com.dasoops.common.cache.v2.base.Cache
+import com.dasoops.common.cache.v2.logger.SimpleCacheLogger
 
 /**
  * 哈希缓存
@@ -9,9 +9,27 @@ import com.dasoops.common.cache.v2.base.Cache
  * @author DasoopsNicole@Gmail.com
  * @date 2023/03/10
  * @version 1.0.0
- * @see [HashCache]
+ * @see [HashOperation]
  */
-interface HashCache<K : Any, V : Any> : Cache<Map<K, V>> {
+interface HashOperation<K : Any, V : Any> : SimpleCacheLogger {
+
+    /**
+     * 设置值
+     * @param [data] 数据
+     */
+    fun set(data: Map<K, V>)
+
+    /**
+     * 获取值
+     * @return [Key]
+     */
+    fun get(): Map<K, V>?
+
+    /**
+     * 清理缓存
+     */
+    fun clear()
+
     /**
      * 获取所有
      * @return [Map<T, R>?]
@@ -50,4 +68,6 @@ interface HashCache<K : Any, V : Any> : Cache<Map<K, V>> {
      * @return [V?]
      */
     fun get(hashKey: K): V?
+
+    fun keyStr(): String
 }

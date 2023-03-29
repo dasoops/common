@@ -6,6 +6,7 @@ enum class CacheException(private val msg: String) : IExceptionEnum {
 
     UNDEFINED_CAST("未实现的转换"),
     GET_LOCK_ERROR("获取锁失败"),
+    UNIMPLEMENT_TRANSACTION("未实现的事务方法"),
     ;
 
     override fun getCode(): Int {
@@ -21,4 +22,6 @@ enum class CacheException(private val msg: String) : IExceptionEnum {
     }
 
     inner class CacheExceptionEntity : CustomException(this)
+    companion object {
+    }
 }

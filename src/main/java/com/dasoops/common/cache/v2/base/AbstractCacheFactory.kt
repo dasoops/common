@@ -12,9 +12,7 @@ package com.dasoops.common.cache.v2.base
 abstract class AbstractCacheFactory<Key : Any, Inner : CacheOrFactory>(protected open val keyStr: String) :
     CacheFactory<Key, Inner> {
 
-    protected fun keyStr(): String {
-        return keyStr
-    }
+    protected fun keyStr() = keyStr
 
     /**
      * 获取map

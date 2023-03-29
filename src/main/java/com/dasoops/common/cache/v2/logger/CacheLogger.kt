@@ -1,8 +1,6 @@
-package com.dasoops.common.cache.v2.base
+package com.dasoops.common.cache.v2.logger
 
 import com.dasoops.common.util.json.toJsonStr
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 
 /**
  * 缓存日志记录器

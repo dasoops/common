@@ -2,7 +2,7 @@ package com.dasoops.common.cache.v2.factory
 
 import cn.hutool.core.util.StrUtil
 import com.dasoops.common.cache.v2.base.CacheTemplate
-import com.dasoops.common.cache.v2.base.SimpleCacheLogger
+import com.dasoops.common.cache.v2.logger.SimpleCacheLogger
 
 /**
  * 通用操作

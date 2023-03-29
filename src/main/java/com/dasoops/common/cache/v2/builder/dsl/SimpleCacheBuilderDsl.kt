@@ -2,14 +2,14 @@ package com.dasoops.common.cache.v2.builder.dsl
 
 import com.dasoops.common.cache.v2.CacheManager
 import com.dasoops.common.cache.v2.base.CacheTemplate
-import com.dasoops.common.cache.v2.basic.HashCache
-import com.dasoops.common.cache.v2.basic.ListCache
-import com.dasoops.common.cache.v2.basic.SetCache
-import com.dasoops.common.cache.v2.basic.ValueCache
-import com.dasoops.common.cache.v2.basic.impl.HashCacheImpl
-import com.dasoops.common.cache.v2.basic.impl.ListCacheImpl
-import com.dasoops.common.cache.v2.basic.impl.SetCacheImpl
-import com.dasoops.common.cache.v2.basic.impl.ValueCacheImpl
+import com.dasoops.common.cache.v2.core.HashCache
+import com.dasoops.common.cache.v2.core.ListCache
+import com.dasoops.common.cache.v2.core.SetCache
+import com.dasoops.common.cache.v2.core.ValueCache
+import com.dasoops.common.cache.v2.core.impl.HashCacheImpl
+import com.dasoops.common.cache.v2.core.impl.ListCacheImpl
+import com.dasoops.common.cache.v2.core.impl.SetCacheImpl
+import com.dasoops.common.cache.v2.core.impl.ValueCacheImpl
 
 /**
  * 简单缓存构建器dsl

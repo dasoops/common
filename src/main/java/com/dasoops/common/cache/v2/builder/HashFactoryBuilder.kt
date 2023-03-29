@@ -2,11 +2,9 @@ package com.dasoops.common.cache.v2.builder
 
 import com.dasoops.common.cache.v2.CacheManager
 import com.dasoops.common.cache.v2.base.CacheTemplate
-import com.dasoops.common.cache.v2.base.FactoryBuilder
 import com.dasoops.common.cache.v2.factory.HashFactory
 import com.dasoops.common.util.convert.DefaultToStringConvert
 import org.springframework.core.convert.converter.Converter
-import org.springframework.data.redis.core.StringRedisTemplate
 
 class HashFactoryBuilder<HK : Any, HV : Any>(
     private val redis: CacheTemplate,

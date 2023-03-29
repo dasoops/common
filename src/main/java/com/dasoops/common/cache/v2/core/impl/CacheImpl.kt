@@ -1,10 +1,9 @@
-package com.dasoops.common.cache.v2.basic
+package com.dasoops.common.cache.v2.core.impl
 
-import cn.hutool.core.lang.func.Func0
-import com.dasoops.common.cache.v2.CacheManager
+import cn.hutool.core.lang.func.Func1
 import com.dasoops.common.cache.v2.base.Cache
 import com.dasoops.common.cache.v2.base.CacheTemplate
-import com.dasoops.common.cache.v2.base.SimpleCacheLogger
+import com.dasoops.common.cache.v2.logger.SimpleCacheLogger
 import com.dasoops.common.task.AutoInit
 import org.springframework.data.redis.core.RedisOperations
 import org.springframework.data.redis.core.SessionCallback
@@ -24,9 +23,8 @@ abstract class CacheImpl<Entity : Any>(
     protected open val keyStr: String
 ) : Cache<Entity>, AutoInit, SimpleCacheLogger {
 
-    override fun keyStr(): String {
-        return keyStr
-    }
+    override fun keyStr() = keyStr
+
 
     override fun init() {
         clear()
@@ -48,12 +46,12 @@ abstract class CacheImpl<Entity : Any>(
         return redis.expire(keyStr(), timeout, timeUnit).apply { log("isPresent", keyStr(), this) }
     }
 
-    override fun <R> transaction(func: Func0<R>): R {
+    override fun <R> baseTransaction(func: Func1<RedisOperations<String, String>, R>): R {
         log("transaction begin", keyStr(), "none")
         val result = redis.execute(object : SessionCallback<R> {
-            override fun <K : Any?, V : Any?> execute(operations: RedisOperations<K, V>): R? {
+            override fun <Key : Any?, Entity : Any?> execute(operations: RedisOperations<Key, Entity>): R? {
                 operations.multi()
-                val call = func.call()
+                val call = func.call(operations as RedisOperations<String, String>)
                 operations.exec()
                 return call
             }

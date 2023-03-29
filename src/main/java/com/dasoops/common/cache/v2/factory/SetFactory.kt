@@ -2,9 +2,8 @@ package com.dasoops.common.cache.v2.factory
 
 import com.dasoops.common.cache.v2.base.AbstractCacheFactory
 import com.dasoops.common.cache.v2.base.CacheTemplate
-import com.dasoops.common.cache.v2.basic.ListCache
-import com.dasoops.common.cache.v2.basic.SetCache
-import com.dasoops.common.cache.v2.basic.impl.SetCacheImpl
+import com.dasoops.common.cache.v2.core.SetCache
+import com.dasoops.common.cache.v2.core.impl.SetCacheImpl
 import org.springframework.core.convert.converter.Converter
 
 /**
