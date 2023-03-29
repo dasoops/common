@@ -1,6 +1,7 @@
 package com.dasoops.common.cache.v2.core.impl
 
 import cn.hutool.core.lang.func.Func1
+import cn.hutool.core.lang.func.VoidFunc1
 import com.dasoops.common.cache.v2.base.CacheTemplate
 import com.dasoops.common.cache.v2.core.ValueCache
 import com.dasoops.common.cache.v2.operation.ValueOperation
@@ -23,7 +24,7 @@ open class ValueCacheImpl<Entity : Any>(
     ValueOperation<Entity> by ValueOperationImpl(redis, keyStr, entityClass) {
     override fun clear() = super.clear()
 
-    override fun <R> transaction(func: Func1<ValueOperation<Entity>, R>): R {
+    override fun transaction(func: VoidFunc1<ValueOperation<Entity>>): List<Any>? {
         return super.baseTransaction {
             func.call(ValueOperationImpl(it, keyStr, entityClass))
         }

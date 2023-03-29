@@ -1,6 +1,6 @@
 package com.dasoops.common.cache.v2.core
 
-import cn.hutool.core.lang.func.Func1
+import cn.hutool.core.lang.func.VoidFunc1
 import com.dasoops.common.cache.v2.base.Cache
 import com.dasoops.common.cache.v2.operation.ValueOperation
 
@@ -20,5 +20,5 @@ interface ValueCache<Entity : Any> : ValueOperation<Entity>, Cache<Entity> {
      * @param [func] 函数
      * @return [R]
      */
-    fun <R> transaction(func: Func1<ValueOperation<Entity>, R>): R
+    fun transaction(func: VoidFunc1<ValueOperation<Entity>>): List<Any>?
 }

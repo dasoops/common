@@ -1,6 +1,6 @@
 package com.dasoops.common.cache.v2.core.impl
 
-import cn.hutool.core.lang.func.Func1
+import cn.hutool.core.lang.func.VoidFunc1
 import com.dasoops.common.cache.v2.base.CacheTemplate
 import com.dasoops.common.cache.v2.core.SetCache
 import com.dasoops.common.cache.v2.operation.SetOperation
@@ -24,12 +24,15 @@ open class SetCacheImpl<Entity : Any>(
 
     override fun keyStr(): String = keyStr
     override fun clear() = super.clear()
-    override fun set(data: Collection<Entity>): Unit = transaction { it: SetOperation<Entity> ->
-        it.set(data)
+
+    override fun set(data: Collection<Entity>) {
+        transaction { it: SetOperation<Entity> ->
+            it.set(data)
+        }
     }
 
-    override fun <R> transaction(func: Func1<SetOperation<Entity>, R>): R {
-        return super.baseTransaction<R> {
+    override fun transaction(func: VoidFunc1<SetOperation<Entity>>): List<Any>? {
+        return super.baseTransaction {
             func.call(SetOperationImpl(it, keyStr, entityClass))
         }
     }

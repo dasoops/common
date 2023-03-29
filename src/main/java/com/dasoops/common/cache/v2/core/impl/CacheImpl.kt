@@ -1,6 +1,6 @@
 package com.dasoops.common.cache.v2.core.impl
 
-import cn.hutool.core.lang.func.Func1
+import cn.hutool.core.lang.func.VoidFunc1
 import com.dasoops.common.cache.v2.base.Cache
 import com.dasoops.common.cache.v2.base.CacheTemplate
 import com.dasoops.common.cache.v2.logger.SimpleCacheLogger
@@ -46,17 +46,16 @@ abstract class CacheImpl<Entity : Any>(
         return redis.expire(keyStr(), timeout, timeUnit).apply { log("isPresent", keyStr(), this) }
     }
 
-    override fun <R> baseTransaction(func: Func1<RedisOperations<String, String>, R>): R {
+    override fun baseTransaction(func: VoidFunc1<RedisOperations<String, String>>): List<Any>? {
         log("transaction begin", keyStr(), "none")
-        val result = redis.execute(object : SessionCallback<R> {
-            override fun <Key : Any?, Entity : Any?> execute(operations: RedisOperations<Key, Entity>): R? {
+        val result = redis.execute(object : SessionCallback<List<Any>> {
+            override fun <Key : Any?, Entity : Any?> execute(operations: RedisOperations<Key, Entity>): List<Any>? {
                 operations.multi()
-                val call = func.call(operations as RedisOperations<String, String>)
-                operations.exec()
-                return call
+                func.call(operations as RedisOperations<String, String>)
+                return operations.exec()
             }
-        })
-        log("transaction end", keyStr(), "none")
+        }).ifEmpty { null }
+        log("transaction end", keyStr(), result)
         return result
     }
 }

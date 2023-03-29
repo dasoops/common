@@ -1,6 +1,6 @@
 package com.dasoops.common.cache.v2.base
 
-import cn.hutool.core.lang.func.Func1
+import cn.hutool.core.lang.func.VoidFunc1
 import org.springframework.data.redis.core.RedisOperations
 import java.util.concurrent.TimeUnit
 
@@ -61,5 +61,5 @@ interface Cache<Entity : Any> : CacheOrFactory {
      * @param [func] 函数
      * @return [R]
      */
-    fun <R> baseTransaction(func: Func1<RedisOperations<String, String>, R>): R
+    fun baseTransaction(func: VoidFunc1<RedisOperations<String, String>>): List<Any>?
 }

@@ -36,8 +36,6 @@ abstract class CacheManager(prefix: String = "") : AutoInit {
     @ConditionalOnSingleCandidate(
         RedisConnectionFactory::class
     )
-
-
     override fun init() {
         createSimpleCache()
         createGroupCache()

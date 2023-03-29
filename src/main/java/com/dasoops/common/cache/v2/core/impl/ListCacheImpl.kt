@@ -1,6 +1,6 @@
 package com.dasoops.common.cache.v2.core.impl
 
-import cn.hutool.core.lang.func.Func1
+import cn.hutool.core.lang.func.VoidFunc1
 import com.dasoops.common.cache.v2.base.CacheTemplate
 import com.dasoops.common.cache.v2.core.ListCache
 import com.dasoops.common.cache.v2.operation.ListOperation
@@ -24,11 +24,13 @@ open class ListCacheImpl<Entity : Any>(
 
     override fun keyStr(): String = keyStr
     override fun clear() = super.clear()
-    override fun set(data: Collection<Entity>): Unit = transaction { it: ListOperation<Entity> ->
-        it.set(data)
+    override fun set(data: Collection<Entity>) {
+        transaction { it: ListOperation<Entity> ->
+            it.set(data)
+        }
     }
 
-    override fun <R> transaction(func: Func1<ListOperation<Entity>, R>): R {
+    override fun transaction(func: VoidFunc1<ListOperation<Entity>>): List<Any>? {
         return super.baseTransaction {
             func.call(ListOperationImpl(it, keyStr, entityClass))
         }

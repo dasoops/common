@@ -1,6 +1,6 @@
 package com.dasoops.common.cache.v2.core
 
-import cn.hutool.core.lang.func.Func1
+import cn.hutool.core.lang.func.VoidFunc1
 import com.dasoops.common.cache.v2.base.Cache
 import com.dasoops.common.cache.v2.operation.HashOperation
 import org.checkerframework.checker.units.qual.K
@@ -21,5 +21,5 @@ interface HashCache<K : Any, V : Any> : HashOperation<K, V>, Cache<Map<K, V>> {
      * @param [func] 函数
      * @return [R]
      */
-    fun <R> transaction(func: Func1<HashOperation<K, V>, R>): R
+    fun transaction(func: VoidFunc1<HashOperation<K, V>>): List<Any>?
 }
