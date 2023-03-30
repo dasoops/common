@@ -3,8 +3,10 @@ package com.dasoops.common.config;
 import com.dasoops.common.entity.enums.exception.ExceptionEnum;
 import com.dasoops.common.entity.result.SimpleResult;
 import com.dasoops.common.exception.CustomException;
-import com.dasoops.common.exception.ResloverExceptionEnum;
+import com.dasoops.common.exception.DataResolverException;
+import com.dasoops.common.exception.ProjectExceptionEntity;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanInstantiationException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -22,15 +24,27 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
 @RestControllerAdvice
 public abstract class BaseExceptionHandler {
+
     /**
-     * 自定义异常处理
+     * 消息解析异常处理
      *
      * @param e e
      */
-    @ExceptionHandler(CustomException.class)
-    public SimpleResult catchLogicException(CustomException e) {
-        log.error("catch LogicException: ", e);
+    @ExceptionHandler(ProjectExceptionEntity.class)
+    public SimpleResult catchProjectException(ProjectExceptionEntity e) {
+        log.error("项目内部异常: ", e);
         return SimpleResult.fail(e.getExceptionEnum());
+    }
+
+    /**
+     * 消息解析异常处理
+     *
+     * @param e e
+     */
+    @ExceptionHandler(BeanInstantiationException.class)
+    public SimpleResult catchBeanInstantiationException(BeanInstantiationException e) {
+        log.error("缺少必填参数: ", e);
+        return SimpleResult.fail(DataResolverException.MISSING_REQUIRED_PARAM);
     }
 
     /**
@@ -52,7 +66,7 @@ public abstract class BaseExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public SimpleResult catchHttpMessageNotReadableException(HttpMessageNotReadableException e) {
         log.error("catch catchHttpMessageNotReadableException: ", e);
-        return SimpleResult.fail(ResloverExceptionEnum.PARAMETER_RESLOVE_ERROR);
+        return SimpleResult.fail(DataResolverException.PARAMETER_RESLOVE_ERROR);
     }
 
     /**
@@ -63,7 +77,18 @@ public abstract class BaseExceptionHandler {
     @ExceptionHandler(BindException.class)
     public SimpleResult catchBindException(BindException e) {
         log.error("catch catchBindException: ", e);
-        return SimpleResult.fail(ResloverExceptionEnum.MISSING_REQUIRED_PARAM);
+        return SimpleResult.fail(DataResolverException.MISSING_REQUIRED_PARAM);
+    }
+
+    /**
+     * 自定义异常处理
+     *
+     * @param e e
+     */
+    @ExceptionHandler(CustomException.class)
+    public SimpleResult catchCustomException(CustomException e) {
+        log.error("catch CustomException: ", e);
+        return SimpleResult.fail(e.getExceptionEnum());
     }
 
     /**

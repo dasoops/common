@@ -4,8 +4,9 @@ import com.alibaba.excel.EasyExcel
 import com.alibaba.excel.ExcelWriter
 import com.alibaba.excel.write.metadata.WriteSheet
 import com.alibaba.excel.write.style.column.LongestMatchColumnWidthStyleStrategy
-import com.dasoops.common.util.entity.dto.ExportInfo
-import com.dasoops.common.util.entity.enums.ExportExceptionEnum
+import com.dasoops.common.util.export.ExportException
+import com.dasoops.common.util.export.ExportInfo
+import com.dasoops.common.util.export.ExportUtil
 import org.slf4j.LoggerFactory
 import java.io.IOException
 import java.io.UnsupportedEncodingException
@@ -23,13 +24,26 @@ class ExcelUtil {
          *
          * @param [response] response
          * @param [dataList] 数据集合
+         */
+
+        @JvmSynthetic
+        inline fun <reified T> ktSimpleExport(response: HttpServletResponse, dataList: List<T>) {
+            simpleExport(response, dataList, "default")
+        }
+
+        /**
+         * 简单导出(自动提取基类)
+         * 仅支持kt
+         *
+         * @param [response] response
+         * @param [dataList] 数据集合
          * @param [fileName] 文件名称
          */
 
         @JvmSynthetic
         inline fun <reified T> ktSimpleExport(response: HttpServletResponse, dataList: List<T>, fileName: String) {
             if (dataList.isEmpty()) {
-                throw ExportExceptionEnum.DATA_NULL.exception
+                throw ExportException.DATA_NULL.get()
             }
             val exportInfo = ExportInfo.ktBuild(dataList)
 
@@ -46,7 +60,7 @@ class ExcelUtil {
 
         fun <T> simpleExport(response: HttpServletResponse, dataList: List<T>, fileName: String) {
             if (dataList.isEmpty() || dataList[0] == null) {
-                throw ExportExceptionEnum.DATA_NULL.exception
+                throw ExportException.DATA_NULL.get()
             }
             simpleExport(response, ExportInfo.build(dataList), fileName)
         }
@@ -85,10 +99,10 @@ class ExcelUtil {
                     }
             } catch (e: UnsupportedEncodingException) {
                 log.error("导出部分url转码错误: ", e)
-                throw ExportExceptionEnum.URL_ENCODER_ERROR.exception
+                throw ExportException.URL_ENCODER_ERROR.get()
             } catch (e: IOException) {
                 log.error("io异常: ", e)
-                throw ExportExceptionEnum.DOWNLOAD_ERROR.exception
+                throw ExportException.DOWNLOAD_ERROR.get()
             }
         }
 

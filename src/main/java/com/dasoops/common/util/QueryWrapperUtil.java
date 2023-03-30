@@ -6,7 +6,7 @@ import com.dasoops.common.entity.enums.param.ISortColumnEnum;
 import com.dasoops.common.entity.enums.param.SortRuleEnum;
 import com.dasoops.common.entity.param.SortParam;
 import com.dasoops.common.exception.CustomException;
-import com.dasoops.common.util.entity.enums.AssertExceptionEnum;
+import com.dasoops.common.util._assert.AssertException;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class QueryWrapperUtil {
 
     public static <R extends BaseDo, E extends ISortColumnEnum> QueryWrapper<R> addSortParam(final QueryWrapper<R> wrapper, List<SortParam<R>> paramList, Class<E> enumClass) {
         if (wrapper == null) {
-            throw new CustomException(AssertExceptionEnum.PARAMETER_NOT_NULL);
+            throw new CustomException(AssertException.PARAMETER_NOT_NULL);
         }
 
         if (paramList == null || paramList.size() <= 0) {

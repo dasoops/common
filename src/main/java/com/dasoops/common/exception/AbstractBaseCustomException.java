@@ -69,4 +69,13 @@ public abstract class AbstractBaseCustomException extends RuntimeException {
      */
     public abstract String getStackInfo(Throwable e);
 
+    @Override
+    public String getMessage() {
+        return exceptionEnum.getMsg();
+    }
+
+    @Override
+    public String getLocalizedMessage() {
+        return exceptionEnum.getMsg();
+    }
 }

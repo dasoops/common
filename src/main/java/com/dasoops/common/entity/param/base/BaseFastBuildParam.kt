@@ -18,8 +18,8 @@ import com.dasoops.common.entity.dbo.base.BaseDo
  */
 abstract class BaseFastBuildParam<T : BaseDo> : BaseParam(), IBuildWrapper<T>, IBuildDo<T> {
     override fun buildQueryWrapper(): QueryWrapper<T> {
-        val wrapper: QueryWrapper<T> = super.buildQueryWrapper()
-        wrapper.entity = super.buildDo()
-        return wrapper
+        return super.buildQueryWrapper().apply{
+            this@apply.entity = super.buildDo()
+        }
     }
 }

@@ -25,6 +25,7 @@ public enum ExceptionEnum implements IExceptionEnum {
     /**
      * 通用异常
      */
+    NO_RECORD(2001, "没有查询到数据"),
     PARAMETER_NOT_NULL(2002, "参数不可为空"),
     SIZE_ZERO(2003, "数据不可为空"),
     UNKNOWN_KEYWORD(2004, "未知的关键词"),
@@ -44,7 +45,7 @@ public enum ExceptionEnum implements IExceptionEnum {
      */
     TYPE_CONVERT(7001, "类型转换异常"),
     INIT_ERROR(7002, "项目初始化异常"),
-    REQUEST_METHOD_NOT_SUPPORTED(7003, "请求方法POST不支持"),
+    REQUEST_METHOD_NOT_SUPPORTED(7003, "不支持的请求方法"),
 
     /**
      * other
@@ -64,7 +65,7 @@ public enum ExceptionEnum implements IExceptionEnum {
     private final String msg;
 
     @Override
-    public CustomException getException() {
+    public CustomException get() {
         return new CustomException(this);
     }
 }

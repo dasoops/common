@@ -31,6 +31,6 @@ public interface IExceptionEnum {
      *
      * @return {@link CustomException}
      */
-    CustomException getException();
+    CustomException get();
 
 }

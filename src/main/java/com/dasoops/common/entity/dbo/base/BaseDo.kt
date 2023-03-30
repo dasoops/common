@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.FieldFill
 import com.baomidou.mybatisplus.annotation.IdType
 import com.baomidou.mybatisplus.annotation.TableField
 import com.baomidou.mybatisplus.annotation.TableId
+import com.baomidou.mybatisplus.annotation.TableLogic
 import com.dasoops.common.entity.enums.database.DbBooleanEnum
 import java.util.*
 
@@ -21,35 +22,35 @@ abstract class BaseDo(
      * 主键id
      */
     @TableId(type = IdType.AUTO)
-    var rowId: Long,
+    open var rowId: Long? = null,
 
     /**
      * 逻辑删除(true为删除)
      */
     @TableField(fill = FieldFill.INSERT)
-    var isDelete: DbBooleanEnum,
-
-    /**
-     * 创建时间
-     */
-    @TableField(fill = FieldFill.INSERT)
-    var createTime: Date,
+    open var isDelete: DbBooleanEnum? = null,
 
     /**
      * 创建用户(通常为Qid)
      */
     @TableField(fill = FieldFill.INSERT)
-    var createUser: Long,
+    open var createUser: Long? = null,
 
     /**
-     * 更新时间
+     * 创建时间
      */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    var updateTime: Date,
+    @TableField(fill = FieldFill.INSERT)
+    open var createTime: Date? = null,
 
     /**
      * 更新用户(通常为Qid)
      */
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    var updateUser: Long,
+    open var updateUser: Long? = null,
+
+    /**
+     * 更新时间
+     */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    open var updateTime: Date? = null,
 ) : IDo
