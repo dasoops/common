@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.dasoops</groupId>
+    <artifactId>common-bom</artifactId>
+    <version>3.0.1</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <!-- dasoops -->
+        <common.version>3.0.1</common.version>
+
+        <!-- project -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>17</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+
+        <!-- kotlin -->
+        <kotlin.code.style>official</kotlin.code.style>
+        <kotlin.compiler.jvmTarget>1.8</kotlin.compiler.jvmTarget>
+        <kotlin.code.style>official</kotlin.code.style>
+        <kotlin.compiler.jvmTarget>17</kotlin.compiler.jvmTarget>
+        <kotlin.version>1.8.0</kotlin.version>
+        <kotlinx-coroutines.version>1.6.4</kotlinx-coroutines.version>
+
+        <!-- dataSource -->
+        <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
+
+        <!-- common -->
+        <lombok.version>1.18.24</lombok.version>
+        <guava.version>31.1-jre</guava.version>
+        <hutool.version>5.8.8</hutool.version>
+        <tencentSdk.version>3.1.625</tencentSdk.version>
+        <knife4j.version>4.0.0</knife4j.version>
+        <swagger.version>1.5.20</swagger.version>
+        <easyExcel.version>3.1.4</easyExcel.version>
+        <okio.version>2.8.0</okio.version>
+        <commons-compress.version>1.21</commons-compress.version>
+        <jwt.version>4.2.1</jwt.version>
+        <minio.version>8.4.5</minio.version>
+        <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
+        <jakarta.version>2.1.0</jakarta.version>
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>mavenCentral</id>
+            <url>https://repo1.maven.org/maven2/</url>
+        </repository>
+    </repositories>
+
+    <dependencyManagement>
+
+        <dependencies>
+
+            <!-- 自定义组件 -->
+            <dependency>
+                <groupId>com.dasoops</groupId>
+                <artifactId>common-core</artifactId>
+                <version>${common.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.dasoops</groupId>
+                <artifactId>common-cache</artifactId>
+                <version>${common.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.dasoops</groupId>
+                <artifactId>common-task</artifactId>
+                <version>${common.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.dasoops</groupId>
+                <artifactId>common-json</artifactId>
+                <version>${common.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.dasoops</groupId>
+                <artifactId>common-code</artifactId>
+                <version>${common.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.dasoops</groupId>
+                <artifactId>common-db</artifactId>
+                <version>${common.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>jakarta.annotation</groupId>
+                <artifactId>jakarta.annotation-api</artifactId>
+                <version>${jakarta.version}</version>
+            </dependency>
+
+            <!-- kotlin -->
+            <dependency>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-stdlib</artifactId>
+                <version>${kotlin.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jetbrains.kotlinx</groupId>
+                <artifactId>kotlinx-coroutines-jdk8</artifactId>
+                <version>${kotlinx-coroutines.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-stdlib-jdk8</artifactId>
+                <version>${kotlin.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-test</artifactId>
+                <version>${kotlin.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-reflect</artifactId>
+                <version>${kotlin.version}</version>
+            </dependency>
+
+            <!-- 通用组件 -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+                <optional>true</optional>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-openapi2-spring-boot-starter</artifactId>
+                <version>${knife4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.tencentcloudapi</groupId>
+                <artifactId>tencentcloud-sdk-java-ocr</artifactId>
+                <version>${tencentSdk.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>easyexcel</artifactId>
+                <version>${easyExcel.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.minio</groupId>
+                <artifactId>minio</artifactId>
+                <version>${minio.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.squareup.okio</groupId>
+                <artifactId>okio</artifactId>
+                <version>${okio.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-compress</artifactId>
+                <version>${commons-compress.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.auth0</groupId>
+                <artifactId>java-jwt</artifactId>
+                <version>${jwt.version}</version>
+            </dependency>
+
+            <!-- dataSource -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-annotation</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
+        </dependencies>
+
+    </dependencyManagement>
+
+</project>
