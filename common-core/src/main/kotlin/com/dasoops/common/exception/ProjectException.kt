@@ -13,8 +13,11 @@ import com.dasoops.common.IException
  */
 enum class ProjectException(override val message: String) : IException {
     NO_AUTH("没有权限这样操作"),
-    UN_EXPECTED("预期外的异常"),
     NO_RECORD("没有查询到数据"),
+    UN_EXPECTED("预期外的异常") {
+        override val code: Int
+            get() = 65535
+    },
     ;
 
     override val code: Int = 20000 + ordinal

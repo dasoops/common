@@ -4,7 +4,7 @@ import com.dasoops.common.IException
 import com.dasoops.common.exception.CustomException
 
 /**
- * 点解析异常枚举(101xx)
+ * 点解析异常枚举(204xx)
  * @title: PointResloverExceptionEnum
  * @classPath com.dasoops.common.util.point.PointResloverExceptionEnum
  * @author DasoopsNicole@Gmail.com
@@ -21,7 +21,7 @@ enum class PointResloverException(override val message: String) : IException {
     UNDEFINED_VALUE("未定义的值"),
     ;
 
-    override val code: Int = 20000 + ordinal
+    override val code: Int = 20400 + ordinal
     override fun get() = PointResloverExceptionEntity()
     inner class PointResloverExceptionEntity() : CustomException(this)
 }

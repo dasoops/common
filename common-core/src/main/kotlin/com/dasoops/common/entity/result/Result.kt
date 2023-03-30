@@ -1,4 +1,4 @@
-package com.dasoops.common.db.entity.result
+package com.dasoops.common.entity.result
 
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty

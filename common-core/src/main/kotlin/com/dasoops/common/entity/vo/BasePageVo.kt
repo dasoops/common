@@ -1,5 +1,6 @@
 package com.dasoops.common.db.entity.vo
 
+import com.dasoops.common.entity.vo.BaseVo
 import io.swagger.annotations.ApiModelProperty
 
 /**

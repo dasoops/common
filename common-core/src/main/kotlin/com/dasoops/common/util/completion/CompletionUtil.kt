@@ -1,4 +1,4 @@
-package com.dasoops.common.util
+package com.dasoops.common.util.completion
 
 import cn.hutool.core.date.DateField
 import cn.hutool.core.date.DateUtil
@@ -166,7 +166,7 @@ object CompletionUtil {
             || (dataList4 != null && dataList4.size != dateListSize)
             || (dataList5 != null && dataList5.size != dateListSize)
         ) {
-            throw UtilException.CompletionException.LIST_SIZE_NOT_MATCH.get()
+            throw CompletionException.LIST_SIZE_NOT_MATCH.get()
         }
 
         //根据范围日期数判断是否需要补全

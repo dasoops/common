@@ -1,4 +1,4 @@
-package com.dasoops.common.db.entity.vo;
+package com.dasoops.common.entity.vo;
 
 import java.io.Serializable;
 

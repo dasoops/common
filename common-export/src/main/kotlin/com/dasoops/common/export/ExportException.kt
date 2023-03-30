@@ -4,7 +4,7 @@ import com.dasoops.common.IException
 import com.dasoops.common.exception.CustomException
 
 /**
- * 导出异常(901xx)
+ * 导出异常(202xx)
  * @author DasoopsNicole@Gmail.com
  * @date 2023/03/30
  * @see [ExportException]
@@ -17,6 +17,6 @@ enum class ExportException(override val message: String) : IException {
 
     inner class ExportExceptionEntity : CustomException(this)
 
-    override val code = 90100 + ordinal
+    override val code = 20200 + ordinal
     override fun get() = ExportExceptionEntity()
 }
