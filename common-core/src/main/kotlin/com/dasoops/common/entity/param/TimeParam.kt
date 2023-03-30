@@ -1,6 +1,6 @@
-package com.dasoops.common.db.entity.param
+package com.dasoops.common.entity.param
 
-import com.dasoops.common.db.entity.dbo.base.BaseDo
+import com.dasoops.common.IDo
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
@@ -13,7 +13,7 @@ import io.swagger.annotations.ApiModelProperty
  */
 @Api("base")
 @ApiModel(description = "时间param")
-data class TimeParam<T : BaseDo>(
+data class TimeParam<T : IDo>(
     /**
      * 开始时间
      */

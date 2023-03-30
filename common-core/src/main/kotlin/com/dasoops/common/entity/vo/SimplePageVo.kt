@@ -1,6 +1,6 @@
-package com.dasoops.common.db.entity.vo
+package com.dasoops.common.entity.vo
 
-import com.baomidou.mybatisplus.core.metadata.IPage
+import com.dasoops.common.db.entity.vo.BasePageVo
 import com.dasoops.common.exception.ProjectException
 import io.swagger.annotations.ApiModelProperty
 
@@ -29,5 +29,6 @@ class SimplePageVo<T : Any>(
     }
 
     constructor(dataList: List<T>) : this(dataList.size, dataList)
-    constructor(page: IPage<T>) : this(page.total.toInt(), page.records)
+
+    companion object
 }
