@@ -7,6 +7,7 @@
     <artifactId>common</artifactId>
     <modules>
         <module>common-core</module>
+        <module>common-all</module>
         <module>common-bom</module>
         <module>common-task</module>
         <module>common-db</module>
@@ -21,6 +22,7 @@
     <packaging>pom</packaging>
 
     <properties>
+        <common.version>3.0.1</common.version>
         <!-- project -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>

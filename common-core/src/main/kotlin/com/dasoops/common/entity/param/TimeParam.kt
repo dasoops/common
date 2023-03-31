@@ -1,9 +1,10 @@
 package com.dasoops.common.entity.param
 
-import com.dasoops.common.IDo
+import cn.hutool.core.date.DateUtil
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
+import java.util.*
 
 /**
  * 时间param
@@ -13,16 +14,16 @@ import io.swagger.annotations.ApiModelProperty
  */
 @Api("base")
 @ApiModel(description = "时间param")
-data class TimeParam<T : IDo>(
+data class TimeParam(
     /**
      * 开始时间
      */
     @ApiModelProperty(value = "开始时间", notes = "开始时间", required = true)
-    val beginTime: String? = null,
+    val beginTime: Date,
 
     /**
      * 结束时间
      */
     @ApiModelProperty(value = "结束时间", notes = "结束时间", required = false)
-    val endTime: String? = null
+    val endTime: Date = DateUtil.date()
 )

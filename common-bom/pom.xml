@@ -66,7 +66,19 @@
 
             <dependency>
                 <groupId>com.dasoops</groupId>
+                <artifactId>common-all</artifactId>
+                <version>${common.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.dasoops</groupId>
                 <artifactId>common-cache</artifactId>
+                <version>${common.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.dasoops</groupId>
+                <artifactId>common-code</artifactId>
                 <version>${common.version}</version>
             </dependency>
 
@@ -84,7 +96,7 @@
 
             <dependency>
                 <groupId>com.dasoops</groupId>
-                <artifactId>common-code</artifactId>
+                <artifactId>common-export</artifactId>
                 <version>${common.version}</version>
             </dependency>
 
@@ -95,9 +107,9 @@
             </dependency>
 
             <dependency>
-                <groupId>jakarta.annotation</groupId>
-                <artifactId>jakarta.annotation-api</artifactId>
-                <version>${jakarta.version}</version>
+                <groupId>com.dasoops</groupId>
+                <artifactId>common-dict</artifactId>
+                <version>${common.version}</version>
             </dependency>
 
             <!-- kotlin -->
@@ -139,6 +151,12 @@
                 <version>${lombok.version}</version>
                 <scope>provided</scope>
                 <optional>true</optional>
+            </dependency>
+
+            <dependency>
+                <groupId>jakarta.annotation</groupId>
+                <artifactId>jakarta.annotation-api</artifactId>
+                <version>${jakarta.version}</version>
             </dependency>
 
             <dependency>

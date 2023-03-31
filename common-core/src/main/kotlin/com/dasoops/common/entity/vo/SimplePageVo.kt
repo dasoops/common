@@ -1,6 +1,5 @@
 package com.dasoops.common.entity.vo
 
-import com.dasoops.common.db.entity.vo.BasePageVo
 import com.dasoops.common.exception.ProjectException
 import io.swagger.annotations.ApiModelProperty
 
@@ -11,24 +10,19 @@ import io.swagger.annotations.ApiModelProperty
  * @see [SimplePageVo]
  */
 class SimplePageVo<T : Any>(
-    /**
-     * 总记录数
-     */
-    @ApiModelProperty(value = "总记录数", required = true)
-    override val total: Int,
-
+    override val page: PageVo,
     /**
      * 数据集合
      */
     @ApiModelProperty(value = "数据集合", required = false)
     val dataList: List<T>
-) : BasePageVo(total) {
+) : BasePageVo(page) {
 
     init {
         dataList.ifEmpty { throw ProjectException.NO_RECORD.get() }
     }
 
-    constructor(dataList: List<T>) : this(dataList.size, dataList)
+    constructor(total: Int, dataList: List<T>) : this(PageVo(total), dataList)
 
     companion object
 }

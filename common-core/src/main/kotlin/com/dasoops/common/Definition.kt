@@ -1,7 +1,6 @@
 package com.dasoops.common
 
 import com.dasoops.common.exception.CustomException
-import io.swagger.annotations.ApiModelProperty
 import java.io.Serializable
 
 
@@ -44,14 +43,6 @@ interface ICacheManager : AutoInit
 interface IDo : Serializable
 
 /**
- * Param顶层接口
- * @author DasoopsNicole@Gmail.com
- * @date 2023/02/15
- * @see [IParam]
- */
-interface IParam : Serializable
-
-/**
  * result顶层接口
  * @author DasoopsNicole@Gmail.com
  * @date 2022/11/30
@@ -76,14 +67,6 @@ interface IResult : Serializable {
  * @see [IService]
  */
 interface IService
-
-/**
- * vo顶层接口
- * @author DasoopsNicole@Gmail.com
- * @date 2023/02/15
- * @see [IVo]
- */
-interface IVo : Serializable
 
 /**
  * exception顶层接口

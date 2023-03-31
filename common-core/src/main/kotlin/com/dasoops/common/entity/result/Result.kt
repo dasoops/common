@@ -13,7 +13,7 @@ import io.swagger.annotations.ApiModelProperty
  * @see AbstractResult
  */
 @ApiModel(value = "通用返回结果集", description = "通用返回结果集")
-class Result<T>(
+open class Result<T>(
     /**
      * 返回数据
      */
