@@ -17,7 +17,7 @@ open class DataEnum2IntConvertFactory : ConverterFactory<DataEnum, Int> {
 
     private class IDbColumnEnumToIntConvert<T> : Converter<DataEnum, T> {
         override fun convert(source: DataEnum): T {
-            return source.value as T
+            return source.data as T
         }
     }
 }

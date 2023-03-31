@@ -7,7 +7,7 @@ package com.dasoops.common.entity.dataenum
  * @see [BooleanEnum]
  */
 enum class BooleanEnum(
-    override val value: Int,
+    override val data: Int,
     val bool: Boolean
 ) : ApiEnum {
     TRUE(1, true),

@@ -1,7 +1,6 @@
 package com.dasoops.common.entity.dataenum
 
 import com.baomidou.mybatisplus.annotation.IEnum
-import com.fasterxml.jackson.annotation.JsonValue
 
 /**
  * @author DasoopsNicole@Gmail.com
@@ -18,10 +17,12 @@ interface DataEnum : IEnum<Int> {
      *
      * @return [Integer]
      */
-    @get:JsonValue
-    val value: Int
 
-    override fun getValue() = value
+    val data: Int
+
+    override fun getValue(): Int {
+        return data
+    }
 }
 
 /**
@@ -31,7 +32,7 @@ interface DataEnum : IEnum<Int> {
  * @see [DataApiEnum]
  */
 interface DataApiEnum : ApiEnum {
-    override val data: ApiEnumData
+    override val dataMap: ApiEnumData
 }
 
 /**
@@ -44,7 +45,7 @@ interface ApiEnum : DataEnum {
     /**
      * 含义
      */
-    val data: HashMap<String, String>?
+    val dataMap: HashMap<String, String>?
         get() = null
 }
 

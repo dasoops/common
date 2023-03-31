@@ -11,7 +11,7 @@ open class DataEnum2StringConvertFactory : ConverterFactory<DataEnum, String> {
 
     private class IDbColumnEnumToStringConvert<T> : Converter<DataEnum, T> {
         override fun convert(source: DataEnum): T {
-            return source.value.toString() as T
+            return source.data.toString() as T
         }
     }
 }

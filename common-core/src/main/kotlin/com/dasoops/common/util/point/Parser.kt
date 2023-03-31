@@ -62,7 +62,7 @@ object Parser {
         val enumConstantArray = E::class.java.enumConstants
         return HexUtil.toHex(int(str))
             .filter { it.code == 49 }
-            .map { value -> enumConstantArray.first { it.value == value.digitToInt() } }
+            .map { value -> enumConstantArray.first { it.data == value.digitToInt() } }
             .ifEmpty { null }
     }
 }

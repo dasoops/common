@@ -22,7 +22,7 @@ object DataEnumUtil {
         }
 
         val enumConstantArray = clazz.enumConstants
-        return Arrays.stream(enumConstantArray).map { it.value }.toList()
+        return Arrays.stream(enumConstantArray).map { it.data }.toList()
     }
 
     /**
@@ -33,6 +33,6 @@ object DataEnumUtil {
             throw DataEnumException.NOT_ENUM.get()
         }
 
-        return Arrays.stream(clazz.enumConstants).filter { it.value == value }.findFirst().orElse(null)
+        return Arrays.stream(clazz.enumConstants).filter { it.data == value }.findFirst().orElse(null)
     }
 }

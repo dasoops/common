@@ -33,7 +33,7 @@ open class BaseDictionaryConfiguration(vararg basePath: String) {
         return classList.associate { clazz ->
             buildDictName(clazz) to clazz.enumConstants.associate {
                 val key = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, it.toString())
-                key to it.value
+                key to it.data
             }.toMap(OnlyValueDictNode())
         }.toMap(OnlyValueDictData())
     }
@@ -46,9 +46,9 @@ open class BaseDictionaryConfiguration(vararg basePath: String) {
                 clazz.enumConstants.associate {
                     val key = buildNodeKey(it)
                     key to DictInner(
-                        value = it.value,
+                        value = it.data,
                         key = key,
-                        data = it.data,
+                        data = it.dataMap,
                     )
                 }.toMap(EasyDictNode())
         }
@@ -61,9 +61,9 @@ open class BaseDictionaryConfiguration(vararg basePath: String) {
         return classList.map { clazz ->
             DictNode(buildDictName(clazz), clazz.enumConstants.map {
                 DictInner(
-                    value = it.value,
+                    value = it.data,
                     key = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, it.toString()),
-                    data = it.data,
+                    data = it.dataMap,
                 )
             }.toList())
         }.toCollection(DictData())

@@ -3,8 +3,8 @@ package com.dasoops.common.db.dao
 import cn.hutool.core.lang.func.Func1
 import cn.hutool.core.lang.func.LambdaUtil
 import com.dasoops.common.db.entity.dbo.base.BaseMongoDo
-import jakarta.annotation.Resource
 import org.bson.types.ObjectId
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.mongodb.core.MongoTemplate
 import org.springframework.data.mongodb.core.query.Criteria
 import org.springframework.data.mongodb.core.query.Query
@@ -22,7 +22,7 @@ abstract class MongoMapper<T : BaseMongoDo>(
     open val entityClass: Class<T>
 ) : IMongoMapper<T> {
 
-    @Resource
+    @Autowired
     protected lateinit var mongoTemplate: MongoTemplate
 
     fun list(): List<T> {
