@@ -3,7 +3,7 @@ package com.dasoops.common.db.util
 import com.baomidou.mybatisplus.core.toolkit.LambdaUtils
 import com.baomidou.mybatisplus.core.toolkit.StringPool
 import com.baomidou.mybatisplus.extension.kotlin.AbstractKtWrapper
-import com.dasoops.common.db.entity.dbo.base.BaseDo
+import com.dasoops.common.db.entity.dbo.BaseDo
 import com.dasoops.common.exception.ProjectException
 import com.google.common.base.CaseFormat
 import kotlin.reflect.KProperty
