@@ -22,7 +22,7 @@ import java.util.*
  */
 abstract class BaseMybatisPlusConfiguration : MetaObjectHandler {
     @Bean
-    fun mybatisPlusInterceptor(): MybatisPlusInterceptor {
+    open fun mybatisPlusInterceptor(): MybatisPlusInterceptor {
         val interceptor = MybatisPlusInterceptor()
         //分页拦截器
         interceptor.addInnerInterceptor(PaginationInnerInterceptor(DbType.MYSQL))
@@ -30,7 +30,7 @@ abstract class BaseMybatisPlusConfiguration : MetaObjectHandler {
     }
 
     @Bean
-    fun configurationCustomizer(): ConfigurationCustomizer {
+    open fun configurationCustomizer(): ConfigurationCustomizer {
         return ConfigurationCustomizer { configuration: MybatisConfiguration ->
             //是否开启驼峰命名自动映射，即从经典数据库列名 A_COLUMN 映射到经典 Java 属性名 aColumn。 默认为false
             configuration.isMapUnderscoreToCamelCase = true

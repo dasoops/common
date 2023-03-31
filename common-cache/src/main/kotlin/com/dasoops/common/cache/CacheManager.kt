@@ -7,7 +7,7 @@ import com.dasoops.common.cache.base.CacheOrFactory
 import com.dasoops.common.cache.base.CacheTemplate
 import com.dasoops.common.cache.builder.dsl.GroupCacheBuilderDsl
 import com.dasoops.common.cache.builder.dsl.SimpleCacheBuilderDsl
-import jakarta.annotation.Resource
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.redis.connection.RedisConnectionFactory
 
 /**
@@ -23,7 +23,7 @@ abstract class CacheManager(prefix: String = "") : ICacheManager {
 
     lateinit var cacheTemplate: CacheTemplate
 
-    @Resource
+    @Autowired
     open fun setCacheTemplate(redisConnectionFactory: RedisConnectionFactory) {
         cacheTemplate = CacheTemplate(redisConnectionFactory)
     }
