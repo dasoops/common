@@ -22,10 +22,11 @@ enum class ProjectException(override val message: String) : IException {
 
     override val code: Int = 20000 + ordinal
     override fun get() = ProjectExceptionEntity(this)
+
 }
 
-open class ProjectExceptionEntity(exception: IException) : CustomException(exception)
+open class ProjectExceptionEntity(exceptionEnum: IException) : CustomException(exceptionEnum)
 
+object UnExpectedException : CustomException(ProjectException.UN_EXPECTED)
 object NoRecordException : CustomException(ProjectException.NO_RECORD)
 object NoAuthException : CustomException(ProjectException.NO_AUTH)
-object UnExpectedException : CustomException(ProjectException.UN_EXPECTED)

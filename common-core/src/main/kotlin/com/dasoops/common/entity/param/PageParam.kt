@@ -14,8 +14,8 @@ import io.swagger.annotations.ApiModelProperty
 @ApiModel(description = "分页参数")
 data class PageParam(
     @ApiModelProperty(value = "当前页码", notes = "当前页码", example = "1", required = true)
-    var current: Int,
+    var current: Int = 1,
 
     @ApiModelProperty(value = "每页显示数量", notes = "每页显示数量", example = "10", required = true)
-    var size: Int,
+    var size: Int = 10,
 )

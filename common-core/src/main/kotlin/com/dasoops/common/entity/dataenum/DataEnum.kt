@@ -1,6 +1,7 @@
 package com.dasoops.common.entity.dataenum
 
 import com.baomidou.mybatisplus.annotation.IEnum
+import com.fasterxml.jackson.annotation.JsonValue
 
 /**
  * @author DasoopsNicole@Gmail.com
@@ -17,7 +18,7 @@ interface DataEnum : IEnum<Int> {
      *
      * @return [Integer]
      */
-
+    @get:JsonValue
     val data: Int
 
     override fun getValue(): Int {

@@ -11,13 +11,13 @@ import com.dasoops.common.IException
  */
 open class CustomException(
     val exceptionEnum: IException = ProjectException.UN_EXPECTED,
-) : RuntimeException(exceptionEnum.get()) {
+) : RuntimeException() {
 
     override val message = exceptionEnum.message
 
     val info: String = """
             [${exceptionEnum.code}:${exceptionEnum.message}]: 
-            ${exceptionEnum.get().getStackInfo()}
+            ${this.getStackInfo()}
             """.trimIndent()
 
     open fun getStackInfo(): String = ExceptionUtil.stacktraceToString(this)

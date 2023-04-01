@@ -1,5 +1,6 @@
 package com.dasoops.common.entity.param
 
+import cn.hutool.core.date.DateField
 import cn.hutool.core.date.DateUtil
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiModel
@@ -19,7 +20,7 @@ data class TimeParam(
      * 开始时间
      */
     @ApiModelProperty(value = "开始时间", notes = "开始时间", required = true)
-    val beginTime: Date,
+    val beginTime: Date = DateUtil.date().offset(DateField.DAY_OF_YEAR, -7),
 
     /**
      * 结束时间
