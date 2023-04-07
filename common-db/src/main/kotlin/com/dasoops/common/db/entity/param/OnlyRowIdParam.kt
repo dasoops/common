@@ -1,8 +1,7 @@
 package com.dasoops.common.db.entity.param
 
-import io.swagger.annotations.Api
-import io.swagger.annotations.ApiModel
-import io.swagger.annotations.ApiModelProperty
+import io.swagger.v3.oas.annotations.tags.Tag
+import io.swagger.v3.oas.annotations.media.Schema
 
 /**
  * rowIdParam
@@ -10,12 +9,12 @@ import io.swagger.annotations.ApiModelProperty
  * @date 2023/03/31
  * @see [OnlyRowIdParam]
  */
-@Api("base")
-@ApiModel(description = "仅rowIdParam")
+@Tag(name = "base")
+@Schema(description = "仅rowIdParam")
 data class OnlyRowIdParam(
     /**
      * 主键id
      */
-    @ApiModelProperty(value = "主键id", required = true)
+    @Schema(description = "主键id", required = true)
     val rowId: Long
 )

@@ -14,7 +14,7 @@
         <module>common-code</module>
         <module>common-json</module>
         <module>common-cache</module>
-        <module>common-export</module>
+        <module>common-excel</module>
         <module>common-dict</module>
     </modules>
     <groupId>com.dasoops</groupId>

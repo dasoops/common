@@ -9,7 +9,7 @@
         <version>3.0.3</version>
     </parent>
 
-    <artifactId>common-export</artifactId>
+    <artifactId>common-excel</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

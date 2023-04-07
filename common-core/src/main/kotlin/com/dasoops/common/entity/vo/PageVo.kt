@@ -1,6 +1,7 @@
 package com.dasoops.common.entity.vo
 
-import io.swagger.annotations.ApiModelProperty
+import io.swagger.v3.oas.annotations.media.Schema
+
 
 /**
  * 页面vo
@@ -13,6 +14,6 @@ data class PageVo(
     /**
      * 总记录数
      */
-    @ApiModelProperty(value = "总记录数", notes = "总记录数", required = true)
+    @Schema(description = "总记录数", required = true)
     val total: Int
 )

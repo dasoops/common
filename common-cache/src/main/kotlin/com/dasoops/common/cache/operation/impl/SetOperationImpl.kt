@@ -53,13 +53,13 @@ class SetOperationImpl<Entity : Any>(
     }
 
     override fun remove(vararg value: Entity): Long {
-        return ops.remove(*value)
+        return ops.remove(*value.map { it.toJsonStr() }.toTypedArray())
             .apply { log("remove", keyStr, this, *value) }
             ?: 0
     }
 
     override fun remove(valueList: Collection<Entity>): Long {
-        return ops.remove(valueList)
+        return ops.remove(*valueList.map { it.toJsonStr() }.toTypedArray())
             .apply { log("remove", keyStr, this, valueList) }
             ?: 0
     }

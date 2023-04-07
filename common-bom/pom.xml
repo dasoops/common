@@ -36,7 +36,7 @@
         <hutool.version>5.8.8</hutool.version>
         <tencentSdk.version>3.1.625</tencentSdk.version>
         <knife4j.version>4.0.0</knife4j.version>
-        <swagger.version>1.5.20</swagger.version>
+        <swagger.version>2.2.8</swagger.version>
         <easyExcel.version>3.1.4</easyExcel.version>
         <okio.version>2.8.0</okio.version>
         <commons-compress.version>1.21</commons-compress.version>
@@ -178,7 +178,7 @@
             </dependency>
 
             <dependency>
-                <groupId>io.swagger</groupId>
+                <groupId>io.swagger.core.v3</groupId>
                 <artifactId>swagger-annotations</artifactId>
                 <version>${swagger.version}</version>
             </dependency>

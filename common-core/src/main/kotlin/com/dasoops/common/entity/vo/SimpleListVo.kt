@@ -1,7 +1,7 @@
 package com.dasoops.common.entity.vo
 
 import com.dasoops.common.exception.ProjectException
-import io.swagger.annotations.ApiModelProperty
+import io.swagger.v3.oas.annotations.media.Schema
 
 /**
  * 简单分页vo
@@ -13,7 +13,7 @@ class SimpleListVo<T : Any>(
     /**
      * 数据集合
      */
-    @ApiModelProperty(value = "数据集合", required = false)
+    @Schema(description = "数据集合", required = false)
     val dataList: List<T>
 ) {
 

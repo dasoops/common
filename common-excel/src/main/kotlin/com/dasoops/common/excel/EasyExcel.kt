@@ -5,7 +5,7 @@ import com.alibaba.excel.write.metadata.WriteSheet
 import com.alibaba.excel.write.style.column.LongestMatchColumnWidthStyleStrategy
 import com.dasoops.common.export.ExportException
 import com.dasoops.common.export.ExportInfo
-import com.dasoops.common.export.ExportUtil
+import com.dasoops.common.util.ExportUtil
 import org.slf4j.LoggerFactory
 import java.io.IOException
 import java.io.UnsupportedEncodingException

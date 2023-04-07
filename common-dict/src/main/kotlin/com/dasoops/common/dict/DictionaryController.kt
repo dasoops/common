@@ -1,7 +1,7 @@
 package com.dasoops.common.dict
 
-import io.swagger.annotations.Api
-import io.swagger.annotations.ApiOperation
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseBody
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody
  * @date 2023/03/20
  * @see [DictionaryController]
  */
-@Api(tags = ["dict"])
+@Tag(name = "字典")
 @ResponseBody
 @RequestMapping("dict")
 class DictionaryController(
@@ -22,19 +22,19 @@ class DictionaryController(
 ) {
 
     @GetMapping("getEasyDict")
-    @ApiOperation(value = "获取简单字典")
+    @Operation(summary ="获取简单字典")
     fun getEasyDict(): Result<EasyDictData> {
         return Result.success(easyDictData)
     }
 
     @GetMapping("getOnlyValueDict")
-    @ApiOperation(value = "获取仅值字典")
+    @Operation(summary ="获取仅值字典")
     fun getOnlyValueDict(): Result<OnlyValueDictData> {
         return Result.success(onlyValueDictData)
     }
 
     @GetMapping("getDict")
-    @ApiOperation(value = "获取字典")
+    @Operation(summary ="获取字典")
     fun getDict(): Result<DictData> {
         return Result.success(dictData)
     }

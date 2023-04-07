@@ -1,7 +1,7 @@
 package com.dasoops.common.entity.result
 
 import com.dasoops.common.IResult
-import io.swagger.annotations.ApiModelProperty
+import io.swagger.v3.oas.annotations.media.Schema
 
 /**
  * @title BaseResult
@@ -16,12 +16,12 @@ abstract class AbstractResult(
     /**
      * 响应码
      */
-    @ApiModelProperty(value = "响应码", notes = "响应码", example = "200", required = true)
+    @Schema(description = "响应码", example = "200", required = true)
     override val code: Int,
 
     /**
      * 响应信息
      */
-    @ApiModelProperty(value = "响应信息", notes = "响应信息", example = "请求成功", required = true)
+    @Schema(description = "响应信息", example = "请求成功", required = true)
     override val msg: String,
 ) : IResult

@@ -1,8 +1,7 @@
 package com.dasoops.common.dict
 
-import io.swagger.annotations.Api
-import io.swagger.annotations.ApiModel
-import io.swagger.annotations.ApiModelProperty
+import io.swagger.v3.oas.annotations.tags.Tag
+import io.swagger.v3.oas.annotations.media.Schema
 
 /**
  * 字典内部数据
@@ -10,26 +9,26 @@ import io.swagger.annotations.ApiModelProperty
  * @date 2023/03/20
  * @see [DictInner]
  */
-@Api("dict")
-@ApiModel(description = "字典树内部数据")
+@Tag(name = "dict")
+@Schema(description = "字典树内部数据")
 data class DictInner(
 
     /**
      * 值
      */
-    @ApiModelProperty(value = "值", required = true)
+    @Schema(description = "值", required = true)
     val value: Int,
 
     /**
      * 键
      */
-    @ApiModelProperty(value = "键", required = true)
+    @Schema(description = "键", required = true)
     val key: String,
 
     /**
      * 数据
      */
-    @ApiModelProperty(value = "数据", required = true)
+    @Schema(description = "数据", required = true)
     val data: Map<String, String>?,
 ) : HashMap<String, Any>() {
     init {
@@ -41,25 +40,25 @@ data class DictInner(
     }
 }
 
-@Api("dict")
-@ApiModel(description = "简单字典数据")
+@Tag(name = "dict")
+@Schema(description = "简单字典数据")
 class EasyDictData : HashMap<String, EasyDictNode>()
 
-@Api("dict")
-@ApiModel(description = "简单字典树")
+@Tag(name = "dict")
+@Schema(description = "简单字典树")
 class EasyDictNode : HashMap<String, DictInner>()
 
-@Api("dict")
-@ApiModel(description = "标准字典数据")
+@Tag(name = "dict")
+@Schema(description = "标准字典数据")
 class DictData : ArrayList<DictNode>()
 
-@Api("dict")
-@ApiModel(description = "标准字典树")
+@Tag(name = "dict")
+@Schema(description = "标准字典树")
 data class DictNode(
     /**
      * 树名称
      */
-    @ApiModelProperty(value = "树名称", required = true)
+    @Schema(description = "树名称", required = true)
     val nodeName: String,
     /**
      * 树数据
@@ -68,10 +67,10 @@ data class DictNode(
 )
 
 
-@Api("dict")
-@ApiModel(description = "仅值字典数据")
+@Tag(name = "dict")
+@Schema(description = "仅值字典数据")
 class OnlyValueDictData : HashMap<String, OnlyValueDictNode>()
 
-@Api("dict")
-@ApiModel(description = "仅值字典树")
+@Tag(name = "dict")
+@Schema(description = "仅值字典树")
 class OnlyValueDictNode : HashMap<String, Int>()

@@ -1,7 +1,7 @@
 package com.dasoops.common.entity.result
 
 import com.dasoops.common.IException
-import io.swagger.annotations.ApiModel
+import io.swagger.v3.oas.annotations.media.Schema
 
 /**
  * @title Result
@@ -12,7 +12,7 @@ import io.swagger.annotations.ApiModel
  * @description 简单返回结果集
  * @see AbstractResult
  */
-@ApiModel(value = "简单返回结果集", description = "简单返回结果集")
+@Schema(description = "简单返回结果集")
 class SimpleResult(
     override val code: Int,
     override val msg: String
