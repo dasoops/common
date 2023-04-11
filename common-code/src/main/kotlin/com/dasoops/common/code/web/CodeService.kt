@@ -1,6 +1,6 @@
 package com.dasoops.common.code.web
 
-import com.dasoops.common.code.entity.CodeFile
+import com.dasoops.common.code.entity.CodeFileZip
 import com.dasoops.common.code.entity.CodeParam
 
 /**
@@ -13,7 +13,7 @@ interface CodeService {
     /**
      * 获取代码文件实体类
      * @param [param] param
-     * @return [CodeFile]
+     * @return [CodeFileZip]
      */
-    fun getCodeFile(param: CodeParam): CodeFile
+    fun getCodeFile(param: CodeParam): CodeFileZip
 }

@@ -16,19 +16,19 @@ data class DictInner(
     /**
      * 值
      */
-    @Schema(description = "值", required = true)
+    @field:Schema(description = "值", required = true)
     val value: Int,
 
     /**
      * 键
      */
-    @Schema(description = "键", required = true)
+    @field:Schema(description = "键", required = true)
     val key: String,
 
     /**
      * 数据
      */
-    @Schema(description = "数据", required = true)
+    @field:Schema(description = "数据", required = true)
     val data: Map<String, String>?,
 ) : HashMap<String, Any>() {
     init {
@@ -58,7 +58,7 @@ data class DictNode(
     /**
      * 树名称
      */
-    @Schema(description = "树名称", required = true)
+    @field:Schema(description = "树名称", required = true)
     val nodeName: String,
     /**
      * 树数据

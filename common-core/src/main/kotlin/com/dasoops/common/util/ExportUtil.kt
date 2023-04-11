@@ -29,7 +29,7 @@ object ExportUtil {
 
         //文件名
         val encodeFileName = URLEncoder.encode(fileName, StandardCharsets.UTF_8).replace("\\+".toRegex(), "%20")
-        response.setHeader("Content-disposition", "attachment;filename*=utf-8''$encodeFileName.$fileTypeSuffix")
+        response.setHeader("Content-disposition", "attachment;filename*=$encodeFileName.$fileTypeSuffix")
     }
 
     /**

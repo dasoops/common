@@ -14,6 +14,6 @@ data class PageVo(
     /**
      * 总记录数
      */
-    @Schema(description = "总记录数", required = true)
+    @field:Schema(description = "总记录数", required = true)
     val total: Int
 )

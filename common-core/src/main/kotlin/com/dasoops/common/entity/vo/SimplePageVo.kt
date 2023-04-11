@@ -14,7 +14,7 @@ class SimplePageVo<T : Any>(
     /**
      * 数据集合
      */
-    @Schema(description = "数据集合", required = false)
+    @field:Schema(description = "数据集合", required = false)
     val dataList: List<T>
 ) : BasePageVo(page) {
 

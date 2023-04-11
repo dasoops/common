@@ -16,7 +16,7 @@ open class Result<T>(
     /**
      * 返回数据
      */
-    @Schema(description = "返回数据", required = true)
+    @field:Schema(description = "返回数据", required = true)
     val data: T
 ) : AbstractResult(200, "请求成功") {
 

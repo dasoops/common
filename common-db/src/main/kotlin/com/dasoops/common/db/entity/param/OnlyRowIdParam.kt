@@ -15,6 +15,6 @@ data class OnlyRowIdParam(
     /**
      * 主键id
      */
-    @Schema(description = "主键id", required = true)
+    @field:Schema(description = "主键id", required = true)
     val rowId: Long
 )

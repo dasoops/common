@@ -16,12 +16,12 @@ abstract class AbstractResult(
     /**
      * 响应码
      */
-    @Schema(description = "响应码", example = "200", required = true)
+    @field:Schema(description = "响应码", example = "200", required = true)
     override val code: Int,
 
     /**
      * 响应信息
      */
-    @Schema(description = "响应信息", example = "请求成功", required = true)
+    @field:Schema(description = "响应信息", example = "请求成功", required = true)
     override val msg: String,
 ) : IResult

@@ -18,12 +18,12 @@ data class TimeParam(
     /**
      * 开始时间
      */
-    @Schema(description = "开始时间", required = true)
+    @field:Schema(description = "开始时间", required = true)
     var beginTime: Date = DateUtil.date().offset(DateField.DAY_OF_YEAR, -7),
 
     /**
      * 结束时间
      */
-    @Schema(description = "结束时间",  required = false)
+    @field:Schema(description = "结束时间",  required = false)
     var endTime: Date = DateUtil.date()
 )

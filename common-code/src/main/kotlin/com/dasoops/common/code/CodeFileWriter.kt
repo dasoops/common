@@ -1,7 +1,7 @@
 package com.dasoops.common.code
 
 import cn.hutool.extra.spring.SpringUtil
-import com.dasoops.common.code.entity.CodeFile
+import com.dasoops.common.code.entity.CodeFileZip
 import com.dasoops.common.code.entity.CodeType
 import javax.servlet.http.HttpServletResponse
 
@@ -15,7 +15,7 @@ interface CodeFileWriter {
 
     val writeType: CodeType
 
-    fun write(response: HttpServletResponse, codeFile: CodeFile)
+    fun write(response: HttpServletResponse, codeFileZip: CodeFileZip)
 
     fun canWrite(codeType: CodeType): Boolean {
         return writeType == codeType

@@ -19,7 +19,7 @@ class CodeWebApi(
 
     @GetMapping("down")
     @Operation(summary = "下载代码文件")
-    fun down(response: HttpServletResponse, param: CodeParam = CodeParam()) {
+    fun down(param: CodeParam = CodeParam(),response: HttpServletResponse) {
         val codeFile = service.getCodeFile(param)
         val writer = CodeFileWriter.get(param.codeType) ?: throw CodeException.UNDEFINED_CONVERT.get()
         writer.write(response, codeFile)
