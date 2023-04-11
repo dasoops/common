@@ -29,7 +29,7 @@ abstract class BaseExceptionHandlerConfiguration {
      * @param e e
      */
     @ExceptionHandler(ProjectExceptionEntity::class)
-    fun catchProjectException(e: ProjectExceptionEntity): SimpleResult {
+    open fun catchProjectException(e: ProjectExceptionEntity): SimpleResult {
         log.error("项目内部异常: ", e)
         return SimpleResult.fail(e.exceptionEnum)
     }
@@ -40,7 +40,7 @@ abstract class BaseExceptionHandlerConfiguration {
      * @param e e
      */
     @ExceptionHandler(BeanInstantiationException::class, HttpRequestMethodNotSupportedException::class, BindException::class)
-    fun catchBeanInstantiationException(e: Exception): SimpleResult {
+    open fun catchBeanInstantiationException(e: Exception): SimpleResult {
         log.error("参数解析异常: ", e)
         return SimpleResult.fail(DataResolverException.PARAM_ERROR)
     }
@@ -51,9 +51,20 @@ abstract class BaseExceptionHandlerConfiguration {
      * @param e e
      */
     @ExceptionHandler(CustomException::class)
-    fun catchCustomException(e: CustomException): SimpleResult {
+    open fun catchCustomException(e: CustomException): SimpleResult {
         log.error("catch CustomException: ", e)
         return SimpleResult.fail(e.exceptionEnum)
+    }
+
+    /**
+     * 未捕获运行时异常处理
+     *
+     * @param e e
+     */
+    @ExceptionHandler(RuntimeException::class)
+    open fun exceptionHandler(e: RuntimeException): SimpleResult {
+        log.error("catch RuntimeException: ", e)
+        return SimpleResult.fail(ProjectException.UN_EXPECTED)
     }
 
     /**
@@ -62,7 +73,7 @@ abstract class BaseExceptionHandlerConfiguration {
      * @param e e
      */
     @ExceptionHandler(Exception::class)
-    fun exceptionHandler(e: Exception): SimpleResult {
+    open fun exceptionHandler(e: Exception): SimpleResult {
         log.error("catch Exception: ", e)
         return SimpleResult.fail(ProjectException.UN_EXPECTED)
     }

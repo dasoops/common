@@ -37,9 +37,9 @@ object Json {
             addModule(SimpleModule().apply {
                 // long转string 精度丢失
                 addSerializer(Long::class.java, ToStringSerializer.instance)
-                addSerializer(Int::class.java, ToStringSerializer.instance)
+                //addSerializer(Int::class.java, ToStringSerializer.instance)
                 addSerializer(java.lang.Long.TYPE, ToStringSerializer.instance)
-                addSerializer(Integer.TYPE, ToStringSerializer.instance)
+                //addSerializer(Integer.TYPE, ToStringSerializer.instance)
             })
 
             // 美化输出

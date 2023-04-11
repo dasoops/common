@@ -13,11 +13,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
  */
 abstract class BaseCorsConfiguration {
     @Bean
-    fun corsConfigurer(): WebMvcConfigurer {
+    open fun corsConfigurer(): WebMvcConfigurer {
         return object : WebMvcConfigurer {
             override fun addCorsMappings(registry: CorsRegistry) {
                 registry
                     .addMapping("/**")
+                    .allowedOrigins("*")
                     .allowedMethods(*RequestMethod.values().map { it.name }.toTypedArray())
                     .allowedHeaders("Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With")
             }
