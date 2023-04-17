@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.dasoops</groupId>
         <artifactId>common</artifactId>
-        <version>3.0.11</version>
+        <version>3.0.14</version>
     </parent>
 
     <artifactId>common-core</artifactId>
@@ -28,11 +28,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
         </dependency>
@@ -45,6 +40,12 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.36</version>
         </dependency>
 
         <dependency>

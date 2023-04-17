@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.dasoops</groupId>
         <artifactId>common</artifactId>
-        <version>3.0.11</version>
+        <version>3.0.14</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -16,10 +16,16 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <common.version>3.0.11</common.version>
+        <common.version>3.0.14</common.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.dasoops</groupId>
+            <artifactId>common-core-starter</artifactId>
+            <version>${common.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>com.dasoops</groupId>
             <artifactId>common-core</artifactId>

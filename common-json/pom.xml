@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.dasoops</groupId>
         <artifactId>common</artifactId>
-        <version>3.0.11</version>
+        <version>3.0.14</version>
     </parent>
 
     <artifactId>common-json</artifactId>
@@ -24,7 +24,7 @@
     <dependencies>
         <dependency>
             <groupId>com.dasoops</groupId>
-            <artifactId>common-core</artifactId>
+            <artifactId>common-core-starter</artifactId>
         </dependency>
 
         <dependency>

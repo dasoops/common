@@ -3,7 +3,7 @@ package com.dasoops.common.cache.builder
 import com.dasoops.common.cache.CacheManager
 import com.dasoops.common.cache.base.CacheTemplate
 import com.dasoops.common.cache.factory.ValueFactory
-import com.dasoops.common.util.DefaultToStringConvert
+import com.dasoops.common.DefaultToStringConvert
 import org.springframework.core.convert.converter.Converter
 
 class ValueFactoryBuilder<Entity : Any>(

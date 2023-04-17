@@ -6,12 +6,12 @@
 
     <groupId>com.dasoops</groupId>
     <artifactId>common-bom</artifactId>
-    <version>3.0.11</version>
+    <version>3.0.14</version>
     <packaging>pom</packaging>
 
     <properties>
         <!-- dasoops -->
-        <common.version>3.0.11</common.version>
+        <common.version>3.0.14</common.version>
 
         <!-- project -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -24,7 +24,7 @@
         <kotlin.compiler.jvmTarget>1.8</kotlin.compiler.jvmTarget>
         <kotlin.code.style>official</kotlin.code.style>
         <kotlin.compiler.jvmTarget>17</kotlin.compiler.jvmTarget>
-        <kotlin.version>1.8.0</kotlin.version>
+        <kotlin.version>1.8.20</kotlin.version>
         <kotlinx-coroutines.version>1.6.4</kotlinx-coroutines.version>
 
         <!-- dataSource -->
@@ -66,6 +66,12 @@
 
             <dependency>
                 <groupId>com.dasoops</groupId>
+                <artifactId>common-core-starter</artifactId>
+                <version>${common.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.dasoops</groupId>
                 <artifactId>common-all</artifactId>
                 <version>${common.version}</version>
             </dependency>
@@ -91,12 +97,6 @@
             <dependency>
                 <groupId>com.dasoops</groupId>
                 <artifactId>common-json</artifactId>
-                <version>${common.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.dasoops</groupId>
-                <artifactId>common-export</artifactId>
                 <version>${common.version}</version>
             </dependency>
 

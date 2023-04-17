@@ -1,6 +1,7 @@
 package com.dasoops.common.db.util
 
 import com.baomidou.mybatisplus.core.metadata.IPage
+import com.baomidou.mybatisplus.extension.conditions.query.ChainQuery
 import com.baomidou.mybatisplus.extension.kotlin.KtQueryChainWrapper
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page
 import com.dasoops.common.entity.param.PageParam
