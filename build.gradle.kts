@@ -10,7 +10,7 @@ plugins {
 
 allprojects {
     group = "com.dasoops"
-    version = "4.0.1"
+    version = "4.0.7"
 
     repositories {
         mavenLocal()
@@ -29,20 +29,22 @@ allprojects {
         useJUnitPlatform()
     }
 
-    apply {
-        plugin("org.springframework.boot")
-        plugin("io.spring.dependency-management")
-        plugin("org.jetbrains.kotlin.jvm")
-        plugin("org.jetbrains.kotlin.plugin.spring")
-        plugin("maven-publish")
-    }
-
-    publishing {
-        publications {
-            create<MavenPublication>("maven") {
-                groupId = "com.dasoops"
-                version = this@allprojects.version.toString()
-                from(components["java"])
+    if (project.name != "common-bom") {
+        apply {
+            //排除common-bom
+            plugin("maven-publish")
+            plugin("io.spring.dependency-management")
+            plugin("org.springframework.boot")
+            plugin("org.jetbrains.kotlin.jvm")
+            plugin("org.jetbrains.kotlin.plugin.spring")
+        }
+        publishing {
+            publications {
+                create<MavenPublication>("maven") {
+                    groupId = "com.dasoops"
+                    version = this@allprojects.version.toString()
+                    from(components["kotlin"])
+                }
             }
         }
     }

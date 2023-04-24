@@ -11,7 +11,7 @@ import java.util.*
  */
 object CompletionUtil {
     /**
-     * @see com.dasoops.common.util.CompletionUtil.listDataCompletion
+     * @see com.dasoops.common.core.util.CompletionUtil.listDataCompletion
      */
     fun <T1> listDataCompletion(
         beginTime: Date, endTime: Date, dateField: DateField, dateList: MutableList<Date>,
@@ -21,7 +21,7 @@ object CompletionUtil {
     }
 
     /**
-     * @see com.dasoops.common.util.CompletionUtil.listDataCompletion
+     * @see com.dasoops.common.core.util.CompletionUtil.listDataCompletion
      */
     fun <T1, T2> listDataCompletion(
         beginTime: Date, endTime: Date, dateField: DateField, dateList: MutableList<Date>,
@@ -43,7 +43,7 @@ object CompletionUtil {
     }
 
     /**
-     * @see com.dasoops.common.util.CompletionUtil.listDataCompletion
+     * @see com.dasoops.common.core.util.CompletionUtil.listDataCompletion
      */
     fun <T1, T2, T3> listDataCompletion(
         beginTime: Date, endTime: Date, dateField: DateField, dateList: MutableList<Date>,
@@ -68,7 +68,7 @@ object CompletionUtil {
     }
 
     /**
-     * @see com.dasoops.common.util.CompletionUtil.listDataCompletion
+     * @see com.dasoops.common.core.util.CompletionUtil.listDataCompletion
      */
     fun <T1, T2, T3, T4> listDataCompletion(
         beginTime: Date, endTime: Date, dateField: DateField, dateList: MutableList<Date>,
@@ -96,7 +96,7 @@ object CompletionUtil {
     }
 
     /**
-     * @see com.dasoops.common.util.CompletionUtil.listDataCompletion
+     * @see com.dasoops.common.core.util.CompletionUtil.listDataCompletion
      */
     fun <T1, T2, T3, T4, T5> listDataCompletion(
         beginTime: Date, endTime: Date, dateField: DateField, dateList: MutableList<Date>,

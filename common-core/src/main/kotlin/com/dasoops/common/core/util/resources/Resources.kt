@@ -1,4 +1,4 @@
-package com.dasoops.common.util
+package com.dasoops.common.core.util.resources
 
 import cn.hutool.core.util.StrUtil
 import org.slf4j.LoggerFactory
@@ -21,7 +21,7 @@ object Resources {
      * @return [Collection<Class<*>>]
      */
     fun scan(vararg basePath: String): Collection<Class<*>> {
-        return this.scan(this::class.java.classLoader, *basePath)
+        return scan(this::class.java.classLoader, *basePath)
     }
 
     /**
@@ -34,7 +34,7 @@ object Resources {
         classLoader: ClassLoader,
         vararg basePath: String
     ): Collection<Class<*>> {
-        return basePath.map { this.scan(classLoader, it) }.flatten()
+        return basePath.map { scan(classLoader, it) }.flatten()
     }
 
     /**
@@ -64,7 +64,7 @@ object Resources {
             }
         }
 
-        return classSet
+        return classSet.filter { !it.isAnnotationPresent(IgnoreResourcesScan::class.java) }
     }
 
     private fun buildFilePath(url: URL): String {

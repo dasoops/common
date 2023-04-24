@@ -2,7 +2,7 @@ package com.dasoops.common.excel
 
 /**
  * @Title: ExportDto
- * @ClassPath com.dasoops.common.util.entity.ExportDto
+ * @ClassPath com.dasoops.common.core.util.entity.ExportDto
  * @Author DasoopsNicole@Gmail.com
  * @Date 2023/02/01
  * @Version 1.0.0

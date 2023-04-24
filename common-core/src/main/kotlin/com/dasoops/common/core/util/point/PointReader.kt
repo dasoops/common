@@ -1,11 +1,11 @@
-package com.dasoops.common.util.point
+package com.dasoops.common.core.util.point
 
-import com.dasoops.common.entity.dataenum.DataEnum
+import com.dasoops.common.core.entity.dataenum.DataEnum
 
 /**
  * 点解析器
  * @title: PointReslover
- * @classPath com.dasoops.common.util.PointReslover
+ * @classPath com.dasoops.common.core.util.PointReslover
  * @author DasoopsNicole@Gmail.com
  * @date 2023/02/24
  * @version 1.0.0

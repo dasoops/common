@@ -1,10 +1,10 @@
-package com.dasoops.common.util
+package com.dasoops.common.core.util
 
 import java.util.concurrent.TimeUnit
 
 /**
  * @title TimeUtil
- * @classPath com.dasoops.common.util.TimeUtil
+ * @classPath com.dasoops.common.core.util.TimeUtil
  * @author DasoopsNicole@Gmail.com
  * @date 2023/01/10
  * @version 1.0.0

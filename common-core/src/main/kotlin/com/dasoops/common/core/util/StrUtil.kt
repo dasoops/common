@@ -1,4 +1,4 @@
-package com.dasoops.common.util
+package com.dasoops.common.core.util
 
 import cn.hutool.core.util.ReflectUtil
 import cn.hutool.core.util.StrUtil
@@ -9,7 +9,7 @@ import java.util.stream.Collectors
  * @author DasoopsNicole@Gmail.com
  * @version 1.0.0
  * @title FormatUtil
- * @classPath com.dasoops.common.util.FormatUtil
+ * @classPath com.dasoops.common.core.util.FormatUtil
  * @date 2023/02/16
  * @description 格式化文本工具
  * @see [StrUtil]

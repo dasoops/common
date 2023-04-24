@@ -1,6 +1,6 @@
-package com.dasoops.common.util
+package com.dasoops.common.core.util
 
-import com.dasoops.common.entity.dataenum.DataEnum
+import com.dasoops.common.core.entity.dataenum.DataEnum
 import com.dasoops.common.exception.DataEnumException
 import java.util.*
 

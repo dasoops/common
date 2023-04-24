@@ -1,6 +1,6 @@
 package com.dasoops.common.core.serializer
 
-import com.dasoops.common.entity.dataenum.DataEnum
+import com.dasoops.common.core.entity.dataenum.DataEnum
 import org.springframework.core.convert.converter.Converter
 import org.springframework.core.convert.converter.ConverterFactory
 

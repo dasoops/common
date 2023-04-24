@@ -1,4 +1,4 @@
-package com.dasoops.common.entity.dataenum
+package com.dasoops.common.core.entity.dataenum
 
 /**
  * 布尔枚举

@@ -7,5 +7,4 @@ dependencies {
     api("com.baomidou:mybatis-plus-annotation:3.5.3.1")
     api("io.swagger.core.v3:swagger-annotations:2.2.8")
     api("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8")
-
 }

@@ -1,8 +1,8 @@
-package com.dasoops.common.util
+package com.dasoops.common.core.util
 
 /**
  * @title ClassNameUtil
- * @classPath com.dasoops.common.util.ClassNameUtil
+ * @classPath com.dasoops.common.core.util.ClassNameUtil
  * @author DasoopsNicole@Gmail.com
  * @date 2023/01/07
  * @version 1.0.0

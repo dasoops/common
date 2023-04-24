@@ -1,4 +1,4 @@
-package com.dasoops.common.util.point
+package com.dasoops.common.core.util.point
 
 import com.dasoops.common.core.IException
 import com.dasoops.common.exception.CustomException
@@ -6,7 +6,7 @@ import com.dasoops.common.exception.CustomException
 /**
  * 点解析异常枚举(204xx)
  * @title: PointResloverExceptionEnum
- * @classPath com.dasoops.common.util.point.PointResloverExceptionEnum
+ * @classPath com.dasoops.common.core.util.point.PointResloverExceptionEnum
  * @author DasoopsNicole@Gmail.com
  * @date 2023/02/24
  * @version 1.0.0

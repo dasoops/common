@@ -1,11 +1,10 @@
 package com.dasoops.common.dict
 
 import cn.hutool.core.util.StrUtil
-import com.dasoops.common.entity.dataenum.ApiEnum
-import com.dasoops.common.util.Resources
+import com.dasoops.common.core.entity.dataenum.ApiEnum
+import com.dasoops.common.core.util.resources.Resources
 import com.google.common.base.CaseFormat
 import org.slf4j.LoggerFactory
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Import
 import java.util.*

@@ -11,7 +11,7 @@ import kotlin.reflect.KProperty
 /**
  * sqlSelect语句构建器
  * @title: SqlSelectBuilder
- * @classPath com.dasoops.common.util.SqlSelectBuilder
+ * @classPath com.dasoops.common.core.util.SqlSelectBuilder
  * @author DasoopsNicole@Gmail.com
  * @date 2023/03/07
  * @version 1.0.0

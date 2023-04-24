@@ -12,4 +12,5 @@ include(
     "common-db-mongo-spring",
     "common-db-mybatis-plus-spring",
     "common-cache-spring",
+    "common-bom"
 )

@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
-import com.dasoops.common.entity.dataenum.BooleanEnum;
+import com.dasoops.common.core.entity.dataenum.BooleanEnum;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.context.annotation.Bean;
 

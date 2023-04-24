@@ -1,4 +1,4 @@
-package com.dasoops.common.entity.dataenum
+package com.dasoops.common.core.entity.dataenum
 
 import com.baomidou.mybatisplus.annotation.IEnum
 import com.fasterxml.jackson.annotation.JsonValue

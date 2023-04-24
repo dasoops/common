@@ -1,4 +1,4 @@
-package com.dasoops.common.util
+package com.dasoops.common.core.util
 
 /**
  * 二进制工具
