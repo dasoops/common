@@ -68,9 +68,9 @@ object Resources {
     }
 
     private fun buildFilePath(url: URL): String {
-        var str = StrUtil.removePrefix(url.toString(), "jar:file:/")
+        var str = StrUtil.removePrefix(url.toString(), "jar:file:")
         str = StrUtil.subBefore(str, "!", false)
-        str.replace("\\", "/")
+        str.replace("\\", File.separator)
         return str
     }
 
@@ -92,7 +92,7 @@ object Resources {
             //包名匹配 .class后缀过滤 目录过滤
             .filter {
                 with(it.name) {
-                    startsWith("WEB-INF/classes/$basePath") && endsWith(".class") && !it.isDirectory
+                    !startsWith("WEB-INF/classes/$basePath") && endsWith(".class") && !it.isDirectory
                 }
             }
             //转为可使用的类路径

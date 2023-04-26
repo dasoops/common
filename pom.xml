@@ -19,11 +19,11 @@
         <module>common-dict</module>
     </modules>
     <groupId>com.dasoops</groupId>
-    <version>3.0.16</version>
+    <version>3.0.17</version>
     <packaging>pom</packaging>
 
     <properties>
-        <common.version>3.0.16</common.version>
+        <common.version>3.0.17</common.version>
         <!-- project -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
@@ -44,7 +44,7 @@
             <dependency>
                 <groupId>com.dasoops</groupId>
                 <artifactId>common-bom</artifactId>
-                <version>3.0.16</version>
+                <version>3.0.17</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
