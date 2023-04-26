@@ -14,16 +14,20 @@ import java.util.*
  */
 @Tag(name = "base")
 @Schema(description = "时间param")
-data class TimeParam(
+open class TimeParam(
     /**
      * 开始时间
      */
     @field:Schema(description = "开始时间", required = true)
-    var beginTime: Date = DateUtil.date().offset(DateField.DAY_OF_YEAR, -7),
+    open val beginTime: Date = DateUtil.date().offset(DateField.DAY_OF_YEAR, -7),
 
     /**
      * 结束时间
      */
-    @field:Schema(description = "结束时间",  required = false)
-    var endTime: Date = DateUtil.date()
-)
+    @field:Schema(description = "结束时间", required = false)
+    open val endTime: Date = DateUtil.date()
+) {
+
+    operator fun component1() = beginTime
+    operator fun component2() = endTime
+}
