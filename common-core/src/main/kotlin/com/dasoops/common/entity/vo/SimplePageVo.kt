@@ -1,5 +1,6 @@
 package com.dasoops.common.entity.vo
 
+import cn.hutool.db.PageResult
 import com.dasoops.common.exception.ProjectException
 import io.swagger.v3.oas.annotations.media.Schema
 
@@ -23,6 +24,7 @@ class SimplePageVo<T : Any>(
     }
 
     constructor(total: Int, dataList: List<T>) : this(PageVo(total), dataList)
+    constructor(pageResult: PageResult<T>) : this(PageVo(pageResult.total), pageResult)
 
     companion object
 }
