@@ -10,7 +10,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
  * @date  2023/02/27
  * @see [BaseDateTimeSerializerConfiguration]
  */
-open class BaseDateTimeSerializerConfiguration : WebMvcConfigurer {
+abstract class BaseDateTimeSerializerConfiguration(vararg pattern: String) : WebMvcConfigurer {
+    init {
+        String2DateTimeConverter.addAll(pattern)
+    }
+
     override fun addFormatters(registry: FormatterRegistry) {
         registry.addConverter(String2DateTimeConverter)
     }
