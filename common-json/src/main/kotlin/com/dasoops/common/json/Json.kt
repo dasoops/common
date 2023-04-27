@@ -89,6 +89,10 @@ object Json {
         return serializer.readValue(jsonStr, typeReference)
     }
 
+    fun <T> forceParse(obj: Any, clazz: Class<T>): T {
+        return obj.toJsonStr().parse(clazz)
+    }
+
     fun <T> parseList(jsonStr: String): List<T> {
         return serializer.readValue(jsonStr, object : TypeReference<List<T>>() {})
     }
