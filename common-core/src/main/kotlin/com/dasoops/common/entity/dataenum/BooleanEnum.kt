@@ -15,6 +15,9 @@ enum class BooleanEnum(
     ;
 
     companion object {
+        const val TRUE_INT = 1
+        const val FALSE_INT = 0
+
         fun by(value: Int): BooleanEnum {
             return if (value == 1) {
                 TRUE

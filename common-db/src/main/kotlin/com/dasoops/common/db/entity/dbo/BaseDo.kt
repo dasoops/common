@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.FieldFill
 import com.baomidou.mybatisplus.annotation.IdType
 import com.baomidou.mybatisplus.annotation.TableField
 import com.baomidou.mybatisplus.annotation.TableId
+import com.baomidou.mybatisplus.annotation.TableLogic
 import com.dasoops.common.IDo
 import com.dasoops.common.entity.dataenum.BooleanEnum
 import java.util.*
@@ -27,6 +28,7 @@ abstract class BaseDo(
      * 逻辑删除(true为删除)
      */
     @TableField(fill = FieldFill.INSERT)
+    @TableLogic(value = BooleanEnum.FALSE_INT.toString(), delval = BooleanEnum.TRUE_INT.toString())
     open var isDelete: BooleanEnum? = null,
 
     /**
