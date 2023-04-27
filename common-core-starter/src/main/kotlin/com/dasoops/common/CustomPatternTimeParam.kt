@@ -4,6 +4,7 @@ import cn.hutool.core.date.DateField
 import cn.hutool.core.date.DatePattern
 import cn.hutool.core.date.DateUtil
 import com.dasoops.common.entity.param.TimeParam
+import com.fasterxml.jackson.annotation.JsonFormat
 import org.springframework.format.annotation.DateTimeFormat
 import java.util.*
 
@@ -14,7 +15,9 @@ import java.util.*
  */
 class CustomPatternTimeParam(
     @DateTimeFormat(pattern = DatePattern.NORM_DATETIME_MINUTE_PATTERN)
+    @JsonFormat(pattern = DatePattern.NORM_DATETIME_MINUTE_PATTERN)
     beginTime: Date = DateUtil.date().offset(DateField.DAY_OF_YEAR, -7),
     @DateTimeFormat(pattern = DatePattern.NORM_DATETIME_MINUTE_PATTERN)
+    @JsonFormat(pattern = DatePattern.NORM_DATETIME_MINUTE_PATTERN)
     endTime: Date = DateUtil.date()
 ) : TimeParam(beginTime, endTime)

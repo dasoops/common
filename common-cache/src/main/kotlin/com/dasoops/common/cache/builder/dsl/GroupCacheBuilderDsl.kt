@@ -9,7 +9,7 @@ import com.dasoops.common.cache.builder.ListFactoryBuilder
 import com.dasoops.common.cache.builder.SetFactoryBuilder
 import com.dasoops.common.cache.builder.ValueFactoryBuilder
 import com.dasoops.common.cache.factory.CacheFactoryImpl
-import com.dasoops.common.DefaultToStringConvert
+import com.dasoops.common.serializer.DefaultToStringConvert
 import org.springframework.core.convert.converter.Converter
 
 /**

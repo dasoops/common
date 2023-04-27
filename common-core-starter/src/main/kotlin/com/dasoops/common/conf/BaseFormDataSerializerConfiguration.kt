@@ -13,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
  * @date  2023/02/27
  * @see [BaseFormDataSerializerConfiguration]
  */
-open class BaseFormDataSerializerConfiguration : WebMvcConfigurer {
+abstract class BaseFormDataSerializerConfiguration : WebMvcConfigurer {
     override fun addFormatters(registry: FormatterRegistry) {
         with(registry) {
             // Int -> DbColumnEnum 解析器

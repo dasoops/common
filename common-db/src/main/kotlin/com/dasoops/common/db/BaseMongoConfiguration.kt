@@ -16,7 +16,7 @@ import org.springframework.data.mongodb.core.convert.MongoCustomConversions
  * @version 1.0.0
  * @see [BaseMongoConfiguration]
  */
-open class BaseMongoConfiguration {
+abstract class BaseMongoConfiguration {
 
     /**
      * 自定义序列化
