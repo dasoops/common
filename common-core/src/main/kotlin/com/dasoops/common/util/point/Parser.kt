@@ -60,9 +60,13 @@ object Parser {
 
     inline fun <reified E : DataEnum> enum(str: String): List<E>? {
         val enumConstantArray = E::class.java.enumConstants
-        return HexUtil.toHex(int(str))
+        var binaryString = Integer.toBinaryString(int(str))
+        for (i in 0 until 16 - binaryString.length) {
+            binaryString = "0$binaryString"
+        }
+        return binaryString
             .filter { it.code == 49 }
-            .map { value -> enumConstantArray.first { it.data == value.digitToInt() } }
+            .mapNotNull { value -> enumConstantArray.firstOrNull { it.data == value.code } }
             .ifEmpty { null }
     }
 }
