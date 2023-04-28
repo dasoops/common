@@ -3,9 +3,9 @@ package com.dasoops.common.excel
 import com.alibaba.excel.ExcelWriter
 import com.alibaba.excel.write.metadata.WriteSheet
 import com.alibaba.excel.write.style.column.LongestMatchColumnWidthStyleStrategy
+import com.dasoops.common.ExportUtil
 import com.dasoops.common.export.ExportException
 import com.dasoops.common.export.ExportInfo
-import com.dasoops.common.ExportUtil
 import org.slf4j.LoggerFactory
 import java.io.IOException
 import java.io.UnsupportedEncodingException
@@ -24,7 +24,7 @@ object EasyExcel {
 
     @JvmSynthetic
     inline fun <reified T> ktSimpleExport(response: HttpServletResponse, dataList: List<T>) {
-        simpleExport(response, dataList, "default")
+        stupidSimpleExport(response, dataList, "default")
     }
 
     /**
@@ -47,14 +47,14 @@ object EasyExcel {
     }
 
     /**
-     * 简单导出(自动提取基类)
+     * 愚蠢的简单导出,从第一个类获取class(自动提取基类)
      *
      * @param [response] response
      * @param [dataList] 数据集合
      * @param [fileName] 文件名称
      */
 
-    fun <T> simpleExport(response: HttpServletResponse, dataList: List<T>, fileName: String) {
+    fun <T> stupidSimpleExport(response: HttpServletResponse, dataList: List<T>, fileName: String) {
         if (dataList.isEmpty() || dataList[0] == null) {
             throw ExportException.DATA_NULL.get()
         }
