@@ -10,7 +10,7 @@ plugins {
 
 allprojects {
     group = "com.dasoops"
-    version = "4.0.7"
+    version = "4.0.13"
 
     repositories {
         mavenLocal()
