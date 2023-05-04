@@ -51,15 +51,13 @@ object Resources {
         val finalPath = buildBasePath(basePath)
 
         //根据url类型获取资源
-        val resources: Enumeration<URL> = classLoader.getResources(finalPath)
-        while (resources.hasMoreElements()) {
-            val url = resources.nextElement()
-            if (url.protocol == "file") {
-                val file = File(url.file)
+        classLoader.getResources(finalPath).toList().forEach {
+            if (it.protocol == "file") {
+                val file = File(it.file)
                 scan(classLoader, finalPath, file, classSet)
-            } else if (url.protocol == "jar") {
+            } else if (it.protocol == "jar") {
                 //去除前缀和后面的路径
-                val file = File(buildFilePath(url))
+                val file = File(buildFilePath(it))
                 scanJarSaveToSet(classLoader, finalPath, file, classSet)
             }
         }
@@ -87,20 +85,17 @@ object Resources {
         file: File,
         classSet: MutableSet<Class<*>>
     ) {
-        val jarEntries = JarFile(file).entries()
-        jarEntries.toList()
+        JarFile(file).entries().toList()
             //包名匹配 .class后缀过滤 目录过滤
             .filter {
-                with(it.name) {
-                    startsWith("WEB-INF/classes/$basePath") && endsWith(".class") && !it.isDirectory
-                }
+                it.name.startsWith(basePath) && it.name.endsWith(".class") && !it.isDirectory
             }
             //转为可使用的类路径
-            .map { it.name.removePrefix("WEB-INF/classes/").replace("/", ".").removeSuffix(".class") }
+            .map { it.name.replace("/", ".").removeSuffix(".class") }
             //添加到集合
             .forEach {
                 try {
-                    classSet.add(Class.forName(it, false, classLoader))
+                    classSet.add(classLoader.loadClass(it))
                 } catch (e: ClassNotFoundException) {
                     log.error("class not found: $it")
                 }

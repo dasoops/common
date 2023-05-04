@@ -12,6 +12,7 @@ include(
     "common-db-mongo-spring",
     "common-db-mybatis-plus-spring",
     "common-db-jpa-spring",
+    "common-db-ktorm-spring",
     "common-cache-spring",
     "common-bom",
 )

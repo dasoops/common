@@ -1,5 +1,3 @@
-description = "Mirai BOM"
-
 plugins {
     `java-platform`
     `maven-publish`

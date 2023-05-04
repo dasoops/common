@@ -5,10 +5,6 @@ import com.dasoops.common.core.entity.dataenum.DataEnum
 import com.dasoops.common.exception.DataEnumException
 import jakarta.persistence.AttributeConverter
 import jakarta.persistence.Converter
-<<<<<<< HEAD
-import org.hibernate.annotations.ConverterRegistration
-=======
->>>>>>> fb7f9debb94cb40cb9c6e2e10f546ae2cbedf7ad
 
 abstract class BaseJpaConfiguration {
     @Converter(autoApply = true)
