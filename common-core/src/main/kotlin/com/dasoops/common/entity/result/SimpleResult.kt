@@ -14,7 +14,7 @@ import io.swagger.v3.oas.annotations.media.Schema
  */
 @Schema(description = "简单返回结果集")
 class SimpleResult(
-    override val code: Int,
+    override var code: Int,
     override val msg: String
 ) : AbstractResult(code, msg) {
     companion object {

@@ -18,9 +18,10 @@ open class Result<T>(
      */
     @field:Schema(description = "返回数据", required = true)
     val data: T
-) : AbstractResult(200, "请求成功") {
+) : AbstractResult(success, "请求成功") {
 
     companion object {
+        const val success = 200
         fun <T> success(t: T) = Result(t)
     }
 }

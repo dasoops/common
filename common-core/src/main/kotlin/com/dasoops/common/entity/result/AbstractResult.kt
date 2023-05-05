@@ -17,7 +17,7 @@ abstract class AbstractResult(
      * 响应码
      */
     @field:Schema(description = "响应码", example = "200", required = true)
-    override val code: Int,
+    override var code: Int,
 
     /**
      * 响应信息

@@ -52,7 +52,7 @@ interface IResult : Serializable {
     /**
      * 返回信息码
      */
-    val code: Int
+    var code: Int
 
     /**
      * 返回信息

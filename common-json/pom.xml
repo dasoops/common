@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.dasoops</groupId>
         <artifactId>common</artifactId>
-        <version>3.0.20</version>
+        <version>3.0.21</version>
     </parent>
 
     <artifactId>common-json</artifactId>
