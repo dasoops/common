@@ -1,6 +1,6 @@
 package com.dasoops.common.core
 
-import com.dasoops.common.exception.CustomException
+import com.dasoops.common.core.exception.CustomException
 import java.io.Serializable
 
 /**

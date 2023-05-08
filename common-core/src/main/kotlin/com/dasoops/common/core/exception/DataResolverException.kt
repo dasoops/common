@@ -1,6 +1,7 @@
 package com.dasoops.common.exception
 
 import com.dasoops.common.core.IExceptionEnum
+import com.dasoops.common.core.exception.ProjectExceptionEntity
 
 /**
  * 数据解析器异常枚举(206xx)

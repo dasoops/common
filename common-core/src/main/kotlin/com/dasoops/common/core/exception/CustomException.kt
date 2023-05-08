@@ -1,4 +1,4 @@
-package com.dasoops.common.exception
+package com.dasoops.common.core.exception
 
 import cn.hutool.core.exceptions.ExceptionUtil
 import com.dasoops.common.core.IExceptionEnum
@@ -11,9 +11,8 @@ import com.dasoops.common.core.IExceptionEnum
  */
 open class CustomException(
     val exceptionEnum: IExceptionEnum = ProjectException.UN_EXPECTED,
+    final override val message: String = exceptionEnum.message
 ) : RuntimeException() {
-
-    override val message = exceptionEnum.message
 
     val info: String = """
             [${exceptionEnum.code}:${exceptionEnum.message}]: 

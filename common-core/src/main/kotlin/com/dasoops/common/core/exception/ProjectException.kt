@@ -1,4 +1,4 @@
-package com.dasoops.common.exception
+package com.dasoops.common.core.exception
 
 import com.dasoops.common.core.IExceptionEnum
 
@@ -24,9 +24,8 @@ enum class ProjectException(override val message: String) : IExceptionEnum {
     override fun get() = ProjectExceptionEntity(this)
 
 }
-
-open class ProjectExceptionEntity(exceptionEnum: IExceptionEnum) : CustomException(exceptionEnum)
-
+open class ProjectExceptionEntity(exceptionEnum: IExceptionEnum, message: String = exceptionEnum.message) : CustomException(exceptionEnum, message) {
+}
 object UnExpectedException : CustomException(ProjectException.UN_EXPECTED)
 object NoRecordException : CustomException(ProjectException.NO_RECORD)
 object NoAuthException : CustomException(ProjectException.NO_AUTH)

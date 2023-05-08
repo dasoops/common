@@ -1,7 +1,7 @@
 package com.dasoops.common.json
 
 import com.dasoops.common.core.IExceptionEnum
-import com.dasoops.common.exception.CustomException
+import com.dasoops.common.core.exception.CustomException
 
 /**
  * json异常(203xx)

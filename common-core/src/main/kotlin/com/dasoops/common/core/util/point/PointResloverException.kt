@@ -1,7 +1,7 @@
 package com.dasoops.common.core.util.point
 
 import com.dasoops.common.core.IExceptionEnum
-import com.dasoops.common.exception.CustomException
+import com.dasoops.common.core.exception.CustomException
 
 /**
  * 点解析异常枚举(204xx)

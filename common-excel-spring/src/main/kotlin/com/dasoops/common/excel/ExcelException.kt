@@ -1,7 +1,7 @@
 package com.dasoops.common.excel
 
 import com.dasoops.common.core.IExceptionEnum
-import com.dasoops.common.exception.CustomException
+import com.dasoops.common.core.exception.CustomException
 
 /**
  * 导出异常(202xx)

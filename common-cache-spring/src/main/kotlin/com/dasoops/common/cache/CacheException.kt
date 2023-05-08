@@ -1,7 +1,7 @@
 package com.dasoops.common.cache
 
 import com.dasoops.common.core.IExceptionEnum
-import com.dasoops.common.exception.CustomException
+import com.dasoops.common.core.exception.CustomException
 
 /**
  * 缓存异常(205xx)
