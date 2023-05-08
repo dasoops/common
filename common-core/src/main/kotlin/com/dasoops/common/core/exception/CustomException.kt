@@ -1,7 +1,7 @@
 package com.dasoops.common.exception
 
 import cn.hutool.core.exceptions.ExceptionUtil
-import com.dasoops.common.core.IException
+import com.dasoops.common.core.IExceptionEnum
 
 /**
  * 自定义异常
@@ -10,7 +10,7 @@ import com.dasoops.common.core.IException
  * @see [CustomException]
  */
 open class CustomException(
-    val exceptionEnum: IException = ProjectException.UN_EXPECTED,
+    val exceptionEnum: IExceptionEnum = ProjectException.UN_EXPECTED,
 ) : RuntimeException() {
 
     override val message = exceptionEnum.message

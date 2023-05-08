@@ -1,6 +1,6 @@
 package com.dasoops.common.core.util.point
 
-import com.dasoops.common.core.IException
+import com.dasoops.common.core.IExceptionEnum
 import com.dasoops.common.exception.CustomException
 
 /**
@@ -12,7 +12,7 @@ import com.dasoops.common.exception.CustomException
  * @version 1.0.0
  * @see [PointResloverException]
  */
-enum class PointResloverException(override val message: String) : IException {
+enum class PointResloverException(override val message: String) : IExceptionEnum {
 
     SIZE_NOT_MATCH("集合长度不匹配"),
     REPEAT_INPUT("重复的下标"),

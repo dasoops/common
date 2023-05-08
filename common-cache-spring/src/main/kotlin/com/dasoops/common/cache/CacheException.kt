@@ -1,6 +1,6 @@
 package com.dasoops.common.cache
 
-import com.dasoops.common.core.IException
+import com.dasoops.common.core.IExceptionEnum
 import com.dasoops.common.exception.CustomException
 
 /**
@@ -9,7 +9,7 @@ import com.dasoops.common.exception.CustomException
  * @date 2023/03/30
  * @see [CacheException]
  */
-enum class CacheException(override val message: String) : IException {
+enum class CacheException(override val message: String) : IExceptionEnum {
     ;
     inner class CacheExceptionEntity : CustomException(this)
 

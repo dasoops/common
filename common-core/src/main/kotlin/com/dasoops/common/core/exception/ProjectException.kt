@@ -1,6 +1,6 @@
 package com.dasoops.common.exception
 
-import com.dasoops.common.core.IException
+import com.dasoops.common.core.IExceptionEnum
 
 /**
  * 项目通用异常枚举(200xx)
@@ -11,7 +11,7 @@ import com.dasoops.common.core.IException
  * @version 1.0.0
  * @see [ProjectException]
  */
-enum class ProjectException(override val message: String) : IException {
+enum class ProjectException(override val message: String) : IExceptionEnum {
     NO_AUTH("没有权限这样操作"),
     NO_RECORD("没有查询到数据"),
     UN_EXPECTED("预期外的异常") {
@@ -25,7 +25,7 @@ enum class ProjectException(override val message: String) : IException {
 
 }
 
-open class ProjectExceptionEntity(exceptionEnum: IException) : CustomException(exceptionEnum)
+open class ProjectExceptionEntity(exceptionEnum: IExceptionEnum) : CustomException(exceptionEnum)
 
 object UnExpectedException : CustomException(ProjectException.UN_EXPECTED)
 object NoRecordException : CustomException(ProjectException.NO_RECORD)

@@ -1,6 +1,6 @@
 package com.dasoops.common.exception
 
-import com.dasoops.common.core.IException
+import com.dasoops.common.core.IExceptionEnum
 
 
 /**
@@ -9,7 +9,7 @@ import com.dasoops.common.core.IException
  * @date 2023/01/30
  * @see [DataEnumException]
  */
-enum class DataEnumException(override val message: String) : IException {
+enum class DataEnumException(override val message: String) : IExceptionEnum {
 
     NOT_ENUM("不是一个enum类"),
     UNDEFINEND_VALUE("未定义的枚举值"),

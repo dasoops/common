@@ -1,6 +1,6 @@
 package com.dasoops.common.json
 
-import com.dasoops.common.core.IException
+import com.dasoops.common.core.IExceptionEnum
 import com.dasoops.common.exception.CustomException
 
 /**
@@ -9,7 +9,7 @@ import com.dasoops.common.exception.CustomException
  * @date 2022/12/30
  * @see [JsonException]
  */
-enum class JsonException(override val message: String) : IException {
+enum class JsonException(override val message: String) : IExceptionEnum {
     /**
      * eem快速生成
      */
