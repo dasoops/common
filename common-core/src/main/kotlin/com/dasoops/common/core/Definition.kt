@@ -1,6 +1,6 @@
 package com.dasoops.common.core
 
-import com.dasoops.common.exception.CustomException
+import com.dasoops.common.core.exception.CustomException
 import java.io.Serializable
 
 /**
@@ -70,9 +70,9 @@ interface IService
  * exception顶层接口
  * @author DasoopsNicole@Gmail.com
  * @date 2023/01/14
- * @see [IException]
+ * @see [IExceptionEnum]
  */
-interface IException {
+interface IExceptionEnum {
     /**
      * 获取错误代码
      *

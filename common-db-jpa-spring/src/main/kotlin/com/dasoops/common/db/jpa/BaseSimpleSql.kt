@@ -1,6 +1,6 @@
 package com.dasoops.common.db.jpa
 
-import com.dasoops.common.exception.ProjectException
+import com.dasoops.common.core.exception.ProjectException
 import org.springframework.data.jpa.repository.Modifying
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.CrudRepository

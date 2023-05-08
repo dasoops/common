@@ -1,7 +1,7 @@
-package com.dasoops.common.exception
+package com.dasoops.common.core.exception
 
 import cn.hutool.core.exceptions.ExceptionUtil
-import com.dasoops.common.core.IException
+import com.dasoops.common.core.IExceptionEnum
 
 /**
  * 自定义异常
@@ -10,13 +10,12 @@ import com.dasoops.common.core.IException
  * @see [CustomException]
  */
 open class CustomException(
-    val exceptionEnum: IException = ProjectException.UN_EXPECTED,
+    val exceptionEnum: IExceptionEnum = ProjectException.UN_EXPECTED,
+    final override val message: String = exceptionEnum.message
 ) : RuntimeException() {
 
-    override val message = exceptionEnum.message
-
     val info: String = """
-            [${exceptionEnum.code}:${exceptionEnum.message}]: 
+            [${exceptionEnum.code}:$message]: 
             ${this.getStackInfo()}
             """.trimIndent()
 

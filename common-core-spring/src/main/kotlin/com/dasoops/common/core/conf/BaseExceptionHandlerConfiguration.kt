@@ -1,13 +1,12 @@
 package com.dasoops.common.core.conf
 
 import com.dasoops.common.core.entity.result.SimpleResult
-import com.dasoops.common.exception.CustomException
+import com.dasoops.common.core.exception.CustomException
 import com.dasoops.common.exception.DataResolverException
-import com.dasoops.common.exception.ProjectException
-import com.dasoops.common.exception.ProjectExceptionEntity
+import com.dasoops.common.core.exception.ProjectException
+import com.dasoops.common.core.exception.ProjectExceptionEntity
 import org.slf4j.LoggerFactory
 import org.springframework.beans.BeanInstantiationException
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.validation.BindException
 import org.springframework.web.HttpRequestMethodNotSupportedException
 import org.springframework.web.bind.annotation.ExceptionHandler

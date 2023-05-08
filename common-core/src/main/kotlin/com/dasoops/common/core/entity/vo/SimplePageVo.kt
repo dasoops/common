@@ -1,6 +1,6 @@
 package com.dasoops.common.core.entity.vo
 
-import com.dasoops.common.exception.ProjectException
+import com.dasoops.common.core.exception.ProjectException
 import io.swagger.v3.oas.annotations.media.Schema
 
 /**

@@ -1,7 +1,7 @@
 package com.dasoops.common.core.util
 
 import com.dasoops.common.core.entity.dataenum.DataEnum
-import com.dasoops.common.exception.DataEnumException
+import com.dasoops.common.core.exception.DataEnumException
 import java.util.*
 
 /**

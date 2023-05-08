@@ -1,6 +1,7 @@
 package com.dasoops.common.exception
 
-import com.dasoops.common.core.IException
+import com.dasoops.common.core.IExceptionEnum
+import com.dasoops.common.core.exception.ProjectExceptionEntity
 
 /**
  * 数据解析器异常枚举(206xx)
@@ -8,7 +9,7 @@ import com.dasoops.common.core.IException
  * @date 2023/02/25
  * @see [DataResolverException]
  */
-enum class DataResolverException(override val message: String) : IException {
+enum class DataResolverException(override val message: String) : IExceptionEnum {
     PARAMETER_RESLOVE_ERROR("输入参数解析异常"),
     PARAM_ERROR("参数错误"),
     OUT_OF_BOUNDS("参数超出范围"),

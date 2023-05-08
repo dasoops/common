@@ -1,6 +1,6 @@
 package com.dasoops.common.core.entity.result
 
-import com.dasoops.common.core.IException
+import com.dasoops.common.core.IExceptionEnum
 import io.swagger.v3.oas.annotations.media.Schema
 
 /**
@@ -21,6 +21,6 @@ class SimpleResult(
         fun success() = SimpleResult(200, "请求成功")
         fun success(msg: String) = SimpleResult(200, msg)
         fun fail(msg: String) = SimpleResult(400, msg)
-        fun fail(exception: IException) = SimpleResult(exception.code, exception.message)
+        fun fail(exception: IExceptionEnum) = SimpleResult(exception.code, exception.message)
     }
 }
