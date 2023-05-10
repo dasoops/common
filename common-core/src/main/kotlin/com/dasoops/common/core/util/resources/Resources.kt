@@ -1,5 +1,6 @@
 package com.dasoops.common.core.util.resources
 
+import cn.hutool.core.util.ClassLoaderUtil
 import cn.hutool.core.util.StrUtil
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -85,13 +86,14 @@ object Resources {
         file: File,
         classSet: MutableSet<Class<*>>
     ) {
+
         JarFile(file).entries().toList()
             //包名匹配 .class后缀过滤 目录过滤
             .filter {
-                it.name.startsWith(basePath) && it.name.endsWith(".class") && !it.isDirectory
+                !it.isDirectory && it.name.removePrefix("BOOT-INF/classes/").startsWith(basePath) && it.name.endsWith(".class")
             }
             //转为可使用的类路径
-            .map { it.name.replace("/", ".").removeSuffix(".class") }
+            .map { it.name.removePrefix("BOOT-INF/classes/").replace("/", ".").removeSuffix(".class") }
             //添加到集合
             .forEach {
                 try {

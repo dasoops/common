@@ -54,7 +54,7 @@ interface DasEntity<E : DasEntity<E>> : Entity<E>, IDo {
             entity.updateTime = LocalDateTimeUtil.now()
             entity.updateUser = userId
 
-            if (!create){
+            if (create){
                 entity.createTime = LocalDateTimeUtil.now()
                 entity.createUser = userId
             }
@@ -67,6 +67,7 @@ interface DasEntity<E : DasEntity<E>> : Entity<E>, IDo {
     }
 
     override fun delete(): Int {
-        return 3
+        this.isDelete = true
+        return this.flushChanges()
     }
 }

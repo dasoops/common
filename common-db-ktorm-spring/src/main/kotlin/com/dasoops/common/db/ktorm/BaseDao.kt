@@ -1,8 +1,9 @@
 package com.dasoops.common.db.ktorm
 
 import org.ktorm.database.Database
-import org.ktorm.dsl.UpdateStatementBuilder
+import org.ktorm.dsl.and
 import org.ktorm.dsl.eq
+import org.ktorm.dsl.not
 import org.ktorm.dsl.update
 import org.ktorm.entity.EntitySequence
 import org.ktorm.entity.add
@@ -44,22 +45,10 @@ abstract class BaseDao<E : DasEntity<E>, T : DasTable<E>>(private val tableObjec
     /**
      * Delete records that satisfy the given [predicate].
      */
-    @Suppress("UNCHECKED_CAST")
     open fun deleteIf(predicate: (T) -> ColumnDeclaring<Boolean>): Int {
-        /*sequenceOf().filter(predicate).update(
-            (tableObject.entityClass!!.nestedClasses.first().objectInstance as DasEntity.Factory<E>).invoke(false) {
-                isDelete = true
-            }
-        )*/
-
         return database.update(tableObject) {
-            predicate.invoke(it)
-            where = predicate.invoke(it)
-            update(
-                (tableObject.entityClass!!.nestedClasses.first().objectInstance as DasEntity.Factory<E>).invoke(false) {
-                    isDelete = true
-                }
-            )
+            set(it.isDelete, true)
+            where { predicate.invoke(it) and !it.isDelete }
         }
     }
 
