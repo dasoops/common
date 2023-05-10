@@ -47,3 +47,4 @@ out/
 logback.xml
 logs
 *.log
+**/target
