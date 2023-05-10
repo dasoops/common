@@ -3,6 +3,7 @@ package com.dasoops.common.util
 import com.dasoops.common.entity.dataenum.DataEnum
 import com.dasoops.common.exception.DataEnumException
 import java.util.*
+import kotlin.streams.toList
 
 /**
  * 数据库字段工具

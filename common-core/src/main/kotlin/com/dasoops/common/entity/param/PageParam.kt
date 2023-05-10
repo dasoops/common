@@ -12,9 +12,15 @@ import io.swagger.v3.oas.annotations.tags.Tag
 @Tag(name = "base")
 @Schema(description = "分页参数")
 data class PageParam(
-    @Schema(description = "当前页码", example = "1", required = true)
+    /**
+     * 当前页码
+     */
+    @field:Schema(description = "当前页码", example = "1", required = true)
     var current: Int = 1,
 
-    @Schema(description = "每页显示数量", example = "10", required = true)
+    /**
+     * 每页显示数量
+     */
+    @field:Schema(description = "每页显示数量", example = "10", required = true)
     var size: Int = 10,
 )

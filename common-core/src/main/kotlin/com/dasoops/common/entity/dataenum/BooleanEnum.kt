@@ -3,8 +3,7 @@ package com.dasoops.common.entity.dataenum
 /**
  * 布尔枚举
  * @author DasoopsNicole@Gmail.com
- * @date 2023/03/30
- * @see [BooleanEnum]
+ * @date 2023-05-08
  */
 enum class BooleanEnum(
     override val data: Int,
