@@ -47,20 +47,27 @@ interface DasEntity<E : DasEntity<E>> : Entity<E>, IDo {
 
     abstract class Factory<E : DasEntity<E>> : TypeReference<E>() {
         @Suppress("UNCHECKED_CAST")
-        operator fun invoke(): E {
+        operator fun invoke(create: Boolean): E {
             val entity = Entity.create(referencedKotlinType.jvmErasure) as E
+            val userId = SpringUtil.getBean(AutoFill::class.java).getUserId()
             entity.isDelete = false
             entity.updateTime = LocalDateTimeUtil.now()
-            entity.createTime = LocalDateTimeUtil.now()
-
-            val userId = SpringUtil.getBean(AutoFill::class.java).getUserId()
             entity.updateUser = userId
-            entity.createUser = userId
+
+            if (create){
+                entity.createTime = LocalDateTimeUtil.now()
+                entity.createUser = userId
+            }
             return entity
         }
 
-        inline operator fun invoke(init: E.() -> Unit): E {
-            return invoke().apply(init)
+        inline operator fun invoke(create: Boolean = true, init: E.() -> Unit): E {
+            return invoke(create).apply(init)
         }
+    }
+
+    override fun delete(): Int {
+        this.isDelete = true
+        return this.flushChanges()
     }
 }

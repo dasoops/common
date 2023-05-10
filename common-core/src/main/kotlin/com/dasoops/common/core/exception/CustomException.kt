@@ -15,7 +15,7 @@ open class CustomException(
 ) : RuntimeException() {
 
     val info: String = """
-            [${exceptionEnum.code}:${exceptionEnum.message}]: 
+            [${exceptionEnum.code}:$message]: 
             ${this.getStackInfo()}
             """.trimIndent()
 
