@@ -18,7 +18,7 @@ interface DasEntity<E : DasEntity<E>> : Entity<E>, IDo {
     /**
      * 主键id
      */
-    val rowId: Long
+    var rowId: Long
 
     /**
      * 逻辑删除
