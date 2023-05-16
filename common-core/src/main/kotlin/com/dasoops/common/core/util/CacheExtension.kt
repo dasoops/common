@@ -1,6 +1,6 @@
 package com.dasoops.common.core.util
 
-import cn.hutool.cache.impl.StampedCache
+import cn.hutool.cache.impl.AbstractCache
 
 /**
  * 获取 如果为空执行func并将结果set入缓存
@@ -8,7 +8,7 @@ import cn.hutool.cache.impl.StampedCache
  * @param [func] 把
  * @return [V]
  */
-fun <K : Any, V : Any?> StampedCache<K, V>.getOrNullAndSet(key: K, func: () -> V): V {
+fun <K : Any, V : Any?> AbstractCache<K, V>.getOrNullAndSet(key: K, func: () -> V): V {
     return get(key) ?: run {
         func.invoke().also {
             put(key, it)
