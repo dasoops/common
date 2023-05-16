@@ -4,6 +4,7 @@ include(
     "common-all",
     "common-core",
     "common-core-spring",
+    "common-core-spring-web",
     "common-json",
     "common-json-spring",
     "common-excel-spring",

@@ -1,3 +1,3 @@
 dependencies {
-    api(project(":common-core-spring"))
+    api(project(":common-core-spring-web"))
 }

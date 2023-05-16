@@ -1,6 +1,7 @@
 dependencies {
     implementation(project(":common-core"))
     implementation(project(":common-core-spring"))
+    implementation(project(":common-core-spring-web"))
     implementation(project(":common-json"))
     implementation(project(":common-json-spring"))
     implementation(project(":common-excel-spring"))
