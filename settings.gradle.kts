@@ -14,6 +14,7 @@ include(
     "common-db-mybatis-plus-spring",
     "common-db-jpa-spring",
     "common-db-ktorm-spring",
+    "common-db-ktorm",
     "common-cache-spring",
     "common-bom",
 )
