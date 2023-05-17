@@ -3,6 +3,7 @@ package com.dasoops.common.db.ktorm
 import cn.hutool.core.date.LocalDateTimeUtil
 import cn.hutool.extra.spring.SpringUtil
 import com.dasoops.common.core.IDo
+import com.dasoops.common.core.util.resources.Resources
 import org.ktorm.entity.Entity
 import org.ktorm.schema.TypeReference
 import java.time.LocalDateTime
@@ -49,12 +50,12 @@ interface DasEntity<E : DasEntity<E>> : Entity<E>, IDo {
         @Suppress("UNCHECKED_CAST")
         operator fun invoke(create: Boolean): E {
             val entity = Entity.create(referencedKotlinType.jvmErasure) as E
-            val userId = SpringUtil.getBean(AutoFill::class.java).getUserId()
+            val userId = AutoFill.userId
             entity.isDelete = false
             entity.updateTime = LocalDateTimeUtil.now()
             entity.updateUser = userId
 
-            if (create){
+            if (create) {
                 entity.createTime = LocalDateTimeUtil.now()
                 entity.createUser = userId
             }
