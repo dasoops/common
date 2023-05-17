@@ -50,7 +50,7 @@ interface DasEntity<E : DasEntity<E>> : Entity<E>, IDo {
         @Suppress("UNCHECKED_CAST")
         operator fun invoke(create: Boolean): E {
             val entity = Entity.create(referencedKotlinType.jvmErasure) as E
-            val userId = AutoFill.userId
+            val userId = KtormRunner.INSTANCE.getUserId()
             entity.isDelete = false
             entity.updateTime = LocalDateTimeUtil.now()
             entity.updateUser = userId

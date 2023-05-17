@@ -1,5 +1,7 @@
 package com.dasoops.common.db.ktorm
 
+import cn.hutool.core.lang.Console.where
+import com.dasoops.common.db.ktorm.KtormGlobal.default
 import org.ktorm.database.Database
 import org.ktorm.dsl.and
 import org.ktorm.dsl.eq
@@ -17,16 +19,13 @@ import org.ktorm.entity.sequenceOf
 import org.ktorm.entity.toList
 import org.ktorm.entity.update
 import org.ktorm.schema.ColumnDeclaring
-import org.springframework.beans.factory.annotation.Autowired
 
 /**
  * Created by vince on Jun 15, 2022.
  */
 abstract class BaseDao<E : DasEntity<E>, T : DasTable<E>>(private val tableObject: T) {
-    @Autowired
-    protected lateinit var database: Database
 
-    fun sequenceOf(): EntitySequence<E, T> = database.sequenceOf(tableObject)
+    fun sequenceOf(): EntitySequence<E, T> = Database.default.sequenceOf(tableObject)
 
     /**
      * Insert the given entity into the table and return the effected record number.
@@ -46,7 +45,7 @@ abstract class BaseDao<E : DasEntity<E>, T : DasTable<E>>(private val tableObjec
      * Delete records that satisfy the given [predicate].
      */
     open fun deleteIf(predicate: (T) -> ColumnDeclaring<Boolean>): Int {
-        return database.update(tableObject) {
+        return Database.default.update(tableObject) {
             set(it.isDelete, true)
             where { predicate.invoke(it) and !it.isDelete }
         }

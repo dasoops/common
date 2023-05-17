@@ -18,4 +18,16 @@ object KtormGlobal {
      * 默认
      */
     lateinit var default: Database
+
+    /**
+     * 默认数据源
+     */
+    val Database.Companion.defaultDataSource: DataSource
+        get() = KtormGlobal.defaultDataSource
+
+    /**
+     * 默认
+     */
+    val Database.Companion.default: Database
+        get() = KtormGlobal.default
 }

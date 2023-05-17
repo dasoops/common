@@ -33,10 +33,12 @@ abstract class KtormRunner(
             dialect = dialect,
             logger = logger
         )
+        KtormRunner.INSTANCE = this
     }
 
-    val AutoFill.userId
-        get() = this@KtormRunner.getUserId()
+    abstract fun getUserId(): Long
 
-    abstract fun getUserId()
+    companion object {
+        lateinit var INSTANCE: KtormRunner
+    }
 }
