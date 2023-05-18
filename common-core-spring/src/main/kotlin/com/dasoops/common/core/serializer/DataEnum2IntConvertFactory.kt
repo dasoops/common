@@ -15,6 +15,7 @@ open class DataEnum2IntConvertFactory : ConverterFactory<DataEnum, Int> {
         return IDbColumnEnumToIntConvert()
     }
 
+    @Suppress("UNCHECKED_CAST")
     private class IDbColumnEnumToIntConvert<T> : Converter<DataEnum, T> {
         override fun convert(source: DataEnum): T {
             return source.data as T

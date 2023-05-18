@@ -14,12 +14,12 @@ import org.ktorm.logging.Slf4jLoggerAdapter
  * @author DasoopsNicole@Gmail.com
  * @date 2023-05-04
  */
-abstract class KtormRunner(
-    dialect: SqlDialect = detectDialectImplementation(),
-    logger: Logger = Slf4jLoggerAdapter("ktorm-log"),
-    dbConfig: DbConfig
-) {
-    init {
+abstract class KtormRunner {
+    fun init(
+        dialect: SqlDialect = detectDialectImplementation(),
+        logger: Logger = Slf4jLoggerAdapter("ktorm-log"),
+        dbConfig: DbConfig
+    ) {
         KtormGlobal.defaultDataSource = DSFactory.create(
             Setting.create()
                 .set("url", dbConfig.url)
@@ -28,7 +28,7 @@ abstract class KtormRunner(
                 .set("driverClassName", dbConfig.driver)
         ).dataSource
 
-        KtormGlobal.default = Database.connectWithSpringSupport(
+        KtormGlobal.default = Database.connect(
             dataSource = KtormGlobal.defaultDataSource,
             dialect = dialect,
             logger = logger

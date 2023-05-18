@@ -9,6 +9,7 @@ open class DataEnum2StringConvertFactory : ConverterFactory<DataEnum, String> {
         return IDbColumnEnumToStringConvert()
     }
 
+    @Suppress("UNCHECKED_CAST")
     private class IDbColumnEnumToStringConvert<T> : Converter<DataEnum, T> {
         override fun convert(source: DataEnum): T {
             return source.data.toString() as T

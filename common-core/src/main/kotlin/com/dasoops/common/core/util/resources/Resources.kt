@@ -1,6 +1,5 @@
 package com.dasoops.common.core.util.resources
 
-import cn.hutool.core.util.ClassLoaderUtil
 import cn.hutool.core.util.StrUtil
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -9,7 +8,8 @@ import java.util.*
 import java.util.jar.JarFile
 
 /**
- * 资源类
+ * 资源扫描类
+ * TODO(瞅瞅 org.springframework.core.type.classreading.SimpleAnnotationMetadataReadingVisitor)学习学习
  * @author DasoopsNicole@Gmail.com
  * @date 2023/03/30
  */
@@ -22,7 +22,7 @@ object Resources {
      * @return [Collection<Class<*>>]
      */
     fun scan(vararg basePath: String): Collection<Class<*>> {
-        return scan(this::class.java.classLoader, *basePath)
+        return scan(Thread.currentThread().contextClassLoader, *basePath)
     }
 
     /**
@@ -90,7 +90,8 @@ object Resources {
         JarFile(file).entries().toList()
             //包名匹配 .class后缀过滤 目录过滤
             .filter {
-                !it.isDirectory && it.name.removePrefix("BOOT-INF/classes/").startsWith(basePath) && it.name.endsWith(".class")
+                !it.isDirectory && it.name.removePrefix("BOOT-INF/classes/")
+                    .startsWith(basePath) && it.name.endsWith(".class")
             }
             //转为可使用的类路径
             .map { it.name.removePrefix("BOOT-INF/classes/").replace("/", ".").removeSuffix(".class") }

@@ -40,9 +40,11 @@ allprojects {
             //排除common-bom
             plugin("maven-publish")
             plugin("io.spring.dependency-management")
-            plugin("org.springframework.boot")
             plugin("org.jetbrains.kotlin.jvm")
-            plugin("org.jetbrains.kotlin.plugin.spring")
+            if (project.name.contains("spring")){
+                plugin("org.springframework.boot")
+                plugin("org.jetbrains.kotlin.plugin.spring")
+            }
         }
         val sourceJar = tasks.create("sourceJar", Jar::class) {
             from(sourceSets.main.get().allSource)
