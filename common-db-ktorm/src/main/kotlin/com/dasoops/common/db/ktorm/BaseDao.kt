@@ -1,23 +1,12 @@
 package com.dasoops.common.db.ktorm
 
-import cn.hutool.core.lang.Console.where
 import com.dasoops.common.db.ktorm.KtormGlobal.default
 import org.ktorm.database.Database
 import org.ktorm.dsl.and
 import org.ktorm.dsl.eq
 import org.ktorm.dsl.not
 import org.ktorm.dsl.update
-import org.ktorm.entity.EntitySequence
-import org.ktorm.entity.add
-import org.ktorm.entity.all
-import org.ktorm.entity.any
-import org.ktorm.entity.count
-import org.ktorm.entity.filter
-import org.ktorm.entity.find
-import org.ktorm.entity.none
-import org.ktorm.entity.sequenceOf
-import org.ktorm.entity.toList
-import org.ktorm.entity.update
+import org.ktorm.entity.*
 import org.ktorm.schema.ColumnDeclaring
 
 /**
