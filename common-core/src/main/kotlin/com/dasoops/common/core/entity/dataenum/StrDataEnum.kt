@@ -10,5 +10,5 @@ import com.fasterxml.jackson.annotation.JsonValue
  */
 interface StrDataEnum {
     @get:JsonValue
-    val data: Int
+    val data: String
 }
