@@ -1,7 +1,9 @@
 package com.dasoops.common.db.jpa
 
-import com.dasoops.common.core.entity.dataenum.BooleanEnum
-import com.dasoops.common.core.entity.dataenum.DataEnum
+import com.dasoops.common.json.core.JsonException
+import com.dasoops.common.json.core.dataenum.BooleanEnum
+import com.dasoops.common.json.core.dataenum.DataEnum
+import com.dasoops.common.json.core.dataenum.IntDataEnum
 import jakarta.persistence.AttributeConverter
 import jakarta.persistence.Converter
 
@@ -18,12 +20,12 @@ abstract class BaseJpaConfiguration {
     }
 
     @Converter(autoApply = true)
-    open class DataEnumConverter : AttributeConverter<Int, DataEnum> {
-        override fun convertToDatabaseColumn(value: Int): DataEnum {
+    open class DataEnumConverter : AttributeConverter<Int, IntDataEnum> {
+        override fun convertToDatabaseColumn(value: Int): IntDataEnum {
             TODO()
         }
 
-        override fun convertToEntityAttribute(value: DataEnum): Int {
+        override fun convertToEntityAttribute(value: IntDataEnum): Int {
             return value.data
         }
     }
@@ -38,7 +40,7 @@ abstract class BaseJpaConfiguration {
             return when (value) {
                 0 -> IsDelete.NO
                 1 -> IsDelete.YES
-                else -> throw DataEnumException.NOT_ENUM.get()
+                else -> throw JsonException("不是一个枚举类")
             }
         }
     }

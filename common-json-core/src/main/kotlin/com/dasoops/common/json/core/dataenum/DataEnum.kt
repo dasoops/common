@@ -38,5 +38,5 @@ interface DataEnum<T : Serializable> : IEnum<T> {
     }
 }
 
-typealias IntDataEnum = DataEnum<Int>
-typealias StrDataEnum = DataEnum<String>
+interface IntDataEnum : DataEnum<Int>
+interface StrDataEnum : DataEnum<String>

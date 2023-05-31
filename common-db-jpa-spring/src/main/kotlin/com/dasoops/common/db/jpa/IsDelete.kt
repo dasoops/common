@@ -1,6 +1,6 @@
 package com.dasoops.common.db.jpa
 
-import com.dasoops.common.core.entity.dataenum.DataEnum
+import com.dasoops.common.json.core.dataenum.IntDataEnum
 
 /**
  * 逻辑删除(Jpa独有,其他db一般直接使用BooleanEnum)
@@ -8,7 +8,7 @@ import com.dasoops.common.core.entity.dataenum.DataEnum
  * @author DasoopsNicole@Gmail.com
  * @date 2023-04-25
  */
-enum class IsDelete(override val data: Int) : DataEnum {
+enum class IsDelete(override val data: Int) : IntDataEnum {
     NO(20),
     YES(21),
     ;

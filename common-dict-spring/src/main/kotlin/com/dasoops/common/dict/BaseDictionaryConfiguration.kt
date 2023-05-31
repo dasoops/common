@@ -1,7 +1,6 @@
 package com.dasoops.common.dict
 
 import cn.hutool.core.util.StrUtil
-import com.dasoops.common.core.entity.dataenum.ApiEnum
 import com.dasoops.common.core.util.resources.Resources
 import com.google.common.base.CaseFormat
 import org.slf4j.LoggerFactory

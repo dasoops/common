@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.annotation.IdType
 import com.baomidou.mybatisplus.annotation.TableField
 import com.baomidou.mybatisplus.annotation.TableId
 import com.dasoops.common.core.IDo
-import com.dasoops.common.core.entity.dataenum.BooleanEnum
+import com.dasoops.common.json.core.dataenum.BooleanEnum
 import java.util.*
 
 /**

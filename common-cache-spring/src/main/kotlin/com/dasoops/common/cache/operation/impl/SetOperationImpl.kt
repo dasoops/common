@@ -1,8 +1,8 @@
 package com.dasoops.common.cache.operation.impl
 
 import com.dasoops.common.cache.operation.SetOperation
-import com.dasoops.common.json.parse
-import com.dasoops.common.json.toJsonStr
+import com.dasoops.common.json.core.parse
+import com.dasoops.common.json.core.toJsonStr
 import org.springframework.data.redis.core.BoundSetOperations
 import org.springframework.data.redis.core.RedisOperations
 

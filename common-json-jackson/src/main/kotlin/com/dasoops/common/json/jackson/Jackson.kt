@@ -83,7 +83,7 @@ open class Jackson : IJson {
         return serializer.readValue(jsonStr, clazz)
     }
 
-    override fun <T> parseList(jsonStr: String): List<T> {
+    fun <T> parseList(jsonStr: String): List<T> {
         return serializer.readValue(jsonStr, object : TypeReference<List<T>>() {})
     }
 

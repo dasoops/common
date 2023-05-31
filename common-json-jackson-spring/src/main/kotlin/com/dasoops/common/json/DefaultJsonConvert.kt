@@ -1,5 +1,6 @@
 package com.dasoops.common.json
 
+import com.dasoops.common.json.core.toJsonStr
 import org.springframework.core.convert.converter.Converter
 
 /**

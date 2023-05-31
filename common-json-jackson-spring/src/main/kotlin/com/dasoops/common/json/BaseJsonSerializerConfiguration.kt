@@ -1,7 +1,7 @@
 package com.dasoops.common.json
 
+import com.dasoops.common.json.jackson.Jackson
 import com.fasterxml.jackson.databind.ObjectMapper
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.annotation.Bean
 
 /**
@@ -13,6 +13,6 @@ import org.springframework.context.annotation.Bean
 abstract class BaseJsonSerializerConfiguration {
     @Bean
     open fun getJacksonObjectMapper(): ObjectMapper {
-        return Json.serializer
+        return Jackson.INSTANCE.serializer
     }
 }

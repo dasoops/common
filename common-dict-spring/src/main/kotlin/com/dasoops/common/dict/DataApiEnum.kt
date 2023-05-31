@@ -1,5 +1,7 @@
 package com.dasoops.common.dict
 
+import com.dasoops.common.json.core.dataenum.IntDataEnum
+
 /**
  * 含数据 api枚举
  * @author DasoopsNicole@Gmail.com

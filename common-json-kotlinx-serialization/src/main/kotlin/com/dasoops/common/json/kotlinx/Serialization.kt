@@ -1,18 +1,17 @@
 package com.dasoops.common.json.kotlinx
 
+import com.dasoops.common.core.util.resources.Resources
 import com.dasoops.common.json.core.IJson
-import com.dasoops.common.json.core.dataenum.BooleanEnum
 import com.dasoops.common.json.core.dataenum.DataEnum
-import kotlinx.serialization.DeserializationStrategy
+import com.dasoops.common.json.core.dataenum.IntDataEnum
+import com.dasoops.common.json.core.dataenum.StrDataEnum
 import kotlinx.serialization.KSerializer
-import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonContentPolymorphicSerializer
-import kotlinx.serialization.json.JsonElement
-import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.modules.SerializersModule
-import kotlinx.serialization.modules.contextual
 import kotlinx.serialization.modules.polymorphic
+import kotlinx.serialization.serializer
 
 /**
  * @title: Json
@@ -24,12 +23,23 @@ import kotlinx.serialization.modules.polymorphic
  * @see [Json]
  */
 open class Serialization : IJson {
-
     val serializer = Json {
         encodeDefaults = true
         ignoreUnknownKeys = true
         serializersModule = SerializersModule {
-            contextual(IntDataEnumSerializer(BooleanEnum::class.java))
+            val map = Resources.scan("com.dasoops").filter {
+                DataEnum::class.java.isAssignableFrom(it) && it.isEnum
+            }.map {
+                val use = it.getAnnotation(UseSerializer::class.java).use
+                @Suppress("UNCHECKED_CAST")
+                val create = use.objectInstance!!.create(it as Class<DataEnum<*>>)
+                it.kotlin to create
+            }
+            polymorphic(DataEnum::class) {
+                map.forEach {
+                    subclass(it.first, it.second)
+                }
+            }
         }
     }
 
@@ -42,15 +52,12 @@ open class Serialization : IJson {
     }
 
     override fun toJsonStr(obj: Any): String {
-        TODO("Not yet implemented")
+        return serializer.encodeToString(obj)
     }
 
     override fun <T> parse(jsonStr: String, clazz: Class<T>): T {
-        TODO("Not yet implemented")
-    }
-
-    override fun <T> parseList(jsonStr: String): List<T> {
-        TODO("Not yet implemented")
+        @Suppress("UNCHECKED_CAST")
+        return serializer.decodeFromString(serializer.serializersModule.serializer(clazz), jsonStr) as T
     }
 }
     

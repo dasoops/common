@@ -1,7 +1,5 @@
 package com.dasoops.common.core.util.point
 
-import com.dasoops.common.core.entity.dataenum.BooleanEnum
-import com.dasoops.common.core.entity.dataenum.DataEnum
 import com.dasoops.common.core.util.BinaryUtil
 
 /**
@@ -15,7 +13,7 @@ import com.dasoops.common.core.util.BinaryUtil
  */
 open class ValueReader(val iterator: Iterator<String>) {
 
-    private var dotIterator: Iterator<Int>? = null
+    var dotIterator: Iterator<Int>? = null
 
     /**
      * skip
@@ -134,22 +132,5 @@ open class ValueReader(val iterator: Iterator<String>) {
     fun bool(): Boolean {
         dotIterator ?: dot()
         return Parser.bool(nextDot())
-    }
-
-    /**
-     * convert dot value to dataBase boolean enum
-     * @return [BooleanEnum] dataBase boolean enum value
-     */
-    fun dbBool(): BooleanEnum {
-        dotIterator ?: dot()
-        return Parser.dbBool(nextDot())
-    }
-
-    /**
-     * convert value to enum list
-     * @return [List<E>] enum list
-     */
-    inline fun <reified E : DataEnum> enum(): List<E>? {
-        return Parser.enum(next())
     }
 }
