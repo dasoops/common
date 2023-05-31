@@ -11,7 +11,7 @@ import java.io.Serializable
  * @date 2023/05/31
  * @see [DataEnum]
  */
-interface DataEnum<T : Serializable> : IEnum<T> {
+interface DataEnum<T : Serializable> : IEnum<T>, Serializable {
     /**
      * 获取数据库值
      *

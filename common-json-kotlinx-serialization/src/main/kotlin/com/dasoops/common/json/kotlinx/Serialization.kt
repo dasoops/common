@@ -12,6 +12,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import kotlinx.serialization.serializer
+import kotlin.reflect.KClass
 
 /**
  * @title: Json
@@ -31,9 +32,9 @@ open class Serialization : IJson {
                 DataEnum::class.java.isAssignableFrom(it) && it.isEnum
             }.map {
                 if (it == IntDataEnum::class.java)
-                    return@map IntDataEnum::class to IntDataEnumSerializerFactory
+                    return@map IntDataEnum::class to IntDataEnumSerializerFactory.create(it)
                 if (it == StrDataEnum::class.java)
-                    return@map StrDataEnum::class to StrDataEnumSerializerFactory
+                    return@map StrDataEnum::class to StrDataEnumSerializerFactory.create(it)
 
                 val use = it.getAnnotation(UseSerializer::class.java).use
 
