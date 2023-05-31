@@ -1,6 +1,5 @@
 dependencies {
     api("org.jetbrains.kotlin:kotlin-reflect")
-    api("com.fasterxml.jackson.core:jackson-annotations:2.15.0")
     api("org.slf4j:slf4j-api:2.0.4")
     api("cn.hutool:hutool-all:5.8.18")
     api("com.google.guava:guava:31.1-jre")

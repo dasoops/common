@@ -2,7 +2,6 @@ package com.dasoops.common.db.jpa
 
 import com.dasoops.common.core.entity.dataenum.BooleanEnum
 import com.dasoops.common.core.entity.dataenum.DataEnum
-import com.dasoops.common.core.exception.DataEnumException
 import jakarta.persistence.AttributeConverter
 import jakarta.persistence.Converter
 
