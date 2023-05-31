@@ -9,6 +9,6 @@ fun <T> IJson.parse(jsonStr: String, typeReference: TypeReference<T>): T {
     return Jackson.INSTANCE.parse(jsonStr, typeReference)
 }
 
-fun parseNode(jsonStr: String): JsonNode {
+fun IJson.parseNode(jsonStr: String): JsonNode {
     return Jackson.INSTANCE.parseNode(jsonStr)
 }
