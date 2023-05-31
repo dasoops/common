@@ -1,21 +1,19 @@
 package com.dasoops.common.db.jpa
 
 import com.dasoops.common.json.core.JsonException
-import com.dasoops.common.json.core.dataenum.BooleanEnum
-import com.dasoops.common.json.core.dataenum.DataEnum
 import com.dasoops.common.json.core.dataenum.IntDataEnum
 import jakarta.persistence.AttributeConverter
 import jakarta.persistence.Converter
 
 abstract class BaseJpaConfiguration {
     @Converter(autoApply = true)
-    open class BooleanEnumConverter : AttributeConverter<Int, BooleanEnum> {
-        override fun convertToDatabaseColumn(value: Int): BooleanEnum {
-            return BooleanEnum.by(value)
+    open class BooleanEnumConverter : AttributeConverter<Int, Boolean> {
+        override fun convertToDatabaseColumn(value: Int): Boolean {
+            return value == 1
         }
 
-        override fun convertToEntityAttribute(value: BooleanEnum): Int {
-            return value.data
+        override fun convertToEntityAttribute(value: Boolean): Int {
+            return if (value) 1 else 0
         }
     }
 

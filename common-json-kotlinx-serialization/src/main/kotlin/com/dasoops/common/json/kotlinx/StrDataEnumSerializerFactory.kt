@@ -11,14 +11,14 @@ import kotlinx.serialization.encoding.Encoder
 object StrDataEnumSerializerFactory : DataEnumSerializerFactory<StrDataEnum>() {
     override fun create(entityClass: Class<StrDataEnum>) = StrDataEnumSerializer(entityClass)
 
-    class StrDataEnumSerializer<T : StrDataEnum>(clazz: Class<T>) : DataEnumSerializer<StrDataEnum>(clazz) {
+    class StrDataEnumSerializer<T : StrDataEnum>(clazz: Class<T>) : DataEnumSerializer<T>(clazz) {
         override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("strDataEnum", PrimitiveKind.STRING)
 
-        override fun deserialize(decoder: Decoder): StrDataEnum {
+        override fun deserialize(decoder: Decoder): T {
             return DataEnum.getBy(clazz, decoder.decodeString())!!
         }
 
-        override fun serialize(encoder: Encoder, value: StrDataEnum) {
+        override fun serialize(encoder: Encoder, value: T) {
             encoder.encodeString(value.data)
         }
     }

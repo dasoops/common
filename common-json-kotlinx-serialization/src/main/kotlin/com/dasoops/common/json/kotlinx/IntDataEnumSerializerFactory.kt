@@ -11,13 +11,13 @@ import kotlinx.serialization.encoding.Encoder
 object IntDataEnumSerializerFactory : DataEnumSerializerFactory<IntDataEnum>() {
     override fun create(entityClass: Class<IntDataEnum>) = IntDataEnumSerializer(entityClass)
 
-    class IntDataEnumSerializer<T : IntDataEnum>(clazz: Class<T>) : DataEnumSerializer<IntDataEnum>(clazz) {
+    class IntDataEnumSerializer<T : IntDataEnum>(clazz: Class<T>) : DataEnumSerializer<T>(clazz) {
         override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("intDataEnum", PrimitiveKind.INT)
-        override fun deserialize(decoder: Decoder): IntDataEnum {
+        override fun deserialize(decoder: Decoder): T {
             return DataEnum.getBy(clazz, decoder.decodeInt())!!
         }
 
-        override fun serialize(encoder: Encoder, value: IntDataEnum) {
+        override fun serialize(encoder: Encoder, value: T) {
             encoder.encodeInt(value.data)
         }
     }

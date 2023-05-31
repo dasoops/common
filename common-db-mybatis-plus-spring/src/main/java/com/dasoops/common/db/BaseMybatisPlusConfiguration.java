@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
-import com.dasoops.common.json.core.dataenum.BooleanEnum;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.context.annotation.Bean;
 
@@ -47,7 +46,7 @@ public abstract class BaseMybatisPlusConfiguration implements MetaObjectHandler 
 
     @Override
     public void insertFill(MetaObject metaObject) {
-        this.strictInsertFill(metaObject, "isDelete", BooleanEnum.class, BooleanEnum.FALSE);
+        this.strictInsertFill(metaObject, "isDelete", Integer.class, 0);
         this.strictInsertFill(metaObject, "createTime", Date.class, new Date());
         this.strictInsertFill(metaObject, "createUser", Long.class, getUserId());
 

@@ -23,6 +23,7 @@ import kotlin.reflect.KClass
  * @description: json序列化
  * @see [Json]
  */
+@Suppress("UNCHECKED_CAST")
 open class Serialization : IJson {
     val serializer = Json {
         encodeDefaults = true
@@ -31,16 +32,16 @@ open class Serialization : IJson {
             val map = Resources.scan("com.dasoops").filter {
                 DataEnum::class.java.isAssignableFrom(it) && it.isEnum
             }.map {
-                if (it == IntDataEnum::class.java)
-                    return@map IntDataEnum::class to IntDataEnumSerializerFactory.create(it)
-                if (it == StrDataEnum::class.java)
-                    return@map StrDataEnum::class to StrDataEnumSerializerFactory.create(it)
-
-                val use = it.getAnnotation(UseSerializer::class.java).use
-
-                @Suppress("UNCHECKED_CAST")
-                val create = use.objectInstance!!.create(it as Class<DataEnum<*>>)
-                it.kotlin to create
+                it as Class<DataEnum<*>>
+                val use =
+                    if (StrDataEnum::class.java.isAssignableFrom(it)) {
+                        StrDataEnumSerializerFactory as DataEnumSerializerFactory<DataEnum<*>>
+                    } else if (IntDataEnum::class.java.isAssignableFrom(it)) {
+                        IntDataEnumSerializerFactory as DataEnumSerializerFactory<DataEnum<*>>
+                    } else {
+                        it.getAnnotation(UseSerializer::class.java).use.objectInstance!!
+                    }
+                it.kotlin to use.create(it)
             }
             polymorphic(DataEnum::class) {
                 map.forEach {
