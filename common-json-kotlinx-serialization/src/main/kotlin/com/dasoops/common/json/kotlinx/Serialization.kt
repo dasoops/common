@@ -30,7 +30,13 @@ open class Serialization : IJson {
             val map = Resources.scan("com.dasoops").filter {
                 DataEnum::class.java.isAssignableFrom(it) && it.isEnum
             }.map {
+                if (it == IntDataEnum::class.java)
+                    return@map IntDataEnum::class to IntDataEnumSerializerFactory
+                if (it == StrDataEnum::class.java)
+                    return@map StrDataEnum::class to StrDataEnumSerializerFactory
+
                 val use = it.getAnnotation(UseSerializer::class.java).use
+
                 @Suppress("UNCHECKED_CAST")
                 val create = use.objectInstance!!.create(it as Class<DataEnum<*>>)
                 it.kotlin to create
