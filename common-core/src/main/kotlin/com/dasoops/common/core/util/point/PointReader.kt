@@ -1,7 +1,5 @@
 package com.dasoops.common.core.util.point
 
-import com.dasoops.common.core.entity.dataenum.DataEnum
-
 /**
  * 点解析器
  * @title: PointReslover
@@ -94,15 +92,6 @@ open class PointReader private constructor(map: Map<Int, String>) : LinkedHashMa
      */
     fun bool(index: Int, innerIndex: Int): Boolean {
         return Parser.bool(get(index), innerIndex)
-    }
-
-    /**
-     * 报警
-     * @param [index] 索引
-     * @return [List<E>] enumList
-     */
-    inline fun <reified E : DataEnum> enum(index: Int): List<E>? {
-        return Parser.enum(get(index))
     }
 
 

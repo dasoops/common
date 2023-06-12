@@ -1,6 +1,7 @@
 package com.dasoops.common.cache.logger
 
-import com.dasoops.common.json.toJsonStr
+import com.dasoops.common.json.core.toJsonStr
+
 
 /**
  * 缓存日志记录器

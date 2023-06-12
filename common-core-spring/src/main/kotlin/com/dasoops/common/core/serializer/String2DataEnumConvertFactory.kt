@@ -1,8 +1,8 @@
 package com.dasoops.common.core.serializer
 
-import com.dasoops.common.core.entity.dataenum.DataEnum
 import com.dasoops.common.exception.DataResolverException
-import com.dasoops.common.core.util.DataEnumUtil
+import com.dasoops.common.json.core.dataenum.DataEnum
+import com.dasoops.common.json.core.dataenum.IntDataEnum
 import org.springframework.core.convert.converter.Converter
 import org.springframework.core.convert.converter.ConverterFactory
 
@@ -12,14 +12,16 @@ import org.springframework.core.convert.converter.ConverterFactory
  * @date 2023/03/30
  * @see [String2DataEnumConvertFactory]
  */
-open class String2DataEnumConvertFactory : ConverterFactory<String, DataEnum> {
-    override fun <T : DataEnum> getConverter(targetType: Class<T>): Converter<String, T> {
+open class String2DataEnumConvertFactory : ConverterFactory<String, IntDataEnum> {
+    override fun <T : IntDataEnum> getConverter(targetType: Class<T>): Converter<String, T> {
         return StringToIDbColumnEnumConvert(targetType)
     }
 
-    private class StringToIDbColumnEnumConvert<T : DataEnum>(private val enumType: Class<out T>) : Converter<String, T> {
+    private class StringToIDbColumnEnumConvert<T : IntDataEnum>(private val enumType: Class<out T>) :
+        Converter<String, T> {
         override fun convert(source: String): T {
-            return DataEnumUtil.getBy(enumType, Integer.valueOf(source)) ?: throw DataResolverException.PARAMETER_RESLOVE_ERROR.get()
+            return DataEnum.getBy(enumType, Integer.valueOf(source))
+                ?: throw DataResolverException.PARAMETER_RESLOVE_ERROR.get()
         }
     }
 }

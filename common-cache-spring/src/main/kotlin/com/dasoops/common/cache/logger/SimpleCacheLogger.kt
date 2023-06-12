@@ -1,6 +1,6 @@
 package com.dasoops.common.cache.logger
 
-import com.dasoops.common.json.toJsonStr
+import com.dasoops.common.json.core.toJsonStr
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 

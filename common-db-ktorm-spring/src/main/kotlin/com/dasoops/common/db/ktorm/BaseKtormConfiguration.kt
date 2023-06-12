@@ -1,5 +1,6 @@
 package com.dasoops.common.db.ktorm
 
+import com.dasoops.common.db.ktorm.KtormGlobal.defaultDataSource
 import org.ktorm.database.Database
 import org.ktorm.database.SqlDialect
 import org.ktorm.database.detectDialectImplementation
@@ -15,14 +16,17 @@ import javax.sql.DataSource
  */
 abstract class BaseKtormConfiguration(
     val dialect: SqlDialect = detectDialectImplementation(),
-    val logger: Logger = Slf4jLoggerAdapter("ktorm-log")
-) : AutoFill {
+    val logger: Logger = Slf4jLoggerAdapter("ktorm-log"),
+) {
     @Bean
     open fun database(dataSource: DataSource): Database {
         return Database.connectWithSpringSupport(
             dataSource = dataSource,
             dialect = dialect,
             logger = logger
-        )
+        ).apply {
+            KtormGlobal.default = this
+            KtormGlobal.defaultDataSource = dataSource
+        }
     }
 }
