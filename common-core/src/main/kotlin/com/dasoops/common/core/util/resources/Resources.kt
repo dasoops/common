@@ -33,7 +33,7 @@ object Resources {
      */
     fun scan(
         classLoader: ClassLoader,
-        vararg basePath: String
+        vararg basePath: String,
     ): Collection<Class<*>> {
         return basePath.map { scan(classLoader, it) }.flatten()
     }
@@ -46,7 +46,7 @@ object Resources {
      */
     private fun scan(
         classLoader: ClassLoader,
-        basePath: String
+        basePath: String,
     ): Collection<Class<*>> {
         val classSet = HashSet<Class<*>>()
         val finalPath = buildBasePath(basePath)
@@ -67,7 +67,7 @@ object Resources {
     }
 
     private fun buildFilePath(url: URL): String {
-        var str = StrUtil.removePrefix(url.toString(), "jar:file:/")
+        var str = StrUtil.removePrefix(url.toString(), "jar:file:")
         str = StrUtil.subBefore(str, "!", false)
         str.replace("\\", "/")
         return str
@@ -84,7 +84,7 @@ object Resources {
         classLoader: ClassLoader,
         basePath: String,
         file: File,
-        classSet: MutableSet<Class<*>>
+        classSet: MutableSet<Class<*>>,
     ) {
 
         JarFile(file).entries().toList()
@@ -94,14 +94,13 @@ object Resources {
                     .startsWith(basePath) && it.name.endsWith(".class")
             }
             //转为可使用的类路径
-            .map { it.name.removePrefix("BOOT-INF/classes/").replace("/", ".").removeSuffix(".class") }
-            //添加到集合
-            .forEach {
-                try {
-                    classSet.add(classLoader.loadClass(it))
-                } catch (e: ClassNotFoundException) {
-                    log.error("class not found: $it")
-                }
+            .map {
+                it.name
+                    .removePrefix("BOOT-INF/classes/")
+                    .removePrefix("META-INF/classes/")
+            }.forEach {
+                //添加到集合
+                classSet.add(loadClass(classLoader, it) ?: return@forEach)
             }
     }
 
@@ -117,7 +116,7 @@ object Resources {
         classLoader: ClassLoader,
         basePath: String,
         file: File,
-        classSet: MutableSet<Class<*>>
+        classSet: MutableSet<Class<*>>,
     ) {
         //log.debug("scan: $basePath")
         //目录递归
@@ -151,6 +150,7 @@ object Resources {
         //焯水
         val realPath = with(path) {
             this.replace("/", ".")
+                .replace("\\", ".")
                 .removeSuffix(".class")
         }
 

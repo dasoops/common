@@ -28,6 +28,7 @@ open class Serialization : IJson {
     val serializer = Json {
         encodeDefaults = true
         ignoreUnknownKeys = true
+        //TODO(枚举序列化存在问题)
         serializersModule = SerializersModule {
             val map = Resources.scan("com.dasoops").filter {
                 DataEnum::class.java.isAssignableFrom(it) && it.isEnum
