@@ -31,14 +31,3 @@ publishing {
         }
     }
 }
-
-//configurePublishing(
-//    "mirai-bom",
-//    addProjectComponents = false,
-//)
-//publishing.publications.getByName<MavenPublication>("maven") {
-//    components.forEach {
-//        println(it.name)
-//    }
-//    from(components["javaPlatform"])
-//}

@@ -8,15 +8,15 @@ plugins {
     kotlin("plugin.spring") version "1.8.20"
 }
 
+
 sourceSets {
     main {
         java.srcDirs.add(File("src/main/kotlin"))
     }
 }
-
 allprojects {
     group = "com.dasoops"
-    version = "4.1.3"
+    version = "4.1.4"
 
     repositories {
         mavenLocal()
@@ -27,7 +27,7 @@ allprojects {
     tasks.withType<KotlinCompile> {
         kotlinOptions {
             freeCompilerArgs = listOf("-Xjsr305=strict")
-            jvmTarget = "17"
+            jvmTarget = "1.8"
         }
     }
 
@@ -41,11 +41,16 @@ allprojects {
             plugin("maven-publish")
             plugin("io.spring.dependency-management")
             plugin("org.jetbrains.kotlin.jvm")
-            if (project.name.contains("spring")){
+            if (project.name.contains("spring")) {
                 plugin("org.springframework.boot")
                 plugin("org.jetbrains.kotlin.plugin.spring")
             }
         }
+
+        tasks.jar {
+            archiveClassifier.set("")
+        }
+
         val sourceJar = tasks.create("sourceJar", Jar::class) {
             from(sourceSets.main.get().allSource)
             archiveClassifier.set("sources")
@@ -62,6 +67,5 @@ allprojects {
         }
     }
 }
-
-java.sourceCompatibility = JavaVersion.VERSION_17
+java.sourceCompatibility = JavaVersion.VERSION_1_8
 

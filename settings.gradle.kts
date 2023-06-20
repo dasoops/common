@@ -1,7 +1,6 @@
 rootProject.name = "common"
 
 include(
-    "common-all",
     "common-core",
     "common-core-spring",
     "common-core-spring-web",
