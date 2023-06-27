@@ -70,11 +70,11 @@ data class DictNode(
 
 @Tag(name = "dict")
 @Schema(description = "仅值字典数据")
-class ValueDictData : HashMap<String, OnlyValueDictNode>()
+class ValueDictData : HashMap<String, ValueDictNode>()
 
 @Tag(name = "dict")
 @Schema(description = "仅值字典树")
-class OnlyValueDictNode : HashMap<String, Serializable>()
+class ValueDictNode : HashMap<String, Serializable>()
 
 class ArrayDictData : HashMap<String, List<ArrayDictDataNode>>()
 

@@ -29,12 +29,12 @@ abstract class BaseDictionaryConfiguration(vararg basePath: String) {
     }
 
     @Bean
-    open fun buildOnlyValueDictData(): ValueDictData {
+    open fun buildValueDictData(): ValueDictData {
         return classList.associate { clazz ->
             buildDictName(clazz) to clazz.enumConstants.associate {
                 val key = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, it.toString())
                 key to it.data
-            }.toMap(OnlyValueDictNode())
+            }.toMap(ValueDictNode())
         }.toMap(ValueDictData())
     }
 
