@@ -56,9 +56,9 @@ abstract class BaseExceptionHandlerConfiguration {
      * @param e e
      */
     @ExceptionHandler(MethodArgumentNotValidException::class)
-    open fun catchParamVaildException(e: Exception): SimpleResult {
+    open fun catchParamVaildException(e: MethodArgumentNotValidException): SimpleResult {
         log.error("参数校验失败: ", e)
-        return SimpleResult.fail(e.message ?: "参数校验失败")
+        return SimpleResult.fail(e.allErrors.first().defaultMessage ?: "参数校验失败")
     }
 
     /**
