@@ -2,6 +2,7 @@ package com.dasoops.common.dict
 
 import io.swagger.v3.oas.annotations.media.Schema
 import io.swagger.v3.oas.annotations.tags.Tag
+import java.io.Serializable
 
 /**
  * 字典内部数据
@@ -17,7 +18,7 @@ data class DictInner(
      * 值
      */
     @field:Schema(description = "值", required = true)
-    val value: Int,
+    val value: Serializable,
 
     /**
      * 键
@@ -73,11 +74,11 @@ class ValueDictData : HashMap<String, OnlyValueDictNode>()
 
 @Tag(name = "dict")
 @Schema(description = "仅值字典树")
-class OnlyValueDictNode : HashMap<String, Int>()
+class OnlyValueDictNode : HashMap<String, Serializable>()
 
 class ArrayDictData : HashMap<String, List<ArrayDictDataNode>>()
 
 data class ArrayDictDataNode(
     val key: String,
-    val value: Int
+    val value: Serializable
 )

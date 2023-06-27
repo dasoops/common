@@ -2,7 +2,7 @@ package com.dasoops.common.dict
 
 import cn.hutool.core.util.StrUtil
 import com.dasoops.common.core.util.resources.Resources
-import com.dasoops.common.json.core.dataenum.IntDataEnum
+import com.dasoops.common.json.core.dataenum.DataEnum
 import com.google.common.base.CaseFormat
 import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Bean
@@ -19,13 +19,13 @@ import java.util.*
 abstract class BaseDictionaryConfiguration(vararg basePath: String) {
 
     private val log = LoggerFactory.getLogger(javaClass)
-    val classList: Collection<Class<IntDataEnum>>
+    val classList: Collection<Class<DataEnum<*>>>
 
     init {
         log.info("初始化字典项")
         classList = Resources.scan(javaClass.classLoader, *basePath)
-            .filter { IntDataEnum::class.java.isAssignableFrom(it) && it.isEnum }
-            .map { it as Class<IntDataEnum> }
+            .filter { DataEnum::class.java.isAssignableFrom(it) && it.isEnum }
+            .map { it as Class<DataEnum<*>> }
     }
 
     @Bean
@@ -89,8 +89,8 @@ abstract class BaseDictionaryConfiguration(vararg basePath: String) {
         }.toCollection(DictData())
     }
 
-    private fun buildNodeKey(it: IntDataEnum): String =
+    private fun buildNodeKey(it: DataEnum<*>): String =
         CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, it.toString())
 
-    private fun buildDictName(clazz: Class<IntDataEnum>): String = StrUtil.lowerFirst(clazz.simpleName)
+    private fun buildDictName(clazz: Class<DataEnum<*>>): String = StrUtil.lowerFirst(clazz.simpleName)
 }
