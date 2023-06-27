@@ -2,13 +2,14 @@ package com.dasoops.common.core.conf
 
 import com.dasoops.common.core.entity.result.SimpleResult
 import com.dasoops.common.core.exception.CustomException
-import com.dasoops.common.exception.DataResolverException
+import com.dasoops.common.core.exception.DataResolverException
 import com.dasoops.common.core.exception.ProjectException
 import com.dasoops.common.core.exception.ProjectExceptionEntity
 import org.slf4j.LoggerFactory
 import org.springframework.beans.BeanInstantiationException
 import org.springframework.validation.BindException
 import org.springframework.web.HttpRequestMethodNotSupportedException
+import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 
@@ -39,10 +40,25 @@ abstract class BaseExceptionHandlerConfiguration {
      *
      * @param e e
      */
-    @ExceptionHandler(BeanInstantiationException::class, HttpRequestMethodNotSupportedException::class, BindException::class)
+    @ExceptionHandler(
+        BeanInstantiationException::class,
+        HttpRequestMethodNotSupportedException::class,
+        BindException::class
+    )
     open fun catchBeanInstantiationException(e: Exception): SimpleResult {
         log.error("参数解析异常: ", e)
-        return SimpleResult.fail(DataResolverException.PARAM_ERROR)
+        return SimpleResult.fail(DataResolverException.PARAMETER_RESLOVE_ERROR)
+    }
+
+    /**
+     * 消息解析异常处理
+     *
+     * @param e e
+     */
+    @ExceptionHandler(MethodArgumentNotValidException::class)
+    open fun catchParamVaildException(e: Exception): SimpleResult {
+        log.error("参数校验失败: ", e)
+        return SimpleResult.fail(e.message ?: "参数校验失败")
     }
 
     /**

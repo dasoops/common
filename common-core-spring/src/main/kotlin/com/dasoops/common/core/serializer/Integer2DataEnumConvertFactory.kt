@@ -1,6 +1,6 @@
 package com.dasoops.common.core.serializer
 
-import com.dasoops.common.exception.DataResolverException
+import com.dasoops.common.core.exception.DataResolverException
 import com.dasoops.common.json.core.dataenum.DataEnum
 import com.dasoops.common.json.core.dataenum.IntDataEnum
 import org.springframework.core.convert.converter.Converter
