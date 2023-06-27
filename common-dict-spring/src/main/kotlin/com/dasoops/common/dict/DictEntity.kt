@@ -41,6 +41,10 @@ data class DictInner(
     }
 }
 
+/**
+ * easy dict
+ */
+
 @Tag(name = "dict")
 @Schema(description = "简单字典数据")
 class EasyDictData : HashMap<String, EasyDictNode>()
@@ -48,6 +52,10 @@ class EasyDictData : HashMap<String, EasyDictNode>()
 @Tag(name = "dict")
 @Schema(description = "简单字典树")
 class EasyDictNode : HashMap<String, DictInner>()
+
+/**
+ * normal dict
+ */
 
 @Tag(name = "dict")
 @Schema(description = "标准字典数据")
@@ -67,6 +75,9 @@ data class DictNode(
     val nodeData: List<DictInner>
 )
 
+/**
+ * value dict
+ */
 
 @Tag(name = "dict")
 @Schema(description = "仅值字典数据")
@@ -76,9 +87,43 @@ class ValueDictData : HashMap<String, ValueDictNode>()
 @Schema(description = "仅值字典树")
 class ValueDictNode : HashMap<String, Serializable>()
 
+/**
+ * reverse value dict
+ */
+
+@Tag(name = "dict")
+@Schema(description = "键值反转字典数据")
+class ReverseValueDictData : HashMap<String, ReverseValueDictNode>()
+
+@Tag(name = "dict")
+@Schema(description = "键值反转字典树")
+class ReverseValueDictNode : HashMap<Serializable, String>()
+
+/**
+ * array dict
+ */
+
+@Tag(name = "dict")
+@Schema(description = "数组字典数据")
 class ArrayDictData : HashMap<String, List<ArrayDictDataNode>>()
 
+@Tag(name = "dict")
+@Schema(description = "数组字典数据")
 data class ArrayDictDataNode(
     val key: String,
     val value: Serializable
+)
+
+/**
+ * all dict
+ */
+
+@Tag(name = "dict")
+@Schema(description = "所有字典")
+data class AllDict(
+    val dict: DictData,
+    val eDict: EasyDictData,
+    val vDict: ValueDictData,
+    val rvDict: ReverseValueDictData,
+    val aDict: ArrayDictData
 )

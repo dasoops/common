@@ -39,6 +39,16 @@ abstract class BaseDictionaryConfiguration(vararg basePath: String) {
     }
 
     @Bean
+    open fun buildReverseValueDictData(): ReverseValueDictData {
+        return classList.associate { clazz ->
+            buildDictName(clazz) to clazz.enumConstants.associate {
+                val key = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, it.toString())
+                it.data to key
+            }.toMap(ReverseValueDictNode())
+        }.toMap(ReverseValueDictData())
+    }
+
+    @Bean
     open fun buildArrayDictData(): ArrayDictData {
         return classList.associate { clazz ->
             buildDictName(clazz) to clazz.enumConstants.map {
