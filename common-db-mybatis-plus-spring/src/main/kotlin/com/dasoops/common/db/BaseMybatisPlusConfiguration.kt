@@ -6,10 +6,10 @@ import com.baomidou.mybatisplus.core.MybatisConfiguration
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor
+import com.dasoops.common.json.core.dataenum.BooleanEnum
 import org.apache.ibatis.reflection.MetaObject
 import org.springframework.context.annotation.Bean
 import java.util.*
-import javax.print.attribute.IntegerSyntax
 
 /**
  * mybatisPlus配置
@@ -45,14 +45,14 @@ abstract class BaseMybatisPlusConfiguration(private val dbType: DbType) : MetaOb
      */
     abstract val userId: Long?
     override fun insertFill(metaObject: MetaObject) {
-        this.strictInsertFill(metaObject, "isDelete", Integer::class.java, 0 as Integer)
+        this.strictInsertFill(metaObject, "isDelete", BooleanEnum::class.java, BooleanEnum.FALSE)
         this.strictInsertFill(metaObject, "createTime", Date::class.java, Date())
-        this.strictInsertFill(metaObject, "createUser", Long::class.java, userId)
+        this.strictInsertFill(metaObject, "createUser", java.lang.Long::class.java, userId as java.lang.Long)
         updateFill(metaObject)
     }
 
     override fun updateFill(metaObject: MetaObject) {
         this.strictUpdateFill(metaObject, "updateTime", Date::class.java, Date())
-        this.strictUpdateFill(metaObject, "updateUser", Long::class.java, userId)
+        this.strictUpdateFill(metaObject, "updateUser", java.lang.Long::class.java, userId as java.lang.Long)
     }
 }

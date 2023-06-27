@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.IdType
 import com.baomidou.mybatisplus.annotation.TableField
 import com.baomidou.mybatisplus.annotation.TableId
 import com.dasoops.common.core.IDo
+import com.dasoops.common.json.core.dataenum.BooleanEnum
 import java.util.*
 
 /**
@@ -26,7 +27,7 @@ abstract class BaseDo(
      * 逻辑删除(true为删除)
      */
     @TableField(fill = FieldFill.INSERT)
-    open var isDelete: Boolean? = null,
+    open var isDelete: BooleanEnum? = null,
 
     /**
      * 创建用户(通常为Qid)

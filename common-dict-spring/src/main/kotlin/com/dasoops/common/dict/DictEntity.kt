@@ -1,7 +1,7 @@
 package com.dasoops.common.dict
 
-import io.swagger.v3.oas.annotations.tags.Tag
 import io.swagger.v3.oas.annotations.media.Schema
+import io.swagger.v3.oas.annotations.tags.Tag
 
 /**
  * 字典内部数据
@@ -69,8 +69,15 @@ data class DictNode(
 
 @Tag(name = "dict")
 @Schema(description = "仅值字典数据")
-class OnlyValueDictData : HashMap<String, OnlyValueDictNode>()
+class ValueDictData : HashMap<String, OnlyValueDictNode>()
 
 @Tag(name = "dict")
 @Schema(description = "仅值字典树")
 class OnlyValueDictNode : HashMap<String, Int>()
+
+class ArrayDictData : HashMap<String, List<ArrayDictDataNode>>()
+
+data class ArrayDictDataNode(
+    val key: String,
+    val value: Int
+)
