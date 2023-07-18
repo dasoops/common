@@ -30,7 +30,7 @@ data class DictInner(
      * 数据
      */
     @field:Schema(description = "数据", required = true)
-    val data: Map<String, String>?,
+    val data: Map<String, Any>?,
 ) : HashMap<String, Any>() {
     init {
         super.put("value", value)

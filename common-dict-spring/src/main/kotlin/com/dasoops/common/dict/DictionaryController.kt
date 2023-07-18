@@ -1,6 +1,8 @@
 package com.dasoops.common.dict
 
 import com.dasoops.common.core.entity.result.Result
+import com.dasoops.common.json.core.dataenum.DataEnum
+import com.google.common.base.CaseFormat
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.web.bind.annotation.GetMapping
@@ -18,24 +20,58 @@ import org.springframework.web.bind.annotation.ResponseBody
 @RequestMapping("dict")
 class DictionaryController(
     private val dictData: DictData,
-    private val easyDictData: EasyDictData,
-    private val valueDictData: ValueDictData,
-    private val reverseValueDictData: ReverseValueDictData,
-    private val arrayDictData: ArrayDictData,
 ) {
+    private lateinit var easyDictData: EasyDictData
+    private lateinit var valueDictData: ValueDictData
+    private lateinit var reverseValueDictData: ReverseValueDictData
+    private lateinit var arrayDictData: ArrayDictData
+    private lateinit var allDict: AllDict
 
-    private val allDict = AllDict(
-        dict = dictData,
-        eDict = easyDictData,
-        vDict = valueDictData,
-        rvDict = reverseValueDictData,
-        aDict = arrayDictData,
-    )
+    init {
+        init()
+    }
+
+    fun init() {
+        easyDictData = dictData.associate { dictNode ->
+            dictNode.nodeName to dictNode.nodeData.associate {
+                it.key to DictInner(it.value, it.key, it.data)
+            }.toMap(EasyDictNode())
+        }.toMap(EasyDictData())
+
+        valueDictData = dictData.associate { dictNode ->
+            dictNode.nodeName to dictNode.nodeData.associate {
+                it.key to it.value
+            }.toMap(ValueDictNode())
+        }.toMap(ValueDictData())
+
+        reverseValueDictData = dictData.associate { dictNode ->
+            dictNode.nodeName to dictNode.nodeData.associate {
+                it.value to it.key
+            }.toMap(ReverseValueDictNode())
+        }.toMap(ReverseValueDictData())
+
+        arrayDictData = dictData.associate { dictNode ->
+            dictNode.nodeName to dictNode.nodeData.map {
+                ArrayDictDataNode(
+                    key = it.key,
+                    value = it.value
+                )
+            }.toList()
+        }.toMap(ArrayDictData())
+
+        allDict = AllDict(
+            dict = dictData,
+            eDict = easyDictData,
+            vDict = valueDictData,
+            rvDict = reverseValueDictData,
+            aDict = arrayDictData,
+        )
+    }
 
     @GetMapping("getAll")
     @Operation(summary = "获取所有字典")
     fun getAll(): Result<AllDict> {
-        return Result.success(allDict);
+        return Result.success(allDict)
     }
 
     @GetMapping("getEasyDict")

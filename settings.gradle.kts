@@ -9,6 +9,7 @@ include(
     "common-json-jackson-spring",
     "common-json-kotlinx-serialization",
     "common-excel-spring",
+    "common-dict-core",
     "common-dict-spring",
     "common-task-spring",
     "common-db-mongo-spring",

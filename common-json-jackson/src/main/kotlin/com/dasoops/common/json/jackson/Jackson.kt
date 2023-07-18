@@ -2,6 +2,7 @@ package com.dasoops.common.json.jackson
 
 import cn.hutool.core.date.DatePattern
 import com.dasoops.common.json.core.IJson
+import com.dasoops.common.json.core.Json
 import com.fasterxml.jackson.annotation.JsonAutoDetect
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.PropertyAccessor
@@ -30,7 +31,11 @@ open class Jackson : IJson {
     }
 
     companion object {
+        //init
+        var json: Json = Json
+
         lateinit var INSTANCE: Jackson
+
     }
 
     /**

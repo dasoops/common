@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableField
 import com.baomidou.mybatisplus.annotation.TableId
 import com.dasoops.common.core.IDo
 import com.dasoops.common.json.core.dataenum.BooleanEnum
+import org.apache.ibatis.type.JdbcType
 import java.util.*
 
 /**
@@ -20,36 +21,36 @@ abstract class BaseDo(
     /**
      * 主键id
      */
-    @TableId(type = IdType.AUTO)
+    @TableId(value = "ROW_ID", type = IdType.AUTO)
     open var rowId: Long? = null,
 
     /**
      * 逻辑删除(true为删除)
      */
-    @TableField(fill = FieldFill.INSERT)
+    @TableField(value = "IS_DELETE", fill = FieldFill.INSERT)
     open var isDelete: BooleanEnum? = null,
 
     /**
      * 创建用户(通常为Qid)
      */
-    @TableField(fill = FieldFill.INSERT)
+    @TableField(value = "CREATE_USER", fill = FieldFill.INSERT)
     open var createUser: Long? = null,
 
     /**
      * 创建时间
      */
-    @TableField(fill = FieldFill.INSERT)
+    @TableField(value = "CREATE_TIME", fill = FieldFill.INSERT, jdbcType = JdbcType.TIMESTAMP)
     open var createTime: Date? = null,
 
     /**
      * 更新用户(通常为Qid)
      */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
+    @TableField(value = "UPDATE_USER", fill = FieldFill.INSERT_UPDATE)
     open var updateUser: Long? = null,
 
     /**
      * 更新时间
      */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
+    @TableField(value = "UPDATE_TIME", fill = FieldFill.INSERT_UPDATE, jdbcType = JdbcType.TIMESTAMP)
     open var updateTime: Date? = null,
 ) : IDo
