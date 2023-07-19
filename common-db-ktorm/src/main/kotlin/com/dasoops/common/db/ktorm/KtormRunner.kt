@@ -1,6 +1,5 @@
 package com.dasoops.common.db.ktorm
 
-import cn.hutool.db.ds.DSFactory
 import cn.hutool.db.ds.pooled.DbConfig
 import cn.hutool.setting.Setting
 import com.alibaba.druid.pool.DruidDataSourceFactory
@@ -21,13 +20,12 @@ abstract class KtormRunner {
         logger: Logger = Slf4jLoggerAdapter("ktorm-log"),
         dbConfig: DbConfig,
     ) {
-        KtormGlobal.defaultDataSource = DruidDataSourceFactory.createDataSource(
-            Setting.create()
-                .set("url", dbConfig.url)
-                .set("username", dbConfig.user)
-                .set("password", dbConfig.pass)
-                .set("driverClassName", dbConfig.driver)
-                .toProperties()
+        KtormGlobal.defaultDataSource = DruidDataSourceFactory.createDataSource(Setting.create()
+            .set("url", dbConfig.url)
+            .set("username", dbConfig.user)
+            .set("password", dbConfig.pass)
+            .set("driverClassName", dbConfig.driver)
+            .toProperties()
         )
 
         KtormGlobal.default = Database.connect(
