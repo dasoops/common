@@ -16,14 +16,15 @@ import java.util.*
  * @see [BaseDictionaryConfiguration]
  */
 @Import(DictionaryController::class)
-abstract class BaseDictionaryConfiguration(vararg basePath: String) {
+@Suppress("UNCHECKED_CAST")
+abstract class BaseDictionaryConfiguration(basePath: List<String>) {
 
     private val log = LoggerFactory.getLogger(javaClass)
     val classList: Collection<Class<DataEnum<*>>>
 
     init {
         log.info("初始化字典项")
-        classList = Resources.scan(javaClass.classLoader, *basePath)
+        classList = Resources.scan(javaClass.classLoader, basePath)
             .filter { DataEnum::class.java.isAssignableFrom(it) && it.isEnum }
             .map { it as Class<DataEnum<*>> }
     }

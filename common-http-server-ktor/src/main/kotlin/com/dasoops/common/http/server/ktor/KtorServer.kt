@@ -22,7 +22,7 @@ open class KtorServer(
     private val host: String = "0.0.0.0",
     private val port: Int = 6543,
     private val wait: Boolean = false,
-    private val scanBasePath: String = "com.dasoops",
+    private val scanBasePath: List<String> = listOf("com.dasoops"),
 ) {
     fun start() {
         embeddedServer(
@@ -57,7 +57,7 @@ interface HttpInterceptor {
     val handler: suspend PipelineContext<Unit, ApplicationCall>.() -> Unit
 }
 
-fun Application.installModule(scanBasePath: String) {
+fun Application.installModule(scanBasePath: List<String>) {
     install(ContentNegotiation) {
         scan<HttpInterceptor>(scanBasePath).sortedBy { it.order }.forEach { interceptor ->
             this@installModule.intercept(ApplicationCallPipeline.Plugins) {
@@ -81,7 +81,7 @@ fun Application.installModule(scanBasePath: String) {
     }
 }
 
-internal inline fun <reified T : Any> scan(scanBasePath: String): Collection<T> {
+internal inline fun <reified T : Any> scan(scanBasePath: List<String>): Collection<T> {
     return Resources.scan(scanBasePath)
         .filter { T::class.java.isAssignableFrom(it) }
         .mapNotNull {

@@ -21,8 +21,17 @@ object Resources {
      * @param [basePath] 基本路径
      * @return [Collection<Class<*>>]
      */
-    fun scan(vararg basePath: String): Collection<Class<*>> {
-        return scan(Thread.currentThread().contextClassLoader, *basePath)
+    fun scan(basePath: Collection<String>): Collection<Class<*>> {
+        return scan(Thread.currentThread().contextClassLoader, basePath)
+    }
+
+    /**
+     * 扫描
+     * @param [basePath] 基本路径
+     * @return [Collection<Class<*>>]
+     */
+    fun scan(basePath: String): Collection<Class<*>> {
+        return scan(Thread.currentThread().contextClassLoader, basePath)
     }
 
     /**
@@ -33,7 +42,7 @@ object Resources {
      */
     fun scan(
         classLoader: ClassLoader,
-        vararg basePath: String,
+        basePath: Collection<String>,
     ): Collection<Class<*>> {
         return basePath.map { scan(classLoader, it) }.flatten()
     }
