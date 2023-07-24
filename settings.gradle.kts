@@ -4,6 +4,7 @@ include(
     "common-core",
     "common-core-spring",
     "common-core-spring-web",
+    "common-http-server-ktor",
     "common-json-core",
     "common-json-jackson",
     "common-json-jackson-spring",
