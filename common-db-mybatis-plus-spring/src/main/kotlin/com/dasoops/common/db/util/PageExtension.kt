@@ -6,12 +6,12 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page
 import com.dasoops.common.core.entity.param.PageParam
 import com.dasoops.common.core.entity.vo.SimplePageVo
 
-inline fun <reified T> PageParam.buildPage(): IPage<T> {
+fun <T> PageParam.buildPage(): IPage<T> {
     return Page(current.toLong(), size.toLong())
 }
 
 fun <T : Any> SimplePageVo.Companion.`for`(page: IPage<T>) = SimplePageVo(page.total.toInt(), page.records)
 
-inline fun <reified T : Any> KtQueryChainWrapper<T>.page(page: PageParam): IPage<T> {
+fun <T : Any> KtQueryChainWrapper<T>.page(page: PageParam): IPage<T> {
     return this.page(page.buildPage())
 }
