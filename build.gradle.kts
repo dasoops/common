@@ -16,7 +16,7 @@ sourceSets {
 }
 allprojects {
     group = "com.dasoops"
-    version = "4.2.2"
+    version = "4.3.1"
 
     repositories {
         mavenLocal()

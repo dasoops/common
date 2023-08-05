@@ -39,7 +39,7 @@ open class KtorServer(
 }
 
 @IgnoreResourcesScan
-interface ExceptionHandler<T : Throwable> {
+interface ExceptionHandler {
     val order: Int
         get() = Int.MAX_VALUE
     val handler: StatusPagesConfig.() -> Unit
@@ -57,7 +57,20 @@ interface HttpInterceptor {
     val handler: suspend PipelineContext<Unit, ApplicationCall>.() -> Unit
 }
 
+@IgnoreResourcesScan
+interface ApplicationExtension {
+    val handler: ContentNegotiationConfig.() -> Unit
+}
+
 fun Application.installModule(scanBasePath: Collection<String>) {
+    install(StatusPages) {
+        scan<ExceptionHandler>(scanBasePath)
+            .sortedBy { it.order }
+            .forEach {
+                it.handler.invoke(this)
+                KtorServer.logger.info("register httpExceptionHandler: ${it.javaClass.name}")
+            }
+    }
     install(ContentNegotiation) {
         scan<HttpInterceptor>(scanBasePath).sortedBy { it.order }.forEach { interceptor ->
             this@installModule.intercept(ApplicationCallPipeline.Plugins) {
@@ -70,14 +83,11 @@ fun Application.installModule(scanBasePath: Collection<String>) {
             it.handler.invoke(this@installModule)
             KtorServer.logger.info("register httpHandler: ${it.javaClass.name}")
         }
-    }
-    install(StatusPages) {
-        scan<ExceptionHandler<*>>(scanBasePath)
-            .sortedBy { it.order }
-            .forEach {
-                it.handler.invoke(this)
-                KtorServer.logger.info("register httpExceptionHandler: ${it.javaClass.name}")
-            }
+
+        scan<ApplicationExtension>(scanBasePath).forEach {
+            it.handler.invoke(this)
+            KtorServer.logger.info("register applicationExtension: ${it.javaClass.name}")
+        }
     }
 }
 

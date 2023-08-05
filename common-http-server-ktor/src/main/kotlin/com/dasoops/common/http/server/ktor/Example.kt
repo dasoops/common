@@ -24,7 +24,7 @@ object ExampleInterceptor : HttpInterceptor {
     }
 }
 
-object ExampleExceptionHandler : ExceptionHandler<Throwable> {
+object ExampleExceptionHandler : ExceptionHandler {
     private val logger = LoggerFactory.getLogger(javaClass)
     override val handler: StatusPagesConfig.() -> Unit = {
         exception<Throwable> { call, t ->

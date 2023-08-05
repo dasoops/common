@@ -4,6 +4,7 @@ import cn.hutool.core.date.DatePattern
 import com.dasoops.common.json.core.IJson
 import com.dasoops.common.json.core.Json
 import com.fasterxml.jackson.annotation.JsonAutoDetect
+import com.fasterxml.jackson.annotation.JsonIgnoreType
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.PropertyAccessor
 import com.fasterxml.jackson.core.type.TypeReference
@@ -12,6 +13,7 @@ import com.fasterxml.jackson.databind.json.JsonMapper
 import com.fasterxml.jackson.databind.module.SimpleModule
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer
 import com.fasterxml.jackson.module.kotlin.kotlinModule
+import org.slf4j.Logger
 import java.text.SimpleDateFormat
 
 
@@ -63,6 +65,11 @@ open class Jackson : IJson {
         // 设置序列化反序列化采用直接处理字段的方式， 不依赖setter 和 getter
         visibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE)
         visibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY)
+
+        //忽略Logger
+        addModule(SimpleModule().apply {
+            setMixInAnnotation(Logger::class.java, JsonIgnoreType::class.java)
+        })
 
         // 大小写宽容
         configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true)
