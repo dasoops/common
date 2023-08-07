@@ -7,18 +7,22 @@ package com.dasoops.common.json.core.dataenum;
  * @see [BooleanEnum]
  */
 enum class BooleanEnum(
-    override val data: java.lang.Integer
-) : DataEnum<java.lang.Integer> {
-    TRUE(1 as java.lang.Integer),
-    FALSE(0 as java.lang.Integer),
+        override val data: Int
+) : IntDataEnum {
+    TRUE(1),
+    FALSE(0),
     ;
 
-    override fun getValue(): java.lang.Integer {
+    override fun getValue(): Int {
         return data;
     }
 
     fun bool(): Boolean {
         return this == BooleanEnum.TRUE
+    }
+
+    companion object{
+        fun of(bool: Boolean): BooleanEnum = if (bool) TRUE else FALSE
     }
 }
 

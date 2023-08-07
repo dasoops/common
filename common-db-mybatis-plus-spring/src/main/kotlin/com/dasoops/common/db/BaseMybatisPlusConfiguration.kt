@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.DbType
 import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer
 import com.baomidou.mybatisplus.core.MybatisConfiguration
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler
+import com.baomidou.mybatisplus.extension.injector.methods.LogicDeleteBatchByIds
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor
 import com.dasoops.common.json.core.dataenum.BooleanEnum
@@ -22,6 +23,7 @@ import java.util.*
  * @see MetaObjectHandler
  */
 abstract class BaseMybatisPlusConfiguration(private val dbType: DbType) : MetaObjectHandler {
+
     @Bean
     open fun mybatisPlusInterceptor(): MybatisPlusInterceptor {
         val interceptor = MybatisPlusInterceptor()

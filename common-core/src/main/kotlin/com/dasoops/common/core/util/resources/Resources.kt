@@ -1,5 +1,7 @@
 package com.dasoops.common.core.util.resources
 
+import cn.hutool.core.lang.ClassScanner
+import cn.hutool.core.util.ClassUtil
 import cn.hutool.core.util.StrUtil
 import com.dasoops.common.core.util.trace
 import org.slf4j.LoggerFactory
@@ -42,8 +44,8 @@ object Resources {
      * @return [Collection<Class<*>>]
      */
     fun scan(
-            classLoader: ClassLoader,
-            basePath: Collection<String>,
+        classLoader: ClassLoader,
+        basePath: Collection<String>,
     ): Collection<Class<*>> {
         return basePath.map { scan(classLoader, it) }.flatten()
     }
@@ -55,8 +57,8 @@ object Resources {
      * @return [Pair<Set<Class<*>>, Set<Class<*>>>] [Pair<entitySet,RequestSet>]
      */
     private fun scan(
-            classLoader: ClassLoader,
-            basePath: String,
+        classLoader: ClassLoader,
+        basePath: String,
     ): Collection<Class<*>> {
         val classSet = HashSet<Class<*>>()
         val finalPath = buildBasePath(basePath)
@@ -91,27 +93,27 @@ object Resources {
      * @param [classSet] 类集合
      */
     private fun scanJarSaveToSet(
-            classLoader: ClassLoader,
-            basePath: String,
-            file: File,
-            classSet: MutableSet<Class<*>>,
+        classLoader: ClassLoader,
+        basePath: String,
+        file: File,
+        classSet: MutableSet<Class<*>>,
     ) {
 
         JarFile(file).entries().toList()
-                //包名匹配 .class后缀过滤 目录过滤
-                .filter {
-                    !it.isDirectory && it.name.removePrefix("BOOT-INF/classes/")
-                            .startsWith(basePath) && it.name.endsWith(".class")
-                }
-                //转为可使用的类路径
-                .map {
-                    it.name
-                            .removePrefix("BOOT-INF/classes/")
-                            .removePrefix("META-INF/classes/")
-                }.forEach {
-                    //添加到集合
-                    classSet.add(loadClass(classLoader, it) ?: return@forEach)
-                }
+            //包名匹配 .class后缀过滤 目录过滤
+            .filter {
+                !it.isDirectory && it.name.removePrefix("BOOT-INF/classes/")
+                    .startsWith(basePath) && it.name.endsWith(".class")
+            }
+            //转为可使用的类路径
+            .map {
+                it.name
+                    .removePrefix("BOOT-INF/classes/")
+                    .removePrefix("META-INF/classes/")
+            }.forEach {
+                //添加到集合
+                classSet.add(loadClass(classLoader, it) ?: return@forEach)
+            }
     }
 
 
@@ -123,10 +125,10 @@ object Resources {
      * @param [classSet] 类集合
      */
     private fun scan(
-            classLoader: ClassLoader,
-            basePath: String,
-            file: File,
-            classSet: MutableSet<Class<*>>,
+        classLoader: ClassLoader,
+        basePath: String,
+        file: File,
+        classSet: MutableSet<Class<*>>,
     ) {
         //log.debug("scan: $basePath")
         //目录递归
@@ -160,8 +162,8 @@ object Resources {
         //焯水
         val realPath = with(path) {
             this.replace("/", ".")
-                    .replace("\\", ".")
-                    .removeSuffix(".class")
+                .replace("\\", ".")
+                .removeSuffix(".class")
         }
 
         //下锅
