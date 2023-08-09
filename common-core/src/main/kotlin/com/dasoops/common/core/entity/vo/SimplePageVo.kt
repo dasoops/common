@@ -18,10 +18,6 @@ class SimplePageVo<T : Any>(
     val dataList: List<T>
 ) : BasePageVo(page) {
 
-    init {
-        dataList.ifEmpty { throw ProjectException.NO_RECORD.get() }
-    }
-
     constructor(total: Int, dataList: List<T>) : this(PageVo(total), dataList)
 
     companion object
