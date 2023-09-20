@@ -10,12 +10,18 @@ import com.dasoops.common.entity.dataenum.DataEnum
  * @date 2023/02/25
  */
 object Parser {
+    fun String.forceToInt() = if (!this.contains(".")) {
+        this.toInt()
+    } else {
+        this.toDouble().toInt()
+    }
+
     fun int(str: String): Int {
-        return str.toInt()
+        return str.forceToInt()
     }
 
     fun int(str: String, str2: String): Int {
-        return str.toInt() + str2.toInt() * 65535
+        return str.forceToInt() + str2.forceToInt() * 65535
     }
 
     fun float(str: String): Float {
@@ -65,8 +71,8 @@ object Parser {
             binaryString = "0$binaryString"
         }
         return binaryString
-            .filter { it.code == 49 }
-            .mapNotNull { value -> enumConstantArray.firstOrNull { it.data == value.code } }
-            .ifEmpty { null }
+                .filter { it.code == 49 }
+                .mapNotNull { value -> enumConstantArray.firstOrNull { it.data == value.code } }
+                .ifEmpty { null }
     }
 }

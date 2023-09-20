@@ -27,6 +27,6 @@ enum class ProjectException(override val message: String) : IException {
 
 open class ProjectExceptionEntity(exceptionEnum: IException) : CustomException(exceptionEnum)
 
-object UnExpectedException : CustomException(ProjectException.UN_EXPECTED)
-object NoRecordException : CustomException(ProjectException.NO_RECORD)
-object NoAuthException : CustomException(ProjectException.NO_AUTH)
+object UnExpectedException : ProjectExceptionEntity(ProjectException.UN_EXPECTED)
+object NoRecordException : ProjectExceptionEntity(ProjectException.NO_RECORD)
+object NoAuthException : ProjectExceptionEntity(ProjectException.NO_AUTH)
